@@ -6,5 +6,5 @@ public class VoucherKhachHang
     public int IdKh { get; set; }
     public int TrangThai { get; set; }
     public virtual Voucher? Voucher { get; set; }
-    public virtual KhachHang? KhachHang { get; set;}
+    public virtual KhachHang? KhachHang { get; set; }
 }

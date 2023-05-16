@@ -8,5 +8,5 @@ public class SanPhamGiamGia
     public decimal SoTienConLai { get; set; }
     public int TrangThai { get; set; }
     public virtual CTSanPham? CTSanPham { get; set; }
-    public virtual GiamGia? GiamGia { get; set;}
+    public virtual GiamGia? GiamGia { get; set; }
 }
