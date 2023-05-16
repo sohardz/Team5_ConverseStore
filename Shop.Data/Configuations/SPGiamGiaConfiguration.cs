@@ -1,14 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Data.Configuations;
-public class SPGiamGiaConfiguration :  IEntityTypeConfiguration<SanPhamGiamGia>
+public class SPGiamGiaConfiguration : IEntityTypeConfiguration<SanPhamGiamGia>
 {
     public void Configure(EntityTypeBuilder<SanPhamGiamGia> builder)
     {
@@ -16,7 +11,7 @@ public class SPGiamGiaConfiguration :  IEntityTypeConfiguration<SanPhamGiamGia>
         builder.Property(x => x.Id).UseIdentityColumn();
         builder.Property(p => p.DonGia).IsRequired();
         builder.Property(p => p.SoTienConLai).IsRequired();
-        
+
         builder.HasOne(p => p.CTSanPham).WithMany(p => p.SanPhamGiamGias).HasForeignKey(p => p.IdSanPham);
         builder.HasOne(p => p.GiamGia).WithMany(p => p.SanPhamGiamGias).HasForeignKey(p => p.IdGiamGia);
 

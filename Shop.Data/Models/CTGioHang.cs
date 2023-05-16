@@ -5,6 +5,6 @@ public class CTGioHang
     public int IdKh { get; set; }
     public int IdSanPham { get; set; }
     public int SoLuong { get; set; }
-    public ICollection<CTSanPham> CTSanPhams { get; set; }
+    public virtual CTSanPham? CTSanPham { get; set; }
     public virtual GioHang? GioHang { get; set; }
 }

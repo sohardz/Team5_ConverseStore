@@ -6,5 +6,5 @@ public class GioHang
     public int TrangThai { get; set; }
     public virtual KhachHang? KhachHang { get; set; }
     public ICollection<CTGioHang> CTGioHangs { get; set; }
-    
+
 }
