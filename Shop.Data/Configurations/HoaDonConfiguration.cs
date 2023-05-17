@@ -9,7 +9,6 @@ public class HoaDonConfiguration : IEntityTypeConfiguration<HoaDon>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).UseIdentityColumn();
-        builder.Property(x => x.Id).UseIdentityColumn();
         builder.Property(x => x.Ma).HasColumnType("varchar(100)");
         builder.Property(x => x.MaNv).HasColumnType("varchar(100)");
         builder.Property(x => x.NgayTao);
