@@ -7,5 +7,6 @@ public class CTHoaDon
     public int SoLuong { get; set; }
     public decimal DonGia { get; set; }
     public virtual CTSanPham? CTSanPham { get; set; }
+    public virtual HoaDon? HoaDon { get; set; }
 
 }

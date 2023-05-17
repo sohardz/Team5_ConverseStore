@@ -11,4 +11,5 @@ public class Voucher
     public int SoLuong { get; set; }
     public string MoTa { get; set; }
     public int TrangThai { get; set; }
+    public ICollection<HoaDon> HoaDons { get; set; }
 }

@@ -19,5 +19,7 @@ public class CTSanPham
     public virtual MauSac? MauSac { get; set; }
     public virtual DanhMuc? DanhMuc { get; set; }
     public virtual SanPham? SanPham { get; set; }
+    public virtual GiamGia? GiamGia { get; set; }
+    
 
 }

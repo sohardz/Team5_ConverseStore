@@ -11,4 +11,5 @@ public class GiamGia
     public string DieuKienGiamGia { get; set; }
     public int LoaiGiamGia { get; set; }
     public int TrangThai { get; set; }
+    public ICollection<CTSanPham> CTSanPhams { get; set; }
 }

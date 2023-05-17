@@ -16,4 +16,5 @@ public class KhachHang
     public int IdBac { get; set; }
     public virtual GioHang? GioHang { get; set; }
     public virtual CapBac? CapBac { get; set; }
+    public ICollection<HoaDon> HoaDons { get; set; }
 }
