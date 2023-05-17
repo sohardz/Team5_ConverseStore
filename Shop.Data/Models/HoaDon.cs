@@ -1,9 +1,10 @@
-﻿namespace Shop.Data.Models;
+﻿    namespace Shop.Data.Models;
 public class HoaDon
 {
     public int Id { get; set; }
     public int IdKh { get; set; }
     public int IdNv { get; set; }
+    public int IdVoucher { get; set; }
     public string Ma { get; set; }
     public string MaNv { get; set; }
     public DateTime NgayTao { get; set; }
@@ -23,7 +24,6 @@ public class HoaDon
     public decimal TienShip { get; set; }
     public virtual KhachHang? KhachHang { get; set; }
     public virtual NhanVien? NhanVien { get; set; }
-    public virtual ICollection<CTHoaDon> CTHoaDons { get; set; }
-    public virtual ICollection<VoucherLog> VoucherLogs { get; set; }
-    public virtual ICollection<LichSuTieuDiem> LichSuTieuDiems { get; set; }
+    public ICollection<CTHoaDon> CTHoaDons { get; set; }
+    public virtual Voucher? Voucher { get; set; }
 }
