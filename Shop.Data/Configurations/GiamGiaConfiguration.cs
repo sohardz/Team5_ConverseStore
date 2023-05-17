@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
-namespace Shop.Data.Configuations;
+namespace Shop.Data.Configurations;
 public class GiamGiaConfiguration : IEntityTypeConfiguration<GiamGia>
 {
     public void Configure(EntityTypeBuilder<GiamGia> builder)
@@ -17,10 +17,5 @@ public class GiamGiaConfiguration : IEntityTypeConfiguration<GiamGia>
         builder.Property(p => p.MucGiamGiaPhanTram);
         builder.Property(p => p.DieuKienGiamGia);
         builder.Property(p => p.LoaiGiamGia);
-
-
-
-
-
     }
 }

@@ -16,16 +16,10 @@ public class ShopDbContext : DbContext
     public DbSet<HoaDon> HoaDons { get; set; }
     public DbSet<KhachHang> KhachHangs { get; set; }
     public DbSet<KichCo> KichCos { get; set; }
-    public DbSet<LichSuTieuDiem> LichSuTieuDiems { get; set; }
     public DbSet<MauSac> MauSacs { get; set; }
     public DbSet<NhanVien> NhanViens { get; set; }
-    public DbSet<QuyDoiDiem> QuyDoiDiems { get; set; }
     public DbSet<SanPham> SanPhams { get; set; }
-    public DbSet<SanPhamGiamGia> SanPhamGiamGias { get; set; }
-    public DbSet<ViDiem> ViDiems { get; set; }
     public DbSet<Voucher> Vouchers { get; set; }
-    public DbSet<VoucherKhachHang> VoucherKhachHangs { get; set; }
-    public DbSet<VoucherLog> VoucherLogs { get; set; }
 
     public ShopDbContext()
     {
@@ -42,9 +36,5 @@ public class ShopDbContext : DbContext
             .HasOne(a => a.GioHang)
             .WithOne(b => b.KhachHang)
             .HasForeignKey<GioHang>(b => b.IdKh);
-        modelBuilder.Entity<ViDiem>()
-            .HasOne(a => a.KhachHang)
-            .WithOne(b => b.ViDiem)
-            .HasForeignKey<KhachHang>(b => b.IdDiem);
     }
 }

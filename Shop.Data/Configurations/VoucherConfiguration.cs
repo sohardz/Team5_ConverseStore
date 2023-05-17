@@ -2,14 +2,13 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
-namespace Shop.Data.Configuations;
+namespace Shop.Data.Configurations;
 public class VoucherConfiguration : IEntityTypeConfiguration<Voucher>
 {
     public void Configure(EntityTypeBuilder<Voucher> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Ma).HasColumnType("varchar(50)");
-        builder.Property(x => x.HinhThucGiamGia).HasColumnType("int");
         builder.Property(x => x.SoTienCan).HasColumnType("decimal");
         builder.Property(x => x.SoTienGiam).HasColumnType("decimal");
         builder.Property(x => x.NgayApDung);

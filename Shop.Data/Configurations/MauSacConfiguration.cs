@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
-namespace Shop.Data.Configuations;
+namespace Shop.Data.Configurations;
 public class MauSacConfiguration : IEntityTypeConfiguration<MauSac>
 {
     public void Configure(EntityTypeBuilder<MauSac> builder)
@@ -10,8 +10,5 @@ public class MauSacConfiguration : IEntityTypeConfiguration<MauSac>
         builder.HasKey(p => p.Id);
         builder.Property(x => x.Id).UseIdentityColumn();
         builder.Property(p => p.Ten).IsRequired().HasColumnType("varchar(100)");
-
-
-
     }
 }

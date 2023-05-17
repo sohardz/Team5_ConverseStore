@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
-namespace Shop.Data.Configuations;
+namespace Shop.Data.Configurations;
 public class KichCoConfiguration : IEntityTypeConfiguration<KichCo>
 {
     public void Configure(EntityTypeBuilder<KichCo> builder)
@@ -10,6 +10,5 @@ public class KichCoConfiguration : IEntityTypeConfiguration<KichCo>
         builder.HasKey(p => p.Id);
         builder.Property(x => x.Id).UseIdentityColumn();
         builder.Property(p => p.SoSize).IsRequired().HasColumnType("int");
-
     }
 }

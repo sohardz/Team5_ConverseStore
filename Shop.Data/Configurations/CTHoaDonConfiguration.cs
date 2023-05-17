@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
-namespace Shop.Data.Configuations;
+namespace Shop.Data.Configurations;
 public class CTHoaDonConfiguration : IEntityTypeConfiguration<CTHoaDon>
 {
     public void Configure(EntityTypeBuilder<CTHoaDon> builder)
@@ -12,7 +12,5 @@ public class CTHoaDonConfiguration : IEntityTypeConfiguration<CTHoaDon>
         builder.Property(p => p.SoLuong).IsRequired();
         builder.Property(p => p.DonGia).IsRequired();
         builder.HasOne(x => x.CTSanPham).WithMany(x => x.CTHoaDons).HasForeignKey(x => x.IdSanPham);
-
-
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
-namespace Shop.Data.Configuations;
+namespace Shop.Data.Configurations;
 public class CTSanPhamConfiguration : IEntityTypeConfiguration<CTSanPham>
 {
     public void Configure(EntityTypeBuilder<CTSanPham> builder)
@@ -17,7 +17,5 @@ public class CTSanPhamConfiguration : IEntityTypeConfiguration<CTSanPham>
         builder.HasOne(x => x.MauSac).WithMany(x => x.CTSanPhams).HasForeignKey(x => x.IdMauSac);
         builder.HasOne(x => x.DanhMuc).WithMany(x => x.CTSanPhams).HasForeignKey(x => x.IdDanhMuc);
         builder.HasOne(x => x.SanPham).WithMany(x => x.CTSanPhams).HasForeignKey(x => x.IdSanPham);
-
-
     }
 }

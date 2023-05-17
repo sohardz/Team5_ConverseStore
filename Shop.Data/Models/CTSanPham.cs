@@ -15,7 +15,6 @@ public class CTSanPham
     public ICollection<CTGioHang> CTGioHangs { get; set; }
     public ICollection<CTHoaDon> CTHoaDons { get; set; }
     public ICollection<Anh> Anhs { get; set; }
-    public ICollection<SanPhamGiamGia> SanPhamGiamGias { get; set; }
     public virtual KichCo? KichCo { get; set; }
     public virtual MauSac? MauSac { get; set; }
     public virtual DanhMuc? DanhMuc { get; set; }

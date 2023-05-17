@@ -24,6 +24,4 @@ public class HoaDon
     public virtual KhachHang? KhachHang { get; set; }
     public virtual NhanVien? NhanVien { get; set; }
     public virtual ICollection<CTHoaDon> CTHoaDons { get; set; }
-    public virtual ICollection<VoucherLog> VoucherLogs { get; set; }
-    public virtual ICollection<LichSuTieuDiem> LichSuTieuDiems { get; set; }
 }
