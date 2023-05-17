@@ -14,4 +14,13 @@
     <None Include="C:\Users\adm\Desktop\Net105_Team5_ConverseStore\Shop.WebApp\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shop.Application\Shop.Application.csproj" />
+    <ProjectReference Include="..\Shop.WebAPI\Shop.WebAPI.csproj" />
+  </ItemGroup>
+
 </Project>
