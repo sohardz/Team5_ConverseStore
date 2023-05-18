@@ -35,17 +35,37 @@ public class ChucVuAPI : ControllerBase
     }
 
     // POST api/<ChucVuAPI>
-    [HttpPost]
-    public void Post([FromBody] string value)
-    {
-    }
+    //[HttpPost]
+    //public void Post([FromBody] ChucVuVM cv)
+    //{
+
+    //}
 
     // PUT api/<ChucVuAPI>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    [HttpPost]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Them([FromForm] ChucVuVM cv)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var chucvuId = await _chucVuService.Them(cv);
+        if (chucvuId == 0)
+            return BadRequest();
+        var chucvu = await _chucVuService.GetById(chucvuId);
+        return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
     }
-
+    [HttpGet("chucvu/{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var chucvu = await _chucVuService.GetById(id);
+        if (chucvu == null)
+        {
+            return BadRequest("Can't find chucvu");
+        }
+        return Ok(chucvu);
+    }
     // DELETE api/<ChucVuAPI>/5
     [HttpDelete("{id}")]
     public void Delete(int id)

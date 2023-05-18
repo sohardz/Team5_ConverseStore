@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Shop.Data.Context;
 
 namespace Shop.Data.Repositories;
-internal class AllRepositories<KEntities> : IAllRepositories<KEntities> where KEntities : class
+public class AllRepositories<KEntities> : IAllRepositories<KEntities> where KEntities : class
 {
     private readonly ShopDbContext context;
     DbSet<KEntities> Entities { get; set; } // Tạo 1 DBSet 
