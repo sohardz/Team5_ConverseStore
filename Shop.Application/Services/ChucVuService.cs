@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shop.Application.Exeptions;
 using Shop.Application.IServices;
 using Shop.Application.ViewModels;
 using Shop.Data.Context;
@@ -47,6 +48,18 @@ namespace Shop.Application.Services
             return chucvuviewmodel;
         }
 
+        public async Task<int> Sua(ChucVuVM cv)
+        {
+            var chucvu = await _shopDbContext.ChucVus.FindAsync(cv.Id);
+            if (chucvu == null)  throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {cv.Id}");
+
+            chucvu.Ten = cv.Ten;
+            chucvu.TrangThai = cv.TrangThai;
+            return await _shopDbContext.SaveChangesAsync();
+            
+            
+        }
+
         public async Task<int> Them(ChucVuVM cv)
         {
             var chucvu = new ChucVu()
@@ -57,6 +70,18 @@ namespace Shop.Application.Services
             _shopDbContext.Add(chucvu);
             await _shopDbContext.SaveChangesAsync();
             return chucvu.Id;
+        }
+
+        public async Task<int> Xoa(int id)
+        {
+            var chucvu = await _shopDbContext.ChucVus.FindAsync(id);
+            if (chucvu == null)
+            {
+                throw new ShopExeption($"Không thể tìm thấy 1 Chuc Vu : {id}");
+            }
+            
+            _shopDbContext.ChucVus.Remove(chucvu);
+            return await _shopDbContext.SaveChangesAsync();
         }
     }
 }
