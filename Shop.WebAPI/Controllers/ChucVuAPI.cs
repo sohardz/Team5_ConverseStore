@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
 using Shop.Application.Services;
 using Shop.Application.ViewModels;
@@ -56,6 +57,21 @@ public class ChucVuAPI : ControllerBase
         var chucvu = await _chucVuService.GetById(chucvuId);
         return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
     }
+    [HttpPut("{id}")]
+    [Consumes("multipart/form-data")]
+    
+    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] ChucVuVM cv)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        cv.Id = id;
+        var affectedResult = await _chucVuService.Sua(cv);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
+    }
     [HttpGet("chucvu/{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -68,7 +84,11 @@ public class ChucVuAPI : ControllerBase
     }
     // DELETE api/<ChucVuAPI>/5
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
+        var affectedResult = await _chucVuService.Xoa(id);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
     }
 }
