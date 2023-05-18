@@ -1,0 +1,74 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Application.IServices;
+using Shop.Application.Services;
+using Shop.Application.ViewModels;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace Shop.WebAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ChucVuAPI : ControllerBase
+{
+    private readonly ILogger<ChucVuAPI> _logger;
+    private readonly IChucVuService _chucVuService;
+
+    public ChucVuAPI(ILogger<ChucVuAPI> logger, IChucVuService chucVuService)
+    {
+        _logger = logger;
+        _chucVuService = chucVuService;
+    }
+
+    // GET: api/<ChucVuAPI>
+    [HttpGet]
+    public async Task<List<ChucVuVM>> GetAllChucVuVM()
+    {
+        return await _chucVuService.GetAllChucVu();
+    }
+
+    // GET api/<ChucVuAPI>/5
+    [HttpGet("{id}")]
+    public string Get(int id)
+    {
+        return "value";
+    }
+
+    // POST api/<ChucVuAPI>
+    //[HttpPost]
+    //public void Post([FromBody] ChucVuVM cv)
+    //{
+
+    //}
+
+    // PUT api/<ChucVuAPI>/5
+    [HttpPost]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Them([FromForm] ChucVuVM cv)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var chucvuId = await _chucVuService.Them(cv);
+        if (chucvuId == 0)
+            return BadRequest();
+        var chucvu = await _chucVuService.GetById(chucvuId);
+        return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
+    }
+    [HttpGet("chucvu/{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var chucvu = await _chucVuService.GetById(id);
+        if (chucvu == null)
+        {
+            return BadRequest("Can't find chucvu");
+        }
+        return Ok(chucvu);
+    }
+    // DELETE api/<ChucVuAPI>/5
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+    }
+}

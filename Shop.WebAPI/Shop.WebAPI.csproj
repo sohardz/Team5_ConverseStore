@@ -18,4 +18,9 @@
     <None Include="C:\Users\adm\Desktop\Net105_Team5_ConverseStore\Shop.WebAPI\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shop.Application\Shop.Application.csproj" />
+    <ProjectReference Include="..\Shop.Data\Shop.Data.csproj" />
+  </ItemGroup>
+
 </Project>
