@@ -6,5 +6,6 @@ namespace Shop.Application.IServices
     {
         Task<List<NhanVienVM>> GetAllNhanVien();
         Task<int> Add(NhanVienVM nv);
+        Task<NhanVienVM> GetById(int id);
     }
 }

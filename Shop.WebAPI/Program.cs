@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 var connectionString = builder.Configuration.GetConnectionString("team5_converseStore");
 builder.Services.AddDbContext<ShopDbContext>(x => x.UseSqlServer(connectionString));
 
+builder.Services.AddTransient<INhanVienServices, NhanVienServices>();
 builder.Services.AddTransient<IChucVuService, ChucVuService>();
 
 

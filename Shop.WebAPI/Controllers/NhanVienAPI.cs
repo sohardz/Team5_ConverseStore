@@ -51,5 +51,16 @@ namespace Shop.WebAPI.Controllers
         public void Delete(int id)
         {
         }
+
+        [HttpGet("nhanvien/{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var chucvu = await _nhanVienServices.GetById(id);
+            if (chucvu == null)
+            {
+                return BadRequest("Can't find chucvu");
+            }
+            return Ok(chucvu);
+        }
     }
 }

@@ -32,5 +32,17 @@ namespace Shop.Application.Services
                 }
             ).ToListAsync();
         }
+
+        public async Task<NhanVienVM> GetById(int id)
+        {
+            var chucvu = await _shopDbContext.NhanViens.FindAsync(id);
+            var chucvuviewmodel = new NhanVienVM()
+            {
+                Id = id,
+                TenTaiKhoan = chucvu.TenTaiKhoan,
+                TrangThai = chucvu.TrangThai
+            };
+            return chucvuviewmodel;
+        }
     }
 }
