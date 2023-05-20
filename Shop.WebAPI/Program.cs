@@ -15,6 +15,8 @@ builder.Services.AddDbContext<ShopDbContext>(x => x.UseSqlServer(connectionStrin
 
 builder.Services.AddTransient<INhanVienServices, NhanVienServices>();
 builder.Services.AddTransient<IChucVuService, ChucVuService>();
+builder.Services.AddTransient<IGiamGiaService, GiamGiaService>();
+builder.Services.AddTransient<IGioHangService, GioHangService>();
 builder.Services.AddTransient<IKichCoService, KichCoService>();
 builder.Services.AddTransient<IMauSacService, MauSacService>();
 builder.Services.AddTransient<IAnhServices, AnhServices>();
