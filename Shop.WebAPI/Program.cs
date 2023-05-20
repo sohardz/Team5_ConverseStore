@@ -18,7 +18,8 @@ builder.Services.AddDbContext<ShopDbContext>(x => x.UseSqlServer(connectionStrin
 
 builder.Services.AddTransient<INhanVienServices, NhanVienServices>();
 builder.Services.AddTransient<IChucVuService, ChucVuService>();
-
+builder.Services.AddTransient<IGiamGiaService, GiamGiaService>();
+builder.Services.AddTransient<IGioHangService, GioHangService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
