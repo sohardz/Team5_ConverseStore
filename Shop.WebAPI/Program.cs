@@ -2,9 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Shop.Application.IServices;
 using Shop.Application.Services;
 using Shop.Data.Context;
-using Shop.Data.IRepositories;
-using Shop.Data.Models;
-using Shop.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +17,9 @@ builder.Services.AddTransient<INhanVienServices, NhanVienServices>();
 builder.Services.AddTransient<IChucVuService, ChucVuService>();
 builder.Services.AddTransient<IGiamGiaService, GiamGiaService>();
 builder.Services.AddTransient<IGioHangService, GioHangService>();
+builder.Services.AddTransient<IKichCoService, KichCoService>();
+builder.Services.AddTransient<IMauSacService, MauSacService>();
+builder.Services.AddTransient<IAnhServices, AnhServices>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

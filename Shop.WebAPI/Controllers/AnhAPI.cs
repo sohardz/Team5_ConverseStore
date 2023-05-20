@@ -1,0 +1,82 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Application.IServices;
+using Shop.Application.Services;
+using Shop.Application.ViewModels;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace Shop.WebAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AnhAPI : ControllerBase
+    {
+        private readonly ILogger<AnhAPI> _logger;
+        private readonly IAnhServices _anhServices;
+
+        public AnhAPI(ILogger<AnhAPI> logger, IAnhServices anhServices)
+        {
+            _logger = logger;
+            _anhServices = anhServices;
+        }
+
+        // GET: api/<AnhAPI>
+        [HttpGet]
+        public async Task<List<AnhVM>> GetAllAnhVM()
+        {
+            return await _anhServices.GetAllAnh();
+        }
+
+        // PUT api/<ChucVuAPI>/5
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Them([FromForm] AnhVM anhVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var anhId = await _anhServices.Them(anhVM);
+            if (anhId == 0)
+                return BadRequest();
+            var anh = await _anhServices.GetById(anhId);
+            return CreatedAtAction(nameof(GetById), new { id = anhId }, anh);
+        }
+
+        [HttpPut("{id}")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] AnhVM anhVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            anhVM.Id = id;
+            var affectedResult = await _anhServices.Sua(anhVM);
+            if (affectedResult == 0)
+                return BadRequest();
+            return Ok();
+        }
+
+        [HttpGet("chucvu/{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var anh = await _anhServices.GetById(id);
+            if (anh == null)
+            {
+                return BadRequest("Can't find anh");
+            }
+            return Ok(anh);
+        }
+
+        // DELETE api/<ChucVuAPI>/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var affectedResult = await _anhServices.Xoa(id);
+            if (affectedResult == 0)
+                return BadRequest();
+            return Ok();
+        }
+    }
+}

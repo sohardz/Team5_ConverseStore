@@ -1,12 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore;
-using Shop.Data.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Shop.Data.Context;
+using Shop.Data.IRepositories;
 
 namespace Shop.Data.Repositories;
 public class AllRepositories<KEntities> : IAllRepositories<KEntities> where KEntities : class
