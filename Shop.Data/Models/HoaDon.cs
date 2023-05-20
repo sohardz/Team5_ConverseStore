@@ -1,4 +1,4 @@
-﻿    namespace Shop.Data.Models;
+﻿namespace Shop.Data.Models;
 public class HoaDon
 {
     public int Id { get; set; }

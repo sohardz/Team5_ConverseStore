@@ -2,9 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Shop.Application.IServices;
 using Shop.Application.Services;
 using Shop.Data.Context;
-using Shop.Data.IRepositories;
-using Shop.Data.Models;
-using Shop.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +15,7 @@ builder.Services.AddDbContext<ShopDbContext>(x => x.UseSqlServer(connectionStrin
 
 builder.Services.AddTransient<INhanVienServices, NhanVienServices>();
 builder.Services.AddTransient<IChucVuService, ChucVuService>();
-
+builder.Services.AddTransient<IAnhServices, AnhServices>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
-using Shop.Application.Services;
 using Shop.Application.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -28,20 +26,6 @@ public class ChucVuAPI : ControllerBase
         return await _chucVuService.GetAllChucVu();
     }
 
-    // GET api/<ChucVuAPI>/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
-    }
-
-    // POST api/<ChucVuAPI>
-    //[HttpPost]
-    //public void Post([FromBody] ChucVuVM cv)
-    //{
-
-    //}
-
     // PUT api/<ChucVuAPI>/5
     [HttpPost]
     [Consumes("multipart/form-data")]
@@ -57,9 +41,10 @@ public class ChucVuAPI : ControllerBase
         var chucvu = await _chucVuService.GetById(chucvuId);
         return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
     }
+
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-    
+
     public async Task<IActionResult> Update([FromRoute] int id, [FromForm] ChucVuVM cv)
     {
         if (!ModelState.IsValid)
@@ -72,6 +57,7 @@ public class ChucVuAPI : ControllerBase
             return BadRequest();
         return Ok();
     }
+
     [HttpGet("chucvu/{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -82,6 +68,7 @@ public class ChucVuAPI : ControllerBase
         }
         return Ok(chucvu);
     }
+
     // DELETE api/<ChucVuAPI>/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)

@@ -13,6 +13,6 @@ public class CTHoaDonConfiguration : IEntityTypeConfiguration<CTHoaDon>
         builder.Property(p => p.DonGia).IsRequired();
         builder.HasOne(x => x.CTSanPham).WithMany(x => x.CTHoaDons).HasForeignKey(x => x.IdSanPham);
         builder.HasOne(x => x.HoaDon).WithMany(x => x.CTHoaDons).HasForeignKey(x => x.IdHoaDon);
-        
+
     }
 }

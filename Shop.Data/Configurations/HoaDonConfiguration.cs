@@ -26,8 +26,8 @@ public class HoaDonConfiguration : IEntityTypeConfiguration<HoaDon>
         builder.Property(x => x.SoDiemSuDung);
         builder.Property(x => x.SoTienQuyDoi);
         builder.Property(x => x.TienShip);
-        builder.HasOne(x => x.Voucher).WithMany(x => x.HoaDons).HasForeignKey(x=>x.IdVoucher);
-        builder.HasOne(x => x.KhachHang).WithMany(x => x.HoaDons).HasForeignKey(x=>x.IdKh);
-        builder.HasOne(x => x.NhanVien).WithMany(x => x.HoaDons).HasForeignKey(x=>x.IdVoucher);
+        builder.HasOne(x => x.Voucher).WithMany(x => x.HoaDons).HasForeignKey(x => x.IdVoucher);
+        builder.HasOne(x => x.KhachHang).WithMany(x => x.HoaDons).HasForeignKey(x => x.IdKh);
+        builder.HasOne(x => x.NhanVien).WithMany(x => x.HoaDons).HasForeignKey(x => x.IdVoucher);
     }
 }

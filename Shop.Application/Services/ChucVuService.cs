@@ -3,14 +3,7 @@ using Shop.Application.Exeptions;
 using Shop.Application.IServices;
 using Shop.Application.ViewModels;
 using Shop.Data.Context;
-using Shop.Data.IRepositories;
 using Shop.Data.Models;
-using Shop.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Application.Services
 {
@@ -22,12 +15,12 @@ namespace Shop.Application.Services
             _shopDbContext = shopDbContext;
         }
 
-        
+
 
         public async Task<List<ChucVuVM>> GetAllChucVu()
         {
             return await _shopDbContext.ChucVus
-                    .Select(i=> new ChucVuVM()
+                    .Select(i => new ChucVuVM()
                     {
                         Id = i.Id,
                         Ten = i.Ten,
@@ -51,13 +44,13 @@ namespace Shop.Application.Services
         public async Task<int> Sua(ChucVuVM cv)
         {
             var chucvu = await _shopDbContext.ChucVus.FindAsync(cv.Id);
-            if (chucvu == null)  throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {cv.Id}");
+            if (chucvu == null) throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {cv.Id}");
 
             chucvu.Ten = cv.Ten;
             chucvu.TrangThai = cv.TrangThai;
             return await _shopDbContext.SaveChangesAsync();
-            
-            
+
+
         }
 
         public async Task<int> Them(ChucVuVM cv)
@@ -79,7 +72,7 @@ namespace Shop.Application.Services
             {
                 throw new ShopExeption($"Không thể tìm thấy 1 Chuc Vu : {id}");
             }
-            
+
             _shopDbContext.ChucVus.Remove(chucvu);
             return await _shopDbContext.SaveChangesAsync();
         }
