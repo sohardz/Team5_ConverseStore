@@ -15,7 +15,6 @@ namespace Shop.Application.Services
     public class DanhMucService : IDanhMucService
     {
         private readonly ShopDbContext _shopDbContext;
-
         public DanhMucService(ShopDbContext shopDbContext)
         {
             _shopDbContext = shopDbContext;
@@ -74,7 +73,6 @@ namespace Shop.Application.Services
             {
                 throw new ShopExeption($"Không thể tìm thấy 1 danh mục : {id}");
             }
-
             _shopDbContext.DanhMucs.Remove(danhMuc);
             return await _shopDbContext.SaveChangesAsync();
         }
