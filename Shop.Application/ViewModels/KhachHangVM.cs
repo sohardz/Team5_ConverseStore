@@ -20,6 +20,8 @@ namespace Shop.Application.ViewModels
         public int GioiTinh { get; set; }
         public string GhiChu { get; set; }
         public int TrangThai { get; set; }
+        public int SoDiem { get; set; }
+        //public string Mota { get; set; }
         public int IdBac { get; set; }
 
     }

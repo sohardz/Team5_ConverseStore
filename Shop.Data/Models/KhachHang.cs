@@ -12,6 +12,7 @@ public class KhachHang
     public string DiaChi { get; set; }
     public int GioiTinh { get; set; }
     public string GhiChu { get; set; }
+    public int SoDiem { get; set; }
     public int TrangThai { get; set; }
     public int IdBac { get; set; }
     public virtual GioHang? GioHang { get; set; }

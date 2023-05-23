@@ -7,6 +7,7 @@ public class ShopDbContext : DbContext
 {
     public DbSet<Anh> Anhs { get; set; }
     public DbSet<ChucVu> ChucVus { get; set; }
+    public DbSet<CapBac> CapBacs { get; set; }
     public DbSet<CTGioHang> CTGioHangs { get; set; }
     public DbSet<CTHoaDon> CTHoaDons { get; set; }
     public DbSet<CTSanPham> CTSanPhams { get; set; }

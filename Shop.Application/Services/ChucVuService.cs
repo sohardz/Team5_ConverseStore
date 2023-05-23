@@ -60,7 +60,7 @@ namespace Shop.Application.Services
                 Ten = cv.Ten,
                 TrangThai = cv.TrangThai,
             };
-            _shopDbContext.Add(chucvu);
+            _shopDbContext.ChucVus.Add(chucvu);
             await _shopDbContext.SaveChangesAsync();
             return chucvu.Id;
         }

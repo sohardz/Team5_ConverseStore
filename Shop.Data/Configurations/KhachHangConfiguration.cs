@@ -17,6 +17,7 @@ public class KhachHangConfiguration : IEntityTypeConfiguration<KhachHang>
         builder.Property(x => x.NgaySinh);
         builder.Property(x => x.DiaChi).HasColumnType("nvarchar(500)");
         builder.Property(x => x.GioiTinh);
+        builder.Property(x => x.SoDiem);
         builder.Property(x => x.GhiChu).HasColumnType("nvarchar(500)");
         builder.Property(x => x.TrangThai);
         builder.HasOne(x => x.CapBac).WithMany(x => x.KhachHangs).HasForeignKey(x => x.IdBac);
