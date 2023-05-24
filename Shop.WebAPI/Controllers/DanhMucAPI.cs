@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
-using Shop.Application.Services;
 using Shop.Application.ViewModels;
-using Shop.Data.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,7 +15,7 @@ namespace Shop.WebAPI.Controllers
         private readonly IDanhMucService _danhMucService;
         public DanhMucAPI(ILogger<DanhMucAPI> logger, IDanhMucService danhMucService)
         {
-            _logger = logger;  
+            _logger = logger;
             _danhMucService = danhMucService;
         }
 
@@ -72,7 +70,7 @@ namespace Shop.WebAPI.Controllers
             }
             return Ok(danhMuc);
         }
-        
+
 
         //// DELETE api/<DanhMucAPI>/5
         [HttpDelete("{id}")]

@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
-using Shop.Application.Services;
 using Shop.Application.ViewModels;
-using Shop.Data.Context;
-using Shop.Data.Models;
 
 namespace Shop.WebAPI.Controllers
 {
@@ -20,7 +11,7 @@ namespace Shop.WebAPI.Controllers
         private readonly ILogger<KichCoAPI> _logger;
         private readonly IKichCoService _kichCoService;
 
-        public KichCoAPI(ILogger<KichCoAPI> logger, IKichCoService kichCoService )
+        public KichCoAPI(ILogger<KichCoAPI> logger, IKichCoService kichCoService)
         {
             _logger = logger;
             _kichCoService = kichCoService;
@@ -30,7 +21,7 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<KichCoVM>> GetAllKichCoVM()
         {
-          
+
             return await _kichCoService.GetAllKichCo();
         }
 
@@ -43,29 +34,29 @@ namespace Shop.WebAPI.Controllers
 
         // PUT: api/KichCoAPI/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-       
+
 
         // POST: api/KichCoAPI
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<ActionResult> Them([FromForm]KichCoVM kc)
+        public async Task<ActionResult> Them([FromForm] KichCoVM kc)
         {
-          if (!ModelState.IsValid)
-          {
-              return BadRequest("ModelState");
-          }
-          var kichcoId = await _kichCoService.Them(kc);
-          if (kichcoId == 0) 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("ModelState");
+            }
+            var kichcoId = await _kichCoService.Them(kc);
+            if (kichcoId == 0)
                 return BadRequest();
-          var kichco = await _kichCoService.GetById(kichcoId);
-          return CreatedAtAction(nameof(GetById), new { id = kichcoId }, kichco);
+            var kichco = await _kichCoService.GetById(kichcoId);
+            return CreatedAtAction(nameof(GetById), new { id = kichcoId }, kichco);
         }
 
 
         [HttpPut("{id}")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Update([FromRoute] int id,[FromForm] KichCoVM kc)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] KichCoVM kc)
         {
             if (!ModelState.IsValid)
             {

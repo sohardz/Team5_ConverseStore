@@ -9,6 +9,6 @@ public class MauSacConfiguration : IEntityTypeConfiguration<MauSac>
     {
         builder.HasKey(p => p.Id);
         builder.Property(x => x.Id).UseIdentityColumn();
-        builder.Property(p => p.Ten).IsRequired().HasColumnType("varchar(100)");
+        builder.Property(p => p.Ten).IsRequired().HasColumnType("nvarchar(100)");
     }
 }

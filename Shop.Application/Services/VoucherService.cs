@@ -3,13 +3,7 @@ using Shop.Application.Exeptions;
 using Shop.Application.IServices;
 using Shop.Application.ViewModels;
 using Shop.Data.Context;
-using Shop.Data.Enums;
 using Shop.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Application.Services
 {
@@ -71,7 +65,7 @@ namespace Shop.Application.Services
             voucher.SoLuong = v.SoLuong;
             voucher.MoTa = v.MoTa;
             voucher.TrangThai = v.TrangThai;
-           
+
             return await _shopDbContext.SaveChangesAsync();
         }
 
@@ -82,10 +76,10 @@ namespace Shop.Application.Services
                 Ten = v.Ten,
                 SoTienCan = v.SoTienCan,
                 SoTienGiam = v.SoTienGiam,
-                NgayApDung= v.NgayApDung,
-                NgayKetThuc= v.NgayKetThuc,
+                NgayApDung = v.NgayApDung,
+                NgayKetThuc = v.NgayKetThuc,
                 SoLuong = v.SoLuong,
-                MoTa = v.MoTa,  
+                MoTa = v.MoTa,
                 TrangThai = v.TrangThai,
             };
             _shopDbContext.Add(voucher);

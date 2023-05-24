@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shop.Application.ViewModels
+﻿namespace Shop.Application.ViewModels
 {
     public class KhachHangVM
     {
@@ -20,8 +14,6 @@ namespace Shop.Application.ViewModels
         public int GioiTinh { get; set; }
         public string GhiChu { get; set; }
         public int TrangThai { get; set; }
-        public int SoDiem { get; set; }
-        //public string Mota { get; set; }
         public int IdBac { get; set; }
 
     }

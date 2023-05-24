@@ -3,14 +3,7 @@ using Shop.Application.Exeptions;
 using Shop.Application.IServices;
 using Shop.Application.ViewModels;
 using Shop.Data.Context;
-using Shop.Data.IRepositories;
 using Shop.Data.Models;
-using Shop.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 
@@ -29,14 +22,14 @@ namespace Shop.Application.Services
                      .Select(i => new GiamGiaVM()
                      {
                          Id = i.Id,
-                         Ma=i.Ma,
+                         Ma = i.Ma,
                          Ten = i.Ten,
-                         NgayBatDau=i.NgayBatDau,
-                         NgayKetThuc=i.NgayKetThuc,
-                         MucGiamGiaPhanTram=i.MucGiamGiaPhanTram,
-                         MucGiamGiaTienMat=i.MucGiamGiaTienMat,
-                         DieuKienGiamGia=i.DieuKienGiamGia,
-                         LoaiGiamGia=i.LoaiGiamGia,
+                         NgayBatDau = i.NgayBatDau,
+                         NgayKetThuc = i.NgayKetThuc,
+                         MucGiamGiaPhanTram = i.MucGiamGiaPhanTram,
+                         MucGiamGiaTienMat = i.MucGiamGiaTienMat,
+                         DieuKienGiamGia = i.DieuKienGiamGia,
+                         LoaiGiamGia = i.LoaiGiamGia,
                          TrangThai = i.TrangThai,
                      }
                  ).ToListAsync();
@@ -82,7 +75,7 @@ namespace Shop.Application.Services
         {
             var giamgia = new GiamGia()
             {
-              
+
                 Ma = gg.Ma,
                 Ten = gg.Ten,
                 NgayBatDau = DateTime.Now,

@@ -4,11 +4,6 @@ using Shop.Application.IServices;
 using Shop.Application.ViewModels;
 using Shop.Data.Context;
 using Shop.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Application.Services
 {
@@ -56,7 +51,7 @@ namespace Shop.Application.Services
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(KichCoVM kc )
+        public async Task<int> Them(KichCoVM kc)
         {
             var kichco = new KichCo()
             {

@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
 using Shop.Application.ViewModels;
-using Shop.Data.Context;
-using Shop.Data.Models;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Shop.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MauSaAPI : ControllerBase
+    public class MauSacAPI : ControllerBase
     {
-        private readonly ILogger<MauSaAPI> _logger;
+        private readonly ILogger<MauSacAPI> _logger;
         private readonly IMauSacService _mauSacService;
 
-        public MauSaAPI(ILogger<MauSaAPI> logger, IMauSacService mauSacService)
+        public MauSacAPI(ILogger<MauSacAPI> logger, IMauSacService mauSacService)
         {
             _logger = logger;
             _mauSacService = mauSacService;
