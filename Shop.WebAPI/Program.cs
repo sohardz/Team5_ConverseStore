@@ -21,6 +21,7 @@ builder.Services.AddTransient<IKichCoService, KichCoService>();
 builder.Services.AddTransient<IMauSacService, MauSacService>();
 builder.Services.AddTransient<IAnhServices, AnhServices>();
 builder.Services.AddTransient<IKhachhangServices, KhachHangServices>();
+builder.Services.AddTransient<ICTSanPhamService, CTSanPhamService>();
 builder.Services.AddTransient<ISanPhamService, SanPhamService>();
 
 builder.Services.AddEndpointsApiExplorer();

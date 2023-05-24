@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
-using Shop.Application.Services;
 using Shop.Application.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,15 +13,14 @@ namespace Shop.WebAPI.Controllers
         private readonly ILogger<SanPhamAPI> _logger;
         private readonly ISanPhamServices _sanPhamService;
 
-        public SanPhamAPI(ILogger<SanPhamAPI> logger, SanPhamServices sanPhamServices)
+        public SanPhamAPI(ILogger<SanPhamAPI> logger, ISanPhamService sanPhamServices)
         {
             _logger = logger;
             _sanPhamService = sanPhamServices;
         }
-
         // GET: api/<SanPhamAPI>
         [HttpGet]
-        public async Task<List<SanPhamVM>> GetAllSanPhamVM()
+        public async Task<List<SanPhamVM>> GetAllSanPhamVM() 
         {
             return await _sanPhamService.GetAllSanPham();
         }
@@ -70,7 +68,6 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest();
             return Ok();
         }
-
         [HttpGet("sanpham/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -81,7 +78,6 @@ namespace Shop.WebAPI.Controllers
             }
             return Ok(sanpham);
         }
-
         // DELETE api/<ChucVuAPI>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
