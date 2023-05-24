@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
-using Shop.Application.Services;
 using Shop.Application.ViewModels;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Shop.WebAPI.Controllers
 {
@@ -13,29 +13,45 @@ namespace Shop.WebAPI.Controllers
         private readonly ILogger<SanPhamAPI> _logger;
         private readonly ISanPhamService _sanPhamService;
 
-        public SanPhamAPI(ILogger<SanPhamAPI> logger, ISanPhamService sanPhamService)
+        public SanPhamAPI(ILogger<SanPhamAPI> logger, ISanPhamService sanPhamServices)
         {
             _logger = logger;
-            _sanPhamService = sanPhamService;
+            _sanPhamService = sanPhamServices;
         }
+        // GET: api/<SanPhamAPI>
         [HttpGet]
-        public async Task<List<SanPhamVM>> GetAll()
+        public async Task<List<SanPhamVM>> GetAllSanPhamVM() 
         {
-            return await _sanPhamService.GetAll();
+            return await _sanPhamService.GetAllSanPham();
         }
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Create([FromForm] SanPhamVM request)
+        public async Task<IActionResult> Them([FromForm] SanPhamVM sp)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var sanphamId = await _sanPhamService.Them(request);
+            var sanphamId = await _sanPhamService.Them(sp);
             if (sanphamId == 0)
                 return BadRequest();
             var sanpham = await _sanPhamService.GetById(sanphamId);
             return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
+        }
+        [HttpPut("{id}")]
+        [Consumes("multipart/form-data")]
+
+        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] SanPhamVM sp)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            sp.Id = id;
+            var affectedResult = await _sanPhamService.Sua(sp);
+            if (affectedResult == 0)
+                return BadRequest();
+            return Ok();
         }
         [HttpGet("sanpham/{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -43,9 +59,18 @@ namespace Shop.WebAPI.Controllers
             var sanpham = await _sanPhamService.GetById(id);
             if (sanpham == null)
             {
-                return BadRequest("Không thể tìm sản phẩm");
+                return BadRequest("Can't find sanpham");
             }
             return Ok(sanpham);
+        }
+        // DELETE api/<ChucVuAPI>/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var affectedResult = await _sanPhamService.Xoa(id);
+            if (affectedResult == 0)
+                return BadRequest();
+            return Ok();
         }
     }
 }

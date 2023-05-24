@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shop.Application.IServices;
-using Shop.Application.ViewModels;
-using Shop.Data.Context;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Shop.Application.Exeptions;
+using Shop.Application.IServices;
+using Shop.Application.ViewModels;
+using Shop.Data.Context;
+using Shop.Data.Models;
 
 namespace Shop.Application.Services
 {
@@ -19,67 +21,62 @@ namespace Shop.Application.Services
             _shopDbContext = shopDbContext;
         }
 
-        public async Task<List<SanPhamVM>> GetAll()
+        public async Task<List<SanPhamVM>> GetAllSanPham()
         {
-            
-                var query = from p in _shopDbContext.CTSanPhams
-                            join pt in _shopDbContext.SanPhams on p.IdSanPham equals pt.Id
-                            join m in _shopDbContext.MauSacs on p.IdMauSac equals m.Id
-                            join k in _shopDbContext.KichCos on p.IdKichCo equals k.Id
-                            join d in _shopDbContext.DanhMucs on p.IdDanhMuc equals d.Id
-                            join g in _shopDbContext.GiamGias on p.IdGiamGia equals g.Id
-                            select new { p,pt,m,k,d,g};
-                var data = await query
-                    .Select(x => new SanPhamVM()
-                    {
-                        Id = x.p.Id,
-                        GiaBan = x.p.GiaBan,
-                        GiaNhap = x.p.GiaNhap,
-                        SoLuongTon = x.p.SoLuongTon,
-                        MoTa = x.p.MoTa,
-                        TrangThai = x.p.TrangThai,
-                        TenDanhMuc = x.d.Ten,
-                        SoSize = x.k.SoSize,
-                        MaGiamGia = x.g.Ma,
-                        TenMauSac = x.m.Ten,
-                        TenSP= x.pt.Ten
-                    }
-                    ).ToListAsync();
-                return data;
-            
+            return await _shopDbContext.SanPhams
+                .Select(i => new SanPhamVM()
+                {
+                    Id = i.Id,
+                    Ten = i.Ten,
+                    TrangThai = i.TrangThai,
+                }
+            ).ToListAsync();
         }
 
-        public async Task<SanPhamVM> GetById(int ctspId)
+        public async Task<SanPhamVM> GetById(int id)
         {
-            var cTSP = await _shopDbContext.CTSanPhams.FindAsync(ctspId);
-            
-            var sanPhamViewModel = new SanPhamVM()
+            var sp = await _shopDbContext.SanPhams.FindAsync(id);
+            var sanphamviewmodel = new SanPhamVM()
             {
-               Id = ctspId,
-               GiaBan = cTSP.GiaBan,
-               GiaNhap = cTSP.GiaNhap,
-               SoLuongTon = cTSP.SoLuongTon,
-               TrangThai = cTSP.TrangThai,
-               
-               
-
+                Id = id,
+                Ten = sp.Ten,
+                TrangThai = sp.TrangThai
             };
-            return sanPhamViewModel;
+            return sanphamviewmodel;
         }
 
-        public Task<int> Sua(SanPhamVM p)
+        public async Task<int> Sua(SanPhamVM sp)
         {
-            throw new NotImplementedException();
+            var sanpham = await _shopDbContext.SanPhams.FindAsync(sp.Id);
+            if (sanpham == null) throw new ShopExeption($"Không thể tim thấy Sản Phẩm với Id:  {sp.Id}");
+
+            sanpham.Ten = sp.Ten;
+            sanpham.TrangThai = sp.TrangThai;
+            return await _shopDbContext.SaveChangesAsync();
         }
 
-        public Task<int> Them(SanPhamVM p)
+        public async Task<int> Them(SanPhamVM sp)
         {
-            throw new NotImplementedException();
+            var sanpham = new SanPham()
+            {
+                Ten = sp.Ten,
+                TrangThai = sp.TrangThai,
+            };
+            _shopDbContext.Add(sanpham);
+            await _shopDbContext.SaveChangesAsync();
+            return sanpham.Id;
         }
 
-        public Task<int> Xoa(int id)
+        public async Task<int> Xoa(int id)
         {
-            throw new NotImplementedException();
+            var sanpham = await _shopDbContext.SanPhams.FindAsync(id);
+            if (sanpham == null)
+            {
+                throw new ShopExeption($"Không thể tìm thấy 1 Sản Phẩm : {id}");
+            }
+
+            _shopDbContext.SanPhams.Remove(sanpham);
+            return await _shopDbContext.SaveChangesAsync();
         }
     }
 }

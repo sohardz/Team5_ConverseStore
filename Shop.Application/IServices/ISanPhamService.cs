@@ -1,4 +1,7 @@
-﻿using Shop.Application.ViewModels;
+﻿using Shop.Application.Exeptions;
+using Shop.Application.ViewModels;
+using Shop.Data.Context;
+using Shop.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +12,11 @@ namespace Shop.Application.IServices
 {
     public interface ISanPhamService
     {
-        Task<List<SanPhamVM>> GetAll();
-        Task<int> Them(SanPhamVM p);
-        Task<int> Sua(SanPhamVM p);
-        Task<int> Xoa(int id);
-        
-        Task<SanPhamVM> GetById(int id);
+        public Task<List<SanPhamVM>> GetAllSanPham();
+        public Task<SanPhamVM> GetById(int id);
+        public Task<int> Sua(SanPhamVM sp);
+        public Task<int> Them(SanPhamVM sp);
+        public Task<int> Xoa(int id);
+
     }
 }

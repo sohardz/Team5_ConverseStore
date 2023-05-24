@@ -15,7 +15,10 @@ namespace Shop.Application.IServices
         Task<int> Sua(KhachHangVM kh);
         Task<int> Xoa(int id);
         Task<int> ThemCapBac(CapBacVM cb);
+        Task<int> SuaCapBac(CapBacVM kh);
+        Task<int> XoaCapBac(int id);
         Task<KhachHangVM> GetById(int id);
+        Task<List<CapBacVM>> GetAllCapBac();
         Task<CapBacVM> GetByIdCapBac(int id);
     }
 }
