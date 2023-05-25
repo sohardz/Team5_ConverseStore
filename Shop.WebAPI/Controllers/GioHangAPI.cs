@@ -54,9 +54,9 @@ namespace Shop.WebAPI.Controllers
             var giohang = await _gioHangService.GetById(giohangId);
             return CreatedAtAction(nameof(GetById), new { id = giohangId }, giohang);
         }
+
         [HttpPut("{id}")]
         [Consumes("multipart/form-data")]
-
         public async Task<IActionResult> Update([FromRoute] int id, [FromForm] GioHangVM gh)
         {
             if (!ModelState.IsValid)

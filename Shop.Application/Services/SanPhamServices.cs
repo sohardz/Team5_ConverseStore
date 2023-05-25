@@ -7,7 +7,7 @@ using Shop.Data.Models;
 
 namespace Shop.Application.Services
 {
-    public class SanPhamServices : ISanPhamServices
+    public class SanPhamServices : ISanPhamService
     {
         private readonly ShopDbContext _shopDbContext;
 

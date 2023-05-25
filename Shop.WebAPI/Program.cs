@@ -22,7 +22,12 @@ builder.Services.AddTransient<IMauSacService, MauSacService>();
 builder.Services.AddTransient<IAnhServices, AnhServices>();
 builder.Services.AddTransient<IKhachhangServices, KhachHangServices>();
 builder.Services.AddTransient<ICTSanPhamService, CTSanPhamService>();
-builder.Services.AddTransient<ISanPhamService, SanPhamService>();
+builder.Services.AddTransient<ISanPhamService, SanPhamServices>();
+builder.Services.AddTransient<ICapBacServices, CapBacServices>();
+builder.Services.AddTransient<IHoaDonServices, HoaDonServices>();
+builder.Services.AddTransient<ICTHoaDonServices, CTHoaDonServices>();
+builder.Services.AddTransient<IDanhMucService, DanhMucService>();
+builder.Services.AddTransient<IVoucherService, VoucherService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

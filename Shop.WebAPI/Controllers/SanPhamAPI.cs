@@ -11,7 +11,7 @@ namespace Shop.WebAPI.Controllers
     public class SanPhamAPI : ControllerBase
     {
         private readonly ILogger<SanPhamAPI> _logger;
-        private readonly ISanPhamServices _sanPhamService;
+        private readonly ISanPhamService _sanPhamService;
 
         public SanPhamAPI(ILogger<SanPhamAPI> logger, ISanPhamService sanPhamServices)
         {
@@ -20,7 +20,7 @@ namespace Shop.WebAPI.Controllers
         }
         // GET: api/<SanPhamAPI>
         [HttpGet]
-        public async Task<List<SanPhamVM>> GetAllSanPhamVM() 
+        public async Task<List<SanPhamVM>> GetAllSanPhamVM()
         {
             return await _sanPhamService.GetAllSanPham();
         }

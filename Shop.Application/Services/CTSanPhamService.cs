@@ -18,7 +18,6 @@ namespace Shop.Application.Services
 
         public async Task<List<CTSanPhamVM>> GetAll()
         {
-
             var query = from p in _shopDbContext.CTSanPhams
                         join pt in _shopDbContext.SanPhams on p.IdSanPham equals pt.Id
                         join m in _shopDbContext.MauSacs on p.IdMauSac equals m.Id
@@ -43,14 +42,11 @@ namespace Shop.Application.Services
                 }
                 ).ToListAsync();
             return data;
-
         }
 
         public async Task<CTSanPhamVM> GetById(int ctspId)
         {
             var cTSP = await _shopDbContext.CTSanPhams.FindAsync(ctspId);
-
-
             var sanPhamViewModel = new CTSanPhamVM()
             {
                 Id = ctspId,

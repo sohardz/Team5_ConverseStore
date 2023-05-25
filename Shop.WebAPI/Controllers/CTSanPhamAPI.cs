@@ -21,6 +21,7 @@ namespace Shop.WebAPI.Controllers
         {
             return await _sanPhamService.GetAll();
         }
+
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Create([FromForm] CTSanPhamVM request)
@@ -35,6 +36,7 @@ namespace Shop.WebAPI.Controllers
             var sanpham = await _sanPhamService.GetById(sanphamId);
             return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
         }
+
         [HttpGet("sanpham/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -45,6 +47,7 @@ namespace Shop.WebAPI.Controllers
             }
             return Ok(sanpham);
         }
+
         [HttpPut("{id}")]
         [Consumes("multipart/form-data")]
 
@@ -60,6 +63,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest();
             return Ok();
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

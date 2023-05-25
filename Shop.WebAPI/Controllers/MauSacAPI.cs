@@ -55,9 +55,9 @@ namespace Shop.WebAPI.Controllers
             var mausac = await _mauSacService.GetById(mausacId);
             return CreatedAtAction(nameof(GetById), new { id = mausacId }, mausac);
         }
+
         [HttpPut("{id}")]
         [Consumes("multipart/form-data")]
-
         public async Task<IActionResult> Update([FromRoute] int id, [FromForm] MauSacVM ms)
         {
             if (!ModelState.IsValid)
@@ -70,6 +70,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest();
             return Ok();
         }
+
         [HttpGet("chucvu/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -80,7 +81,8 @@ namespace Shop.WebAPI.Controllers
             }
             return Ok(mausac);
         }
-        // DELETE api/<MauSaAPI>/5
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
