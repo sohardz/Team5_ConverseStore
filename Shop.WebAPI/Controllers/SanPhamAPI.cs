@@ -13,7 +13,7 @@ namespace Shop.WebAPI.Controllers
         private readonly ILogger<SanPhamAPI> _logger;
         private readonly ISanPhamServices _sanPhamService;
 
-        public SanPhamAPI(ILogger<SanPhamAPI> logger, ISanPhamService sanPhamServices)
+        public SanPhamAPI(ILogger<SanPhamAPI> logger, ISanPhamServices sanPhamServices)
         {
             _logger = logger;
             _sanPhamService = sanPhamServices;

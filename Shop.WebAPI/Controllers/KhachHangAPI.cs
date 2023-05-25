@@ -73,29 +73,29 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest();
             return Ok();
         }
-        [HttpPost("Capbac")]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> ThemCapBac([FromForm] CapBacVM cb)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var capbacId = await _khachhangServices.ThemCapBac(cb);
-            if (capbacId == 0)
-                return BadRequest();
-            var capbac = await _khachhangServices.GetByIdCapBac(capbacId);
-            return CreatedAtAction(nameof(GetByIdCapbac), new { id = capbacId }, capbac);
-        }
-        [HttpGet("khachhang/capbac/{id}")]
-        public async Task<IActionResult> GetByIdCapbac(int id)
-        {
-            var capbac = await _khachhangServices.GetByIdCapBac(id);
-            if (capbac == null)
-            {
-                return BadRequest("Can't find Cap Bac");
-            }
-            return Ok(capbac);
-        }
+        //[HttpPost("Capbac")]
+        //[Consumes("multipart/form-data")]
+        //public async Task<IActionResult> ThemCapBac([FromForm] CapBacVM cb)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var capbacId = await _khachhangServices.ThemCapBac(cb);
+        //    if (capbacId == 0)
+        //        return BadRequest();
+        //    var capbac = await _khachhangServices.GetByIdCapBac(capbacId);
+        //    return CreatedAtAction(nameof(GetByIdCapbac), new { id = capbacId }, capbac);
+        //}
+        //[HttpGet("khachhang/capbac/{id}")]
+        //public async Task<IActionResult> GetByIdCapbac(int id)
+        //{
+        //    var capbac = await _khachhangServices.GetByIdCapBac(id);
+        //    if (capbac == null)
+        //    {
+        //        return BadRequest("Can't find Cap Bac");
+        //    }
+        //    return Ok(capbac);
+        //}
     }
 }
