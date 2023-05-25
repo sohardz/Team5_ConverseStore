@@ -21,7 +21,7 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<GiamGiaVM>> GetAllGiamGiaVM()
         {
-            return await _giamgiaService.GetAllGiamGia();
+            return await _giamgiaService.GetAll();
         }
 
         // GET api/<GiamGiaAPI>/5
@@ -47,7 +47,7 @@ namespace Shop.WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var giamgiaId = await _giamgiaService.Them(gg);
+            var giamgiaId = await _giamgiaService.Create(gg);
             if (giamgiaId == 0)
                 return BadRequest();
             var giamgia = await _giamgiaService.GetById(giamgiaId);
@@ -63,7 +63,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             gg.Id = id;
-            var affectedResult = await _giamgiaService.Sua(gg);
+            var affectedResult = await _giamgiaService.Edit(gg);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
@@ -83,7 +83,7 @@ namespace Shop.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var affectedResult = await _giamgiaService.Xoa(id);
+            var affectedResult = await _giamgiaService.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

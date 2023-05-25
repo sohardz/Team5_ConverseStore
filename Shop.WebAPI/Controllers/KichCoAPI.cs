@@ -22,22 +22,10 @@ namespace Shop.WebAPI.Controllers
         public async Task<List<KichCoVM>> GetAllKichCoVM()
         {
 
-            return await _kichCoService.GetAllKichCo();
+            return await _kichCoService.GetAll();
         }
-
-        // GET: api/<KichCoAPI>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // PUT: api/KichCoAPI/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-
-
-        // POST: api/KichCoAPI
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
+        
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<ActionResult> Them([FromForm] KichCoVM kc)
@@ -46,7 +34,7 @@ namespace Shop.WebAPI.Controllers
             {
                 return BadRequest("ModelState");
             }
-            var kichcoId = await _kichCoService.Them(kc);
+            var kichcoId = await _kichCoService.Create(kc);
             if (kichcoId == 0)
                 return BadRequest();
             var kichco = await _kichCoService.GetById(kichcoId);
@@ -63,7 +51,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             kc.Id = id;
-            var affectedResult = await _kichCoService.Sua(kc);
+            var affectedResult = await _kichCoService.Edit(kc);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
@@ -85,7 +73,7 @@ namespace Shop.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var affectedResult = await _kichCoService.Xoa(id);
+            var affectedResult = await _kichCoService.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

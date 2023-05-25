@@ -21,7 +21,7 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<KhachHangVM>> GetAllKhachhangM()
         {
-            return await _khachhangServices.GetAllKhachhang();
+            return await _khachhangServices.GetAll();
         }
 
         // PUT api/<KhachHangsAPI>/5
@@ -33,7 +33,7 @@ namespace Shop.WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var khachHangId = await _khachhangServices.Them(kh);
+            var khachHangId = await _khachhangServices.Create(kh);
             if (khachHangId == 0)
                 return BadRequest();
             var khachhang = await _khachhangServices.GetById(khachHangId);
@@ -49,7 +49,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             kh.Id = id;
-            var affectedResult = await _khachhangServices.Sua(kh);
+            var affectedResult = await _khachhangServices.Edit(kh);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
@@ -68,35 +68,10 @@ namespace Shop.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var affectedResult = await _khachhangServices.Xoa(id);
+            var affectedResult = await _khachhangServices.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
         }
-
-        //[HttpPost("Capbac")]
-        //[Consumes("multipart/form-data")]
-        //public async Task<IActionResult> ThemCapBac([FromForm] CapBacVM cb)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    var capbacId = await _khachhangServices.ThemCapBac(cb);
-        //    if (capbacId == 0)
-        //        return BadRequest();
-        //    var capbac = await _khachhangServices.GetByIdCapBac(capbacId);
-        //    return CreatedAtAction(nameof(GetByIdCapbac), new { id = capbacId }, capbac);
-        //}
-        //[HttpGet("khachhang/capbac/{id}")]
-        //public async Task<IActionResult> GetByIdCapbac(int id)
-        //{
-        //    var capbac = await _khachhangServices.GetByIdCapBac(id);
-        //    if (capbac == null)
-        //    {
-        //        return BadRequest("Can't find Cap Bac");
-        //    }
-        //    return Ok(capbac);
-        //}
     }
 }

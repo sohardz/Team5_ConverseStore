@@ -14,7 +14,7 @@ namespace Shop.Application.Services
         {
             _shopDbContext = shopDbContext;
         }
-        public async Task<List<MauSacVM>> GetAllMauSac()
+        public async Task<List<MauSacVM>> GetAll()
         {
             return await _shopDbContext.MauSacs
                     .Select(i => new MauSacVM()
@@ -38,7 +38,7 @@ namespace Shop.Application.Services
             return mausacviewmodel;
         }
 
-        public async Task<int> Sua(MauSacVM ms)
+        public async Task<int> Edit(MauSacVM ms)
         {
             var mausac = await _shopDbContext.MauSacs.FindAsync(ms.Id);
             if (mausac == null) throw new ShopExeption($"Không thể tim thấy màu sắc với Id:  {ms.Id}");
@@ -48,7 +48,7 @@ namespace Shop.Application.Services
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(MauSacVM ms)
+        public async Task<int> Create(MauSacVM ms)
         {
             var mausac = new MauSac()
             {
@@ -60,7 +60,7 @@ namespace Shop.Application.Services
             return mausac.Id;
         }
 
-        public async Task<int> Xoa(int id)
+        public async Task<int> Delete(int id)
         {
             var mausac = await _shopDbContext.MauSacs.FindAsync(id);
             if (mausac == null)

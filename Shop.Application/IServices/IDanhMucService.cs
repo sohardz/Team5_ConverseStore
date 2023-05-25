@@ -4,10 +4,10 @@ namespace Shop.Application.IServices
 {
     public interface IDanhMucService
     {
-        Task<List<DanhMucVM>> GetAllDanhMuc();
-        Task<int> Them(DanhMucVM dm);
-        Task<int> Sua(DanhMucVM dm);
-        Task<int> Xoa(int id);
+        Task<List<DanhMucVM>> GetAll();
+        Task<int> Create(DanhMucVM dm);
+        Task<int> Edit(DanhMucVM dm);
+        Task<int> Delete(int id);
         Task<DanhMucVM> GetById(int id);
     }
 }

@@ -22,7 +22,7 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<SanPhamVM>> GetAllSanPhamVM()
         {
-            return await _sanPhamService.GetAllSanPham();
+            return await _sanPhamService.GetAll();
         }
 
         // GET api/<SanPhamAPI>/5
@@ -47,7 +47,7 @@ namespace Shop.WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var sanphamId = await _sanPhamService.Them(sp);
+            var sanphamId = await _sanPhamService.Create(sp);
             if (sanphamId == 0)
                 return BadRequest();
             var sanpham = await _sanPhamService.GetById(sanphamId);
@@ -63,7 +63,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             sp.Id = id;
-            var affectedResult = await _sanPhamService.Sua(sp);
+            var affectedResult = await _sanPhamService.Edit(sp);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
@@ -82,7 +82,7 @@ namespace Shop.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var affectedResult = await _sanPhamService.Xoa(id);
+            var affectedResult = await _sanPhamService.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

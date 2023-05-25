@@ -16,7 +16,7 @@ namespace Shop.Application.Services
             _shopDbContext = shopDbContext;
         }
 
-        public async Task<List<KhachHangVM>> GetAllKhachhang()
+        public async Task<List<KhachHangVM>> GetAll()
         {
             var query = from k in _shopDbContext.KhachHangs
                         join c in _shopDbContext.CapBacs on k.IdBac equals c.Id
@@ -53,6 +53,7 @@ namespace Shop.Application.Services
                 HoVaTen = Khachhang.HoVaTen,
                 MatKhau = Khachhang.MatKhau,
                 SoDienThoai = Khachhang.SoDienThoai,
+                GioiTinh = Khachhang.GioiTinh,
                 Email = Khachhang.Email,
                 NgaySinh = Khachhang.NgaySinh,
                 DiaChi = Khachhang.DiaChi,
@@ -63,7 +64,7 @@ namespace Shop.Application.Services
             return KhachHangVewmodel;
         }
 
-        public async Task<int> Sua(KhachHangVM kh)
+        public async Task<int> Edit(KhachHangVM kh)
         {
             var khachhang = await _shopDbContext.KhachHangs.FindAsync(kh.Id);
             if (khachhang == null) throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {kh.Id}");
@@ -73,23 +74,36 @@ namespace Shop.Application.Services
             khachhang.Email = kh.Email;
             khachhang.DiaChi = kh.DiaChi;
             khachhang.GhiChu = kh.GhiChu;
+            khachhang.GioiTinh = kh.GioiTinh;
+            khachhang.NgaySinh = kh.NgaySinh;
+            khachhang.IdBac = kh.IdBac;
             khachhang.TrangThai = kh.TrangThai;
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(KhachHangVM kh)
+        public async Task<int> Create(KhachHangVM kh)
         {
             var khachhang = new KhachHang()
             {
                 HoVaTen = kh.HoVaTen,
+                TenTaiKhoan = kh.TenTaiKhoan,
+                MatKhau = kh.MatKhau,
+                SoDienThoai = kh.SoDienThoai,
+                Email = kh.Email,
+                DiaChi = kh.DiaChi,
+                GhiChu = kh.GhiChu,
+                NgaySinh = kh.NgaySinh,
+                GioiTinh = kh.GioiTinh,
+                SoDiem = kh.SoDiem,
+                IdBac = kh.IdBac,
                 TrangThai = kh.TrangThai,
             };
-            _shopDbContext.Add(khachhang);
+            await _shopDbContext.AddAsync(khachhang);
             await _shopDbContext.SaveChangesAsync();
             return khachhang.Id;
         }
 
-        public async Task<int> Xoa(int id)
+        public async Task<int> Delete(int id)
         {
             var khachhang = await _shopDbContext.KhachHangs.FindAsync(id);
             if (khachhang == null)

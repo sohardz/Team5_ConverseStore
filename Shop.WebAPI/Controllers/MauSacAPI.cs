@@ -23,22 +23,8 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<MauSacVM>> GetAllMauSacVM()
         {
-            return await _mauSacService.GetAllMauSac();
+            return await _mauSacService.GetAll();
         }
-
-        // GET api/<MauSaAPI>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<MauSaAPI>
-        //[HttpPost]
-        //public void Post([FromBody] MauSacVM ms)
-        //{
-
-        //}
 
         // PUT api/<MauSaAPI>/5
         [HttpPost]
@@ -49,7 +35,7 @@ namespace Shop.WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var mausacId = await _mauSacService.Them(ms);
+            var mausacId = await _mauSacService.Create(ms);
             if (mausacId == 0)
                 return BadRequest();
             var mausac = await _mauSacService.GetById(mausacId);
@@ -65,13 +51,13 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             ms.Id = id;
-            var affectedResult = await _mauSacService.Sua(ms);
+            var affectedResult = await _mauSacService.Edit(ms);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
         }
 
-        [HttpGet("chucvu/{id}")]
+        [HttpGet("mausac/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var mausac = await _mauSacService.GetById(id);
@@ -86,7 +72,7 @@ namespace Shop.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var affectedResult = await _mauSacService.Xoa(id);
+            var affectedResult = await _mauSacService.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

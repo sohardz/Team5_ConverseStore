@@ -4,11 +4,10 @@ namespace Shop.Application.IServices
 {
     public interface IMauSacService
     {
-        Task<List<MauSacVM>> GetAllMauSac();
-        Task<int> Them(MauSacVM cv);
-        Task<int> Sua(MauSacVM cv);
-        Task<int> Xoa(int id);
-
+        Task<List<MauSacVM>> GetAll();
+        Task<int> Create(MauSacVM cv);
+        Task<int> Edit(MauSacVM cv);
+        Task<int> Delete(int id);
         Task<MauSacVM> GetById(int id);
     }
 }

@@ -64,7 +64,7 @@ namespace Shop.Application.Services
             return sanPhamViewModel;
         }
 
-        public async Task<int> Sua(CTSanPhamVM p)
+        public async Task<int> Edit(CTSanPhamVM p)
         {
             var sanPham = await _shopDbContext.CTSanPhams.FindAsync(p.Id);
             //var capbac = await _shopDbContext.CapBacs.FirstOrDefaultAsync(x => x.Id == kh.IdBac);
@@ -82,7 +82,7 @@ namespace Shop.Application.Services
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(CTSanPhamVM p)
+        public async Task<int> Create(CTSanPhamVM p)
         {
 
             var sanPham = new CTSanPham()
@@ -104,7 +104,7 @@ namespace Shop.Application.Services
             return sanPham.Id;
         }
 
-        public async Task<int> Xoa(int id)
+        public async Task<int> Delete(int id)
         {
             var sanPham = await _shopDbContext.CTSanPhams.FindAsync(id);
             if (sanPham == null)

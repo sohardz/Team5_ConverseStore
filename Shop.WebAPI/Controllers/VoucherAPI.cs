@@ -22,7 +22,7 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<VoucherVM>> GetAllVoucherVM()
         {
-            return await _voucherService.GetAllVoucher();
+            return await _voucherService.GetAll();
         }
 
         // GET api/<VoucherAPI>/5
@@ -34,7 +34,7 @@ namespace Shop.WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var voucherId = await _voucherService.Them(v);
+            var voucherId = await _voucherService.Create(v);
             if (voucherId == 0)
                 return BadRequest();
             var voucher = await _voucherService.GetById(voucherId);
@@ -51,7 +51,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             v.Id = id;
-            var affectedResult = await _voucherService.Sua(v);
+            var affectedResult = await _voucherService.Edit(v);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
@@ -70,7 +70,7 @@ namespace Shop.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Xoa(int id)
         {
-            var affectedResult = await _voucherService.Xoa(id);
+            var affectedResult = await _voucherService.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

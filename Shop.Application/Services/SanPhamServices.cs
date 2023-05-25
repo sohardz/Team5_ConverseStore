@@ -16,7 +16,7 @@ namespace Shop.Application.Services
             _shopDbContext = shopDbContext;
         }
 
-        public async Task<List<SanPhamVM>> GetAllSanPham()
+        public async Task<List<SanPhamVM>> GetAll()
         {
             return await _shopDbContext.SanPhams
                 .Select(i => new SanPhamVM()
@@ -40,7 +40,7 @@ namespace Shop.Application.Services
             return sanphamviewmodel;
         }
 
-        public async Task<int> Sua(SanPhamVM sp)
+        public async Task<int> Edit(SanPhamVM sp)
         {
             var sanpham = await _shopDbContext.SanPhams.FindAsync(sp.Id);
             if (sanpham == null) throw new ShopExeption($"Không thể tim thấy Sản Phẩm với Id:  {sp.Id}");
@@ -50,7 +50,7 @@ namespace Shop.Application.Services
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(SanPhamVM sp)
+        public async Task<int> Create(SanPhamVM sp)
         {
             var sanpham = new SanPham()
             {
@@ -62,7 +62,7 @@ namespace Shop.Application.Services
             return sanpham.Id;
         }
 
-        public async Task<int> Xoa(int id)
+        public async Task<int> Delete(int id)
         {
             var sanpham = await _shopDbContext.SanPhams.FindAsync(id);
             if (sanpham == null)

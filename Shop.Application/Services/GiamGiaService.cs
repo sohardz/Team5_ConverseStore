@@ -16,7 +16,7 @@ namespace Shop.Application.Services
         {
             _shopDbContext = shopDbContext;
         }
-        public async Task<List<GiamGiaVM>> GetAllGiamGia()
+        public async Task<List<GiamGiaVM>> GetAll()
         {
             return await _shopDbContext.GiamGias
                      .Select(i => new GiamGiaVM()
@@ -54,7 +54,7 @@ namespace Shop.Application.Services
             return giamgiaviewmodel;
         }
 
-        public async Task<int> Sua(GiamGiaVM gg)
+        public async Task<int> Edit(GiamGiaVM gg)
         {
             var giamgia = await _shopDbContext.GiamGias.FindAsync(gg.Id);
             if (giamgia == null) throw new ShopExeption($"Không thể tim thấy giảm giá với Id:  {gg.Id}");
@@ -71,7 +71,7 @@ namespace Shop.Application.Services
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(GiamGiaVM gg)
+        public async Task<int> Create(GiamGiaVM gg)
         {
             var giamgia = new GiamGia()
             {
@@ -91,7 +91,7 @@ namespace Shop.Application.Services
             return giamgia.Id;
         }
 
-        public async Task<int> Xoa(int id)
+        public async Task<int> Delete(int id)
         {
             var giamgia = await _shopDbContext.GiamGias.FindAsync(id);
             if (giamgia == null)

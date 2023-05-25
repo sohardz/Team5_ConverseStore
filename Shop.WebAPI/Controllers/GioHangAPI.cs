@@ -22,7 +22,7 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<GioHangVM>> GetAllGioHangVM()
         {
-            return await _gioHangService.GetAllGioHang();
+            return await _gioHangService.GetAll();
         }
 
         // GET api/<GioHangAPI>/5
@@ -48,7 +48,7 @@ namespace Shop.WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var giohangId = await _gioHangService.Them(gh);
+            var giohangId = await _gioHangService.Create(gh);
             if (giohangId == 0)
                 return BadRequest();
             var giohang = await _gioHangService.GetById(giohangId);
@@ -64,7 +64,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             gh.IdKh = id;
-            var affectedResult = await _gioHangService.Sua(gh);
+            var affectedResult = await _gioHangService.Edit(gh);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
@@ -83,7 +83,7 @@ namespace Shop.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var affectedResult = await _gioHangService.Xoa(id);
+            var affectedResult = await _gioHangService.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

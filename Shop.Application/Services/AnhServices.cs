@@ -16,7 +16,7 @@ namespace Shop.Application.Services
             _shopDbContext = shopDbContext;
         }
 
-        public async Task<List<AnhVM>> GetAllAnh()
+        public async Task<List<AnhVM>> GetAll()
         {
             return await _shopDbContext.Anhs
                     .Select(i => new AnhVM()
@@ -55,7 +55,7 @@ namespace Shop.Application.Services
             return anhViewModel;
         }
 
-        public async Task<int> Sua(AnhVM anhVm)
+        public async Task<int> Edit(AnhVM anhVm)
         {
             var anh = await _shopDbContext.Anhs.FindAsync(anhVm.Id);
             if (anh == null) throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {anhVm.Id}");
@@ -64,21 +64,20 @@ namespace Shop.Application.Services
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(AnhVM anhVm)
+        public async Task<int> Create(AnhVM anhVm)
         {
             var anh = new Anh()
             {
-                Id = anhVm.Id,
                 IdCTSP = anhVm.IdCTSP,
                 DuongDan = anhVm.DuongDan,
                 TrangThai = anhVm.TrangThai,
             };
-            _shopDbContext.Add(anh);
+            await _shopDbContext.AddAsync(anh);
             await _shopDbContext.SaveChangesAsync();
             return anh.Id;
         }
 
-        public async Task<int> Xoa(int id)
+        public async Task<int> Delete(int id)
         {
             var anh = await _shopDbContext.Anhs.FindAsync(id);
             if (anh == null)

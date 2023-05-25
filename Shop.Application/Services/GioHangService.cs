@@ -14,7 +14,7 @@ namespace Shop.Application.Services
         {
             _shopDbContext = shopDbContext;
         }
-        public async Task<List<GioHangVM>> GetAllGioHang()
+        public async Task<List<GioHangVM>> GetAll()
         {
             return await _shopDbContext.GioHangs
                     .Select(i => new GioHangVM()
@@ -38,7 +38,7 @@ namespace Shop.Application.Services
             return giohangviewmodel;
         }
 
-        public async Task<int> Sua(GioHangVM gh)
+        public async Task<int> Edit(GioHangVM gh)
         {
             var giohang = await _shopDbContext.GioHangs.FindAsync(gh.IdKh);
             if (giohang == null) throw new ShopExeption($"Không thể tim thấy giỏ hàng với Id:  {gh.IdKh}");
@@ -48,7 +48,7 @@ namespace Shop.Application.Services
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(GioHangVM gh)
+        public async Task<int> Create(GioHangVM gh)
         {
             var giohang = new GioHang()
             {
@@ -60,7 +60,7 @@ namespace Shop.Application.Services
             return giohang.IdKh;
         }
 
-        public async Task<int> Xoa(int id)
+        public async Task<int> Delete(int id)
         {
             var giohang = await _shopDbContext.GioHangs.FindAsync(id);
             if (giohang == null)

@@ -50,7 +50,8 @@ namespace Shop.Application.Services
                 TrangThai = c.TrangThai,
             };
             await _shopDbContext.CapBacs.AddAsync(capBac);
-            return await _shopDbContext.SaveChangesAsync();
+            await _shopDbContext.SaveChangesAsync();
+            return capBac.Id;
         }
 
         public async Task<int> Edit(CapBacVM c)

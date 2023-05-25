@@ -24,7 +24,7 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<DanhMucVM>> GetAllDanhMucVM()
         {
-            return await _danhMucService.GetAllDanhMuc();
+            return await _danhMucService.GetAll();
         }
 
 
@@ -37,7 +37,7 @@ namespace Shop.WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var danhMucId = await _danhMucService.Them(dm);
+            var danhMucId = await _danhMucService.Create(dm);
             if (danhMucId == 0)
                 return BadRequest();
             var danhMuc = await _danhMucService.GetById(danhMucId);
@@ -54,7 +54,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             dm.Id = id;
-            var affectedResult = await _danhMucService.Sua(dm);
+            var affectedResult = await _danhMucService.Edit(dm);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
@@ -76,7 +76,7 @@ namespace Shop.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Xoa(int id)
         {
-            var affectedResult = await _danhMucService.Xoa(id);
+            var affectedResult = await _danhMucService.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

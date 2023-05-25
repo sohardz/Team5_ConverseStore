@@ -14,7 +14,7 @@ namespace Shop.Application.Services
         {
             _shopDbContext = shopDbContext;
         }
-        public async Task<List<VoucherVM>> GetAllVoucher()
+        public async Task<List<VoucherVM>> GetAll()
         {
             return await _shopDbContext.Vouchers
                     .Select(i => new VoucherVM()
@@ -52,7 +52,7 @@ namespace Shop.Application.Services
             return voucherViewModel;
         }
 
-        public async Task<int> Sua(VoucherVM v)
+        public async Task<int> Edit(VoucherVM v)
         {
             var voucher = await _shopDbContext.Vouchers.FindAsync(v.Id);
             if (voucher == null) throw new ShopExeption($"Không thể tim thấy voucher với Id:  {v.Id}");
@@ -69,7 +69,7 @@ namespace Shop.Application.Services
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(VoucherVM v)
+        public async Task<int> Create(VoucherVM v)
         {
             var voucher = new Voucher()
             {
@@ -87,7 +87,7 @@ namespace Shop.Application.Services
             return voucher.Id;
         }
 
-        public async Task<int> Xoa(int id)
+        public async Task<int> Delete(int id)
         {
             var voucher = await _shopDbContext.Vouchers.FindAsync(id);
             if (voucher == null)

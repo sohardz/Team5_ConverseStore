@@ -4,10 +4,10 @@ namespace Shop.Application.IServices
 {
     public interface IKhachhangServices
     {
-        Task<List<KhachHangVM>> GetAllKhachhang();
-        Task<int> Them(KhachHangVM kh);
-        Task<int> Sua(KhachHangVM kh);
-        Task<int> Xoa(int id);
+        Task<List<KhachHangVM>> GetAll();
+        Task<int> Create(KhachHangVM kh);
+        Task<int> Edit(KhachHangVM kh);
+        Task<int> Delete(int id);
         Task<KhachHangVM> GetById(int id);
     }
 }

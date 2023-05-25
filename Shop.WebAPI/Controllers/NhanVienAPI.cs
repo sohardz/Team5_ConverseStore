@@ -23,7 +23,7 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<NhanVienVM>> GetAllChucVuVM()
         {
-            return await _nhanVienServices.GetAllNhanVien();
+            return await _nhanVienServices.GetAll();
         }
 
         // GET api/<NhanVienAPI>/5

@@ -23,19 +23,19 @@ namespace Shop.WebAPI.Controllers
         [HttpGet]
         public async Task<List<AnhVM>> GetAllAnhVM()
         {
-            return await _anhServices.GetAllAnh();
+            return await _anhServices.GetAll();
         }
 
         // PUT api/<ChucVuAPI>/5
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Them([FromForm] AnhVM anhVM)
+        public async Task<IActionResult> Create([FromForm] AnhVM anhVM)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var anhId = await _anhServices.Them(anhVM);
+            var anhId = await _anhServices.Create(anhVM);
             if (anhId == 0)
                 return BadRequest();
             var anh = await _anhServices.GetById(anhId);
@@ -51,13 +51,13 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             anhVM.Id = id;
-            var affectedResult = await _anhServices.Sua(anhVM);
+            var affectedResult = await _anhServices.Edit(anhVM);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
         }
 
-        [HttpGet("chucvu/{id}")]
+        [HttpGet("anh/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var anh = await _anhServices.GetById(id);
@@ -72,7 +72,7 @@ namespace Shop.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var affectedResult = await _anhServices.Xoa(id);
+            var affectedResult = await _anhServices.Delete(id);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();

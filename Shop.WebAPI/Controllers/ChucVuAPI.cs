@@ -23,7 +23,7 @@ public class ChucVuAPI : ControllerBase
     [HttpGet]
     public async Task<List<ChucVuVM>> GetAllChucVuVM()
     {
-        return await _chucVuService.GetAllChucVu();
+        return await _chucVuService.GetAll();
     }
 
     // PUT api/<ChucVuAPI>/5
@@ -35,7 +35,7 @@ public class ChucVuAPI : ControllerBase
         {
             return BadRequest(ModelState);
         }
-        var chucvuId = await _chucVuService.Them(cv);
+        var chucvuId = await _chucVuService.Create(cv);
         if (chucvuId == 0)
             return BadRequest();
         var chucvu = await _chucVuService.GetById(chucvuId);
@@ -52,7 +52,7 @@ public class ChucVuAPI : ControllerBase
             return BadRequest(ModelState);
         }
         cv.Id = id;
-        var affectedResult = await _chucVuService.Sua(cv);
+        var affectedResult = await _chucVuService.Edit(cv);
         if (affectedResult == 0)
             return BadRequest();
         return Ok();
@@ -73,7 +73,7 @@ public class ChucVuAPI : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var affectedResult = await _chucVuService.Xoa(id);
+        var affectedResult = await _chucVuService.Delete(id);
         if (affectedResult == 0)
             return BadRequest();
         return Ok();

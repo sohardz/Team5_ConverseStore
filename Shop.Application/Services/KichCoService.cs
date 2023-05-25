@@ -15,9 +15,7 @@ namespace Shop.Application.Services
             _shopDbContext = shopDbContext;
         }
 
-
-
-        public async Task<List<KichCoVM>> GetAllKichCo()
+        public async Task<List<KichCoVM>> GetAll()
         {
             return await _shopDbContext.KichCos
                     .Select(i => new KichCoVM()
@@ -41,7 +39,7 @@ namespace Shop.Application.Services
             return kichcoviewmodel;
         }
 
-        public async Task<int> Sua(KichCoVM kc)
+        public async Task<int> Edit(KichCoVM kc)
         {
             var kichco = await _shopDbContext.KichCos.FindAsync(kc.Id);
             if (kichco == null) throw new ShopExeption($"Không thể tim thấy Kích Cỡ với Id:  {kc.Id}");
@@ -51,7 +49,7 @@ namespace Shop.Application.Services
             return await _shopDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Them(KichCoVM kc)
+        public async Task<int> Create(KichCoVM kc)
         {
             var kichco = new KichCo()
             {
@@ -63,7 +61,7 @@ namespace Shop.Application.Services
             return kichco.Id;
         }
 
-        public async Task<int> Xoa(int id)
+        public async Task<int> Delete(int id)
         {
             var kichco = await _shopDbContext.KichCos.FindAsync(id);
             if (kichco == null)
