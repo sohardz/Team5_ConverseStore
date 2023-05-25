@@ -52,6 +52,7 @@ namespace Shop.Application.Services
         {
             var giohang = new GioHang()
             {
+                IdKh=gh.IdKh,
                 MoTa = gh.MoTa,
                 TrangThai = gh.TrangThai,
             };
