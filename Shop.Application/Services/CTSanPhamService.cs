@@ -4,11 +4,6 @@ using Shop.Application.IServices;
 using Shop.Application.ViewModels;
 using Shop.Data.Context;
 using Shop.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Application.Services
 {
@@ -23,52 +18,52 @@ namespace Shop.Application.Services
 
         public async Task<List<CTSanPhamVM>> GetAll()
         {
-            
-                var query = from p in _shopDbContext.CTSanPhams
-                            join pt in _shopDbContext.SanPhams on p.IdSanPham equals pt.Id
-                            join m in _shopDbContext.MauSacs on p.IdMauSac equals m.Id
-                            join k in _shopDbContext.KichCos on p.IdKichCo equals k.Id
-                            join d in _shopDbContext.DanhMucs on p.IdDanhMuc equals d.Id
-                            join g in _shopDbContext.GiamGias on p.IdGiamGia equals g.Id
-                            select new { p,pt,m,k,d,g};
-                var data = await query
-                    .Select(x => new CTSanPhamVM()
-                    {
-                        Id = x.p.Id,
-                        GiaBan = x.p.GiaBan,
-                        GiaNhap = x.p.GiaNhap,
-                        SoLuongTon = x.p.SoLuongTon,
-                        MoTa = x.p.MoTa,
-                        TrangThai = x.p.TrangThai,
-                        TenDanhMuc = x.d.Ten,
-                        SoSize = x.k.SoSize,
-                        MaGiamGia = x.g.Ma,
-                        TenMauSac = x.m.Ten,
-                        TenSP= x.pt.Ten
-                    }
-                    ).ToListAsync();
-                return data;
-            
+
+            var query = from p in _shopDbContext.CTSanPhams
+                        join pt in _shopDbContext.SanPhams on p.IdSanPham equals pt.Id
+                        join m in _shopDbContext.MauSacs on p.IdMauSac equals m.Id
+                        join k in _shopDbContext.KichCos on p.IdKichCo equals k.Id
+                        join d in _shopDbContext.DanhMucs on p.IdDanhMuc equals d.Id
+                        join g in _shopDbContext.GiamGias on p.IdGiamGia equals g.Id
+                        select new { p, pt, m, k, d, g };
+            var data = await query
+                .Select(x => new CTSanPhamVM()
+                {
+                    Id = x.p.Id,
+                    GiaBan = x.p.GiaBan,
+                    GiaNhap = x.p.GiaNhap,
+                    SoLuongTon = x.p.SoLuongTon,
+                    MoTa = x.p.MoTa,
+                    TrangThai = x.p.TrangThai,
+                    TenDanhMuc = x.d.Ten,
+                    SoSize = x.k.SoSize,
+                    MaGiamGia = x.g.Ma,
+                    TenMauSac = x.m.Ten,
+                    TenSP = x.pt.Ten
+                }
+                ).ToListAsync();
+            return data;
+
         }
 
         public async Task<CTSanPhamVM> GetById(int ctspId)
         {
             var cTSP = await _shopDbContext.CTSanPhams.FindAsync(ctspId);
-             
-            
+
+
             var sanPhamViewModel = new CTSanPhamVM()
             {
-               Id = ctspId,
-               GiaBan = cTSP.GiaBan,
-               GiaNhap = cTSP.GiaNhap,
-               MoTa = cTSP.MoTa,
-               SoLuongTon = cTSP.SoLuongTon,
-               TrangThai = cTSP.TrangThai,
-               TenMauSac = _shopDbContext.MauSacs.FirstOrDefault(x=>x.Id == cTSP.IdMauSac).Ten,
-               TenDanhMuc = _shopDbContext.DanhMucs.FirstOrDefault(x => x.Id == cTSP.IdDanhMuc).Ten,
-               MaGiamGia = _shopDbContext.GiamGias.FirstOrDefault(x => x.Id == cTSP.IdGiamGia).Ma,
-               TenSP= _shopDbContext.SanPhams.FirstOrDefault(x => x.Id == cTSP.IdSanPham).Ten,
-               SoSize = _shopDbContext.KichCos.FirstOrDefault(x => x.Id == cTSP.IdKichCo).SoSize
+                Id = ctspId,
+                GiaBan = cTSP.GiaBan,
+                GiaNhap = cTSP.GiaNhap,
+                MoTa = cTSP.MoTa,
+                SoLuongTon = cTSP.SoLuongTon,
+                TrangThai = cTSP.TrangThai,
+                TenMauSac = _shopDbContext.MauSacs.FirstOrDefault(x => x.Id == cTSP.IdMauSac).Ten,
+                TenDanhMuc = _shopDbContext.DanhMucs.FirstOrDefault(x => x.Id == cTSP.IdDanhMuc).Ten,
+                MaGiamGia = _shopDbContext.GiamGias.FirstOrDefault(x => x.Id == cTSP.IdGiamGia).Ma,
+                TenSP = _shopDbContext.SanPhams.FirstOrDefault(x => x.Id == cTSP.IdSanPham).Ten,
+                SoSize = _shopDbContext.KichCos.FirstOrDefault(x => x.Id == cTSP.IdKichCo).SoSize
             };
             return sanPhamViewModel;
         }
@@ -93,7 +88,7 @@ namespace Shop.Application.Services
 
         public async Task<int> Them(CTSanPhamVM p)
         {
-            
+
             var sanPham = new CTSanPham()
             {
                 GiaBan = p.GiaBan,
@@ -104,7 +99,7 @@ namespace Shop.Application.Services
                 IdDanhMuc = p.IdDanhMuc,
                 IdGiamGia = p.IdGiamGia,
                 IdMauSac = p.IdMauSac,
-                IdKichCo= p.IdKichCo,
+                IdKichCo = p.IdKichCo,
                 IdSanPham = p.IdSanPham,
             };
 

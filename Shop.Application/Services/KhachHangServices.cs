@@ -10,21 +10,10 @@ namespace Shop.Application.Services
     public class KhachHangServices : IKhachhangServices
     {
         private readonly ShopDbContext _shopDbContext;
+
         public KhachHangServices(ShopDbContext shopDbContext)
         {
             _shopDbContext = shopDbContext;
-        }
-
-        public async Task<List<CapBacVM>> GetAllCapBac()
-        {
-            return await _shopDbContext.CapBacs
-                    .Select(i => new CapBacVM()
-                    {
-                        Id = i.Id,
-                        Ten = i.Ten,
-                        TrangThai = i.TrangThai,
-                    }
-                ).ToListAsync();
         }
 
         public async Task<List<KhachHangVM>> GetAllKhachhang()
@@ -86,16 +75,6 @@ namespace Shop.Application.Services
             khachhang.GhiChu = kh.GhiChu;
             khachhang.TrangThai = kh.TrangThai;
             return await _shopDbContext.SaveChangesAsync();
-
-        }
-
-        public async Task<int> SuaCapBac(CapBacVM c)
-        {
-            var capbac = await _shopDbContext.CapBacs.FindAsync(c.Id);
-            if (capbac == null) throw new ShopExeption($"Không thể tim thấy cấp bậc với Id:  {c.Id}");
-            capbac.Ten = c.Ten;
-            capbac.TrangThai = c.TrangThai;
-            return await _shopDbContext.SaveChangesAsync();
         }
 
         public async Task<int> Them(KhachHangVM kh)
@@ -119,18 +98,6 @@ namespace Shop.Application.Services
             }
 
             _shopDbContext.KhachHangs.Remove(khachhang);
-            return await _shopDbContext.SaveChangesAsync();
-        }
-
-        public async Task<int> XoaCapBac(int id)
-        {
-            var capBac = await _shopDbContext.CapBacs.FindAsync(id);
-            if (capBac == null)
-            {
-                throw new ShopExeption($"Không thể tìm thấy cấp bậc: {id}");
-            }
-
-            _shopDbContext.CapBacs.Remove(capBac);
             return await _shopDbContext.SaveChangesAsync();
         }
     }
