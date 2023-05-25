@@ -8,7 +8,6 @@ namespace Shop.Application.IServices
         Task<int> Them(CTSanPhamVM p);
         Task<int> Sua(CTSanPhamVM p);
         Task<int> Xoa(int id);
-
         Task<CTSanPhamVM> GetById(int id);
     }
 }

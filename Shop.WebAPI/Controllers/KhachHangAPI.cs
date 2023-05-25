@@ -73,6 +73,7 @@ namespace Shop.WebAPI.Controllers
                 return BadRequest();
             return Ok();
         }
+
         //[HttpPost("Capbac")]
         //[Consumes("multipart/form-data")]
         //public async Task<IActionResult> ThemCapBac([FromForm] CapBacVM cb)
