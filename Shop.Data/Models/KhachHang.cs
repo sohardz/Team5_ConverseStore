@@ -1,7 +1,8 @@
 ﻿namespace Shop.Data.Models;
+
 public class KhachHang
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Ma { get; set; }
     public string HoVaTen { get; set; }
     public string TenTaiKhoan { get; set; }
@@ -14,7 +15,7 @@ public class KhachHang
     public string GhiChu { get; set; }
     public int SoDiem { get; set; }
     public int TrangThai { get; set; }
-    public int IdBac { get; set; }
+    public Guid? IdBac { get; set; }
     public virtual GioHang? GioHang { get; set; }
     public virtual CapBac? CapBac { get; set; }
     public ICollection<HoaDon> HoaDons { get; set; }

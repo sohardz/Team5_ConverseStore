@@ -5,71 +5,69 @@ using Shop.Application.ViewModels;
 using Shop.Data.Context;
 using Shop.Data.Models;
 
-namespace Shop.Application.Services
+namespace Shop.Application.Services;
+
+public class DanhMucService : IDanhMucService
 {
-    public class DanhMucService : IDanhMucService
+    private readonly ShopDbContext _shopDbContext;
+    public DanhMucService(ShopDbContext shopDbContext)
     {
-        private readonly ShopDbContext _shopDbContext;
-        public DanhMucService(ShopDbContext shopDbContext)
-        {
-            _shopDbContext = shopDbContext;
-        }
+        _shopDbContext = shopDbContext;
+    }
 
-        public async Task<List<DanhMucVM>> GetAll()
-        {
-            return await _shopDbContext.DanhMucs
-                    .Select(i => new DanhMucVM()
-                    {
-                        Id = i.Id,
-                        Ten = i.Ten,
-                        TrangThai = i.TrangThai,
-                    }
-                ).ToListAsync();
-        }
+    public async Task<List<DanhMucVM>> GetAll()
+    {
+        return await _shopDbContext.DanhMucs
+                .Select(i => new DanhMucVM()
+                {
+                    Id = i.Id,
+                    Ten = i.Ten,
+                    TrangThai = i.TrangThai,
+                }
+            ).ToListAsync();
+    }
 
-        public async Task<DanhMucVM> GetById(int id)
+    public async Task<DanhMucVM> GetById(Guid id)
+    {
+        var danhMuc = await _shopDbContext.DanhMucs.FindAsync(id);
+        var danhMucViewModel = new DanhMucVM()
         {
-            var danhMuc = await _shopDbContext.DanhMucs.FindAsync(id);
-            var danhMucViewModel = new DanhMucVM()
-            {
-                Id = id,
-                Ten = danhMuc.Ten,
-                TrangThai = danhMuc.TrangThai
-            };
-            return danhMucViewModel;
-        }
+            Id = id,
+            Ten = danhMuc.Ten,
+            TrangThai = danhMuc.TrangThai
+        };
+        return danhMucViewModel;
+    }
 
-        public async Task<int> Edit(DanhMucVM dm)
+    public async Task<int> Edit(DanhMucVM dm)
+    {
+        var danhMuc = await _shopDbContext.DanhMucs.FindAsync(dm.Id);
+        if (danhMuc == null) throw new ShopExeption($"Không thể tim thấy danh mục với Id:  {dm.Id}");
+
+        danhMuc.Ten = dm.Ten;
+        danhMuc.TrangThai = dm.TrangThai;
+        return await _shopDbContext.SaveChangesAsync();
+    }
+
+    public async Task<int> Create(DanhMucVM dm)
+    {
+        var danhMuc = new DanhMuc()
         {
-            var danhMuc = await _shopDbContext.DanhMucs.FindAsync(dm.Id);
-            if (danhMuc == null) throw new ShopExeption($"Không thể tim thấy danh mục với Id:  {dm.Id}");
+            Ten = dm.Ten,
+            TrangThai = dm.TrangThai,
+        };
+        await _shopDbContext.AddAsync(danhMuc);
+        return await _shopDbContext.SaveChangesAsync();        
+    }
 
-            danhMuc.Ten = dm.Ten;
-            danhMuc.TrangThai = dm.TrangThai;
-            return await _shopDbContext.SaveChangesAsync();
-        }
-
-        public async Task<int> Create(DanhMucVM dm)
+    public async Task<int> Delete(Guid id)
+    {
+        var danhMuc = await _shopDbContext.DanhMucs.FindAsync(id);
+        if (danhMuc == null)
         {
-            var danhMuc = new DanhMuc()
-            {
-                Ten = dm.Ten,
-                TrangThai = dm.TrangThai,
-            };
-            _shopDbContext.Add(danhMuc);
-            await _shopDbContext.SaveChangesAsync();
-            return danhMuc.Id;
+            throw new ShopExeption($"Không thể tìm thấy 1 danh mục : {id}");
         }
-
-        public async Task<int> Delete(int id)
-        {
-            var danhMuc = await _shopDbContext.DanhMucs.FindAsync(id);
-            if (danhMuc == null)
-            {
-                throw new ShopExeption($"Không thể tìm thấy 1 danh mục : {id}");
-            }
-            _shopDbContext.DanhMucs.Remove(danhMuc);
-            return await _shopDbContext.SaveChangesAsync();
-        }
+        _shopDbContext.DanhMucs.Remove(danhMuc);
+        return await _shopDbContext.SaveChangesAsync();
     }
 }

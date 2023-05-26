@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
 namespace Shop.Data.Configurations;
+
 public class GioHangConfiguration : IEntityTypeConfiguration<GioHang>
 {
     public void Configure(EntityTypeBuilder<GioHang> builder)

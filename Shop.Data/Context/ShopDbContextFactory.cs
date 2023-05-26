@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace Shop.Data.Context;
+
 public class ShopDbContextFactory : IDesignTimeDbContextFactory<ShopDbContext>
 {
     public ShopDbContext CreateDbContext(string[] args)

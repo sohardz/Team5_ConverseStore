@@ -1,7 +1,6 @@
-﻿namespace Shop.WebApp.Services
+﻿namespace Shop.WebApp.Services;
+
+public interface ITServices
 {
-    public interface ITServices
-    {
-        Task<List<T>> GetAll<T>(string apiUrl);
-    }
+    Task<List<T>> GetAll<T>(string apiUrl);
 }

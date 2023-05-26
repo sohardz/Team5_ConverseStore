@@ -4,76 +4,75 @@ using Shop.Application.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Shop.WebAPI.Controllers
+namespace Shop.WebAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CapBacAPI : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CapBacAPI : ControllerBase
+    private readonly ILogger<CapBacAPI> _logger;
+    private readonly ICapBacServices _capBacServices;
+
+    public CapBacAPI(ILogger<CapBacAPI> logger, ICapBacServices capBacServices)
     {
-        private readonly ILogger<CapBacAPI> _logger;
-        private readonly ICapBacServices _capBacServices;
+        _capBacServices = capBacServices;
+        _logger = logger;
+    }
 
-        public CapBacAPI(ILogger<CapBacAPI> logger, ICapBacServices capBacServices)
-        {
-            _capBacServices = capBacServices;
-            _logger = logger;
-        }
+    // GET: api/<CapBacAPI>
+    [HttpGet]
+    public async Task<List<CapBacVM>> GetAll()
+    {
+        return await _capBacServices.GetAll();
+    }
 
-        // GET: api/<CapBacAPI>
-        [HttpGet]
-        public async Task<List<CapBacVM>> GetAll()
+    [HttpGet("capbac/{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var capbac = await _capBacServices.GetById(id);
+        if (capbac == null)
         {
-            return await _capBacServices.GetAll();
+            return BadRequest("Can't find capbac");
         }
+        return Ok(capbac);
+    }
 
-        [HttpGet("capbac/{id}")]
-        public async Task<IActionResult> GetById(int id)
+    [HttpPost]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Add([FromForm] CapBacVM cb)
+    {
+        if (!ModelState.IsValid)
         {
-            var capbac = await _capBacServices.GetById(id);
-            if (capbac == null)
-            {
-                return BadRequest("Can't find capbac");
-            }
-            return Ok(capbac);
+            return BadRequest(ModelState);
         }
+        var capbacId = await _capBacServices.Create(cb);
+        if (capbacId == 0)
+            return BadRequest();
+        var mausac = await _capBacServices.GetById(capbacId);
+        return CreatedAtAction(nameof(GetById), new { id = capbacId }, mausac);
+    }
 
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Add([FromForm] CapBacVM cb)
+    [HttpPut("{id}")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] CapBacVM cb)
+    {
+        if (!ModelState.IsValid)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var capbacId = await _capBacServices.Create(cb);
-            if (capbacId == 0)
-                return BadRequest();
-            var mausac = await _capBacServices.GetById(capbacId);
-            return CreatedAtAction(nameof(GetById), new { id = capbacId }, mausac);
+            return BadRequest(ModelState);
         }
+        cb.Id = id;
+        var affectedResult = await _capBacServices.Edit(cb);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
+    }
 
-        [HttpPut("{id}")]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] CapBacVM cb)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            cb.Id = id;
-            var affectedResult = await _capBacServices.Edit(cb);
-            if (affectedResult == 0)
-                return BadRequest();
-            return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var affectedResult = await _capBacServices.Delete(id);
-            if (affectedResult == 0)
-                return BadRequest();
-            return Ok();
-        }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var affectedResult = await _capBacServices.Delete(id);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
     }
 }

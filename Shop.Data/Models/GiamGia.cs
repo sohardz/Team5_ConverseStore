@@ -1,7 +1,8 @@
 ﻿namespace Shop.Data.Models;
+
 public class GiamGia
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Ma { get; set; }
     public string Ten { get; set; }
     public DateTime NgayBatDau { get; set; }
