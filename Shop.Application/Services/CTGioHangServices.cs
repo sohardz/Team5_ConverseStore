@@ -4,12 +4,6 @@ using Shop.Application.IServices;
 using Shop.Application.ViewModels;
 using Shop.Data.Context;
 using Shop.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Application.Services;
 
@@ -25,15 +19,15 @@ public class CTGioHangServices : ICTGioHangServices
         var query = from p in _shopDbContext.CTGioHangs
                     join pt in _shopDbContext.CTSanPhams on p.IdCtsp equals pt.Id
                     join m in _shopDbContext.GioHangs on p.IdKh equals m.IdKh
-                  
+
                     select new { p, pt, m };
         var data = await query
             .Select(x => new CTGioHangVM()
             {
                 Id = x.p.Id,
                 IdKh = x.m.IdKh,
-                IdCtsp= x.pt.IdCtsp,
-                SoLuong=x.p.SoLuong,
+                IdCtsp = x.pt.IdCtsp,
+                SoLuong = x.p.SoLuong,
 
 
             }
@@ -49,7 +43,7 @@ public class CTGioHangServices : ICTGioHangServices
         var ctgiohangviewmodel = new CTGioHangVM()
         {
             Id = id,
-            SoLuong= ctgiohang.SoLuong,
+            SoLuong = ctgiohang.SoLuong,
             IdKh = _shopDbContext.GioHangs.FirstOrDefault(x => x.IdKh == ctgiohang.IdKh)?.IdKh ?? Guid.Empty,
             IdCtsp = _shopDbContext.CTSanPhams.FirstOrDefault(x => x.Id == ctgiohang.IdCtsp)?.Id ?? Guid.Empty
         };
@@ -59,7 +53,7 @@ public class CTGioHangServices : ICTGioHangServices
     public async Task<int> Edit(CTGioHangVM ctgh)
     {
         var ctgiohang = await _shopDbContext.CTGioHangs.FindAsync(ctgh.Id);
-        
+
         if (ctgiohang == null) throw new ShopExeption($"Can't find a product with id: {ctgh.Id}");
         ctgiohang.SoLuong = ctgh.SoLuong;
         ctgiohang.IdKh = ctgh.IdKh;
@@ -78,7 +72,7 @@ public class CTGioHangServices : ICTGioHangServices
         };
 
         await _shopDbContext.CTGioHangs.AddAsync(ctgiohang);
-        return await _shopDbContext.SaveChangesAsync();       
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)

@@ -15,7 +15,7 @@ public class NhanVienServices : INhanVienServices
         _shopDbContext = shopDbContext;
     }
 
-    public async Task<int> Add(NhanVienVM nv)
+    public async Task<int> Create(NhanVienVM nv)
     {
         NhanVien nhanVien = new()
         {
@@ -75,7 +75,7 @@ public class NhanVienServices : INhanVienServices
         return chucvuviewmodel;
     }
 
-    public async Task<int> Update(NhanVienVM nv)
+    public async Task<int> Edit(NhanVienVM nv)
     {
         NhanVien vn = await _shopDbContext.NhanViens.FindAsync(nv.Id);
         vn.IdCv = nv.IdCv;

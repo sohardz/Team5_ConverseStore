@@ -73,7 +73,7 @@ public class AnhServices : IAnhServices
             TrangThai = anhVm.TrangThai,
         };
         await _shopDbContext.AddAsync(anh);
-        return await _shopDbContext.SaveChangesAsync();       
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)

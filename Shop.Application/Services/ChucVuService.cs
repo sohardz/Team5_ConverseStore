@@ -57,7 +57,7 @@ public class ChucVuService : IChucVuService
             TrangThai = cv.TrangThai,
         };
         await _shopDbContext.ChucVus.AddAsync(chucvu);
-        return await _shopDbContext.SaveChangesAsync();        
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)

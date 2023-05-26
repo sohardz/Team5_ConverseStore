@@ -50,7 +50,7 @@ public class CapBacServices : ICapBacServices
             TrangThai = c.TrangThai,
         };
         await _shopDbContext.CapBacs.AddAsync(capBac);
-        return await _shopDbContext.SaveChangesAsync();        
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Edit(CapBacVM c)

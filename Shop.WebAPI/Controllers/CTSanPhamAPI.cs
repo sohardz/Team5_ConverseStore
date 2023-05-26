@@ -33,12 +33,17 @@ public class CTSanPhamAPI : ControllerBase
         var sanphamId = await _sanPhamService.Create(request);
         if (sanphamId == 0)
             return BadRequest();
-        var sanpham = await _sanPhamService.GetById(sanphamId);
-        return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(request);
+        }
+        //var sanpham = await _sanPhamService.GetById(sanphamId);
+        //return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
     }
 
     [HttpGet("sanpham/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var sanpham = await _sanPhamService.GetById(id);
         if (sanpham == null)
@@ -51,7 +56,7 @@ public class CTSanPhamAPI : ControllerBase
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
 
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] CTSanPhamVM p)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] CTSanPhamVM p)
     {
         if (!ModelState.IsValid)
         {
@@ -65,7 +70,7 @@ public class CTSanPhamAPI : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _sanPhamService.Delete(id);
         if (affectedResult == 0)

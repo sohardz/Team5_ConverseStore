@@ -87,7 +87,7 @@ public class GiamGiaService : IGiamGiaService
             TrangThai = 1,
         };
         await _shopDbContext.AddAsync(giamgia);
-        return await _shopDbContext.SaveChangesAsync();        
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)

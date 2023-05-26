@@ -38,14 +38,19 @@ public class ChucVuAPI : ControllerBase
         var chucvuId = await _chucVuService.Create(cv);
         if (chucvuId == 0)
             return BadRequest();
-        var chucvu = await _chucVuService.GetById(chucvuId);
-        return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(cv);
+        }
+        //var chucvu = await _chucVuService.GetById(chucvuId);
+        //return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
     }
 
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
 
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] ChucVuVM cv)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] ChucVuVM cv)
     {
         if (!ModelState.IsValid)
         {
@@ -59,7 +64,7 @@ public class ChucVuAPI : ControllerBase
     }
 
     [HttpGet("chucvu/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var chucvu = await _chucVuService.GetById(id);
         if (chucvu == null)
@@ -71,7 +76,7 @@ public class ChucVuAPI : ControllerBase
 
     // DELETE api/<ChucVuAPI>/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _chucVuService.Delete(id);
         if (affectedResult == 0)

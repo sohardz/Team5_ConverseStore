@@ -52,12 +52,12 @@ public class GioHangService : IGioHangService
     {
         var giohang = new GioHang()
         {
-            IdKh=gh.IdKh,
+            IdKh = gh.IdKh,
             MoTa = gh.MoTa,
             TrangThai = gh.TrangThai,
         };
         await _shopDbContext.AddAsync(giohang);
-        return await _shopDbContext.SaveChangesAsync();       
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)

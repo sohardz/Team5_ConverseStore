@@ -99,7 +99,7 @@ public class KhachHangServices : IKhachhangServices
             TrangThai = kh.TrangThai,
         };
         await _shopDbContext.AddAsync(khachhang);
-        return await _shopDbContext.SaveChangesAsync();       
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)

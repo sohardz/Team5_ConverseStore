@@ -10,7 +10,6 @@ namespace Shop.WebAPI.Controllers;
 [ApiController]
 public class DanhMucAPI : ControllerBase
 {
-
     private readonly ILogger<DanhMucAPI> _logger;
     private readonly IDanhMucService _danhMucService;
     public DanhMucAPI(ILogger<DanhMucAPI> logger, IDanhMucService danhMucService)
@@ -19,7 +18,6 @@ public class DanhMucAPI : ControllerBase
         _danhMucService = danhMucService;
     }
 
-
     //// GET: api/<DanhMucAPI>
     [HttpGet]
     public async Task<List<DanhMucVM>> GetAllDanhMucVM()
@@ -27,11 +25,10 @@ public class DanhMucAPI : ControllerBase
         return await _danhMucService.GetAll();
     }
 
-
     //// POST api/<DanhMucAPI>
     [HttpPost]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Them([FromForm] DanhMucVM dm)
+    public async Task<IActionResult> Create([FromForm] DanhMucVM dm)
     {
         if (!ModelState.IsValid)
         {
@@ -40,14 +37,18 @@ public class DanhMucAPI : ControllerBase
         var danhMucId = await _danhMucService.Create(dm);
         if (danhMucId == 0)
             return BadRequest();
-        var danhMuc = await _danhMucService.GetById(danhMucId);
-        return CreatedAtAction(nameof(GetById), new { id = danhMucId }, danhMuc);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(dm);
+        }
+        //var danhMuc = await _danhMucService.GetById(danhMucId);
+        //return CreatedAtAction(nameof(GetById), new { id = danhMucId }, danhMuc);
     }
 
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-
-    public async Task<IActionResult> Sua([FromRoute] int id, [FromForm] DanhMucVM dm)
+    public async Task<IActionResult> Edit([FromRoute] Guid id, [FromForm] DanhMucVM dm)
     {
         if (!ModelState.IsValid)
         {
@@ -61,7 +62,7 @@ public class DanhMucAPI : ControllerBase
     }
 
     [HttpGet("danhmuc/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var danhMuc = await _danhMucService.GetById(id);
         if (danhMuc == null)
@@ -74,7 +75,7 @@ public class DanhMucAPI : ControllerBase
 
     //// DELETE api/<DanhMucAPI>/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Xoa(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _danhMucService.Delete(id);
         if (affectedResult == 0)

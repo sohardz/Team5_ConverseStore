@@ -18,26 +18,13 @@ public class GioHangAPI : ControllerBase
         _logger = logger;
         _gioHangService = gioHangservice;
     }
+
     // GET: api/<GioHangAPI>
     [HttpGet]
     public async Task<List<GioHangVM>> GetAllGioHangVM()
     {
         return await _gioHangService.GetAll();
     }
-
-    // GET api/<GioHangAPI>/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
-    }
-
-    // POST api/<GioHangAPI>
-    //[HttpPost]
-    //public void Post([FromBody] string value)
-    //{
-
-    //}
 
     // PUT api/<GioHangAPI>/5
     [HttpPost]
@@ -51,13 +38,18 @@ public class GioHangAPI : ControllerBase
         var giohangId = await _gioHangService.Create(gh);
         if (giohangId == 0)
             return BadRequest();
-        var giohang = await _gioHangService.GetById(giohangId);
-        return CreatedAtAction(nameof(GetById), new { id = giohangId }, giohang);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(gh);
+        }
+        //var giohang = await _gioHangService.GetById(giohangId);
+        //return CreatedAtAction(nameof(GetById), new { id = giohangId }, giohang);
     }
 
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] GioHangVM gh)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] GioHangVM gh)
     {
         if (!ModelState.IsValid)
         {
@@ -70,7 +62,7 @@ public class GioHangAPI : ControllerBase
         return Ok();
     }
     [HttpGet("giohang/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var giohang = await _gioHangService.GetById(id);
         if (giohang == null)
@@ -81,7 +73,7 @@ public class GioHangAPI : ControllerBase
     }
     // DELETE api/<GioHangAPI>/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _gioHangService.Delete(id);
         if (affectedResult == 0)

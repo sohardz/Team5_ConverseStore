@@ -18,6 +18,7 @@ public class VoucherAPI : ControllerBase
         _logger = logger;
         _voucherService = voucherService;
     }
+
     // GET: api/<VoucherAPI>
     [HttpGet]
     public async Task<List<VoucherVM>> GetAllVoucherVM()
@@ -37,14 +38,18 @@ public class VoucherAPI : ControllerBase
         var voucherId = await _voucherService.Create(v);
         if (voucherId == 0)
             return BadRequest();
-        var voucher = await _voucherService.GetById(voucherId);
-        return CreatedAtAction(nameof(GetById), new { id = voucherId }, voucher);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(v);
+        }
+        //var voucher = await _voucherService.GetById(voucherId);
+        //return CreatedAtAction(nameof(GetById), new { id = voucherId }, voucher);
     }
 
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-
-    public async Task<IActionResult> Sua([FromRoute] int id, [FromForm] VoucherVM v)
+    public async Task<IActionResult> Sua([FromRoute] Guid id, [FromForm] VoucherVM v)
     {
         if (!ModelState.IsValid)
         {
@@ -56,8 +61,9 @@ public class VoucherAPI : ControllerBase
             return BadRequest();
         return Ok();
     }
+
     [HttpGet("voucher/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var voucher = await _voucherService.GetById(id);
         if (voucher == null)
@@ -68,7 +74,7 @@ public class VoucherAPI : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Xoa(int id)
+    public async Task<IActionResult> Xoa(Guid id)
     {
         var affectedResult = await _voucherService.Delete(id);
         if (affectedResult == 0)

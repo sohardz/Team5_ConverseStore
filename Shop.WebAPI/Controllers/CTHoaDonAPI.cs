@@ -18,7 +18,7 @@ public class CTHoaDonAPI : ControllerBase
     }
 
     [HttpGet("sanpham")]
-    public async Task<IActionResult> GetById(int cthdid)
+    public async Task<IActionResult> GetById(Guid cthdid)
     {
         var sanpham = await _cTHoaDonServices.GetById(cthdid);
         if (sanpham == null)
@@ -39,13 +39,18 @@ public class CTHoaDonAPI : ControllerBase
         var cthdId = await _cTHoaDonServices.Create(request);
         if (cthdId == 0)
             return BadRequest();
-        var sanpham = await _cTHoaDonServices.GetById(cthdId);
-        return CreatedAtAction(nameof(GetById), new { id = cthdId, idsp = request.IdSanPham }, sanpham);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(request);
+        }
+        //var sanpham = await _cTHoaDonServices.GetById(cthdId);
+        //return CreatedAtAction(nameof(GetById), new { id = cthdId, idsp = request.IdSanPham }, sanpham);
     }
 
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] CTHoaDonVM p)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] CTHoaDonVM p)
     {
         if (!ModelState.IsValid)
         {
@@ -59,7 +64,7 @@ public class CTHoaDonAPI : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int idhd, int ctspid)
+    public async Task<IActionResult> Delete(Guid idhd, Guid ctspid)
     {
         var affectedResult = await _cTHoaDonServices.Delete(idhd, ctspid);
         if (affectedResult == 0)

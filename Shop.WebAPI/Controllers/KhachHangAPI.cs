@@ -36,13 +36,18 @@ public class KhachHangAPI : ControllerBase
         var khachHangId = await _khachhangServices.Create(kh);
         if (khachHangId == 0)
             return BadRequest();
-        var khachhang = await _khachhangServices.GetById(khachHangId);
-        return CreatedAtAction(nameof(GetById), new { id = khachHangId }, khachhang);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(kh);
+        }
+        //var khachhang = await _khachhangServices.GetById(khachHangId);
+        //return CreatedAtAction(nameof(GetById), new { id = khachHangId }, khachhang);
     }
+
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] KhachHangVM kh)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] KhachHangVM kh)
     {
         if (!ModelState.IsValid)
         {
@@ -54,8 +59,9 @@ public class KhachHangAPI : ControllerBase
             return BadRequest();
         return Ok();
     }
+
     [HttpGet("khachhang/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var khachhang = await _khachhangServices.GetById(id);
         if (khachhang == null)
@@ -64,9 +70,10 @@ public class KhachHangAPI : ControllerBase
         }
         return Ok(khachhang);
     }
+
     // DELETE api/<KhachHangsAPI>/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _khachhangServices.Delete(id);
         if (affectedResult == 0)
