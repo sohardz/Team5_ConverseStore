@@ -1,16 +1,18 @@
 ﻿namespace Shop.Data.Models;
+
 public class HoaDon
 {
-    public int Id { get; set; }
-    public int IdKh { get; set; }
-    public int IdNv { get; set; }
-    public int IdVoucher { get; set; }
+    public Guid Id { get; set; }
+    public Guid? IdKh { get; set; }
+    public Guid? IdNv { get; set; }
+    public Guid? IdVoucher { get; set; }
     public string Ma { get; set; }
     public string MaNv { get; set; }
+    public string MaKh { get; set; }
     public DateTime NgayTao { get; set; }
-    public DateTime NgayThanhToan { get; set; }
-    public DateTime NgayShip { get; set; }
-    public DateTime NgayNhan { get; set; }
+    public DateTime? NgayThanhToan { get; set; }
+    public DateTime? NgayShip { get; set; }
+    public DateTime? NgayNhan { get; set; }
     public string TenKh { get; set; }
     public string DiaChi { get; set; }
     public decimal TongTien { get; set; }

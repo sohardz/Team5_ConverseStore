@@ -1,8 +1,10 @@
 ﻿namespace Shop.Data.Models;
+
 public class NhanVien
 {
-    public int Id { get; set; }
-    public int IdCv { get; set; }
+    public Guid Id { get; set; }
+    public Guid IdCv { get; set; }
+    public string Ma { get; set; }
     public string HoVaTen { get; set; }
     public string TenTaiKhoan { get; set; }
     public string MatKhau { get; set; }

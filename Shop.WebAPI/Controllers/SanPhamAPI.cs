@@ -4,88 +4,87 @@ using Shop.Application.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Shop.WebAPI.Controllers
+namespace Shop.WebAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class SanPhamAPI : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SanPhamAPI : ControllerBase
+    private readonly ILogger<SanPhamAPI> _logger;
+    private readonly ISanPhamService _sanPhamService;
+
+    public SanPhamAPI(ILogger<SanPhamAPI> logger, ISanPhamService sanPhamServices)
     {
-        private readonly ILogger<SanPhamAPI> _logger;
-        private readonly ISanPhamService _sanPhamService;
+        _logger = logger;
+        _sanPhamService = sanPhamServices;
+    }
+    // GET: api/<SanPhamAPI>
+    [HttpGet]
+    public async Task<List<SanPhamVM>> GetAllSanPhamVM()
+    {
+        return await _sanPhamService.GetAll();
+    }
 
-        public SanPhamAPI(ILogger<SanPhamAPI> logger, ISanPhamServices sanPhamServices)
-        {
-            _logger = logger;
-            _sanPhamService = sanPhamServices;
-        }
-        // GET: api/<SanPhamAPI>
-        [HttpGet]
-        public async Task<List<SanPhamVM>> GetAllSanPhamVM()
-        {
-            return await _sanPhamService.GetAll();
-        }
+    // GET api/<SanPhamAPI>/5
+    [HttpGet("{id}")]
+    public string Get(int id)
+    {
+        return "value";
+    }
 
-        // GET api/<SanPhamAPI>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+    // POST api/<SanPhamAPI>
+    //[HttpPost]
+    //public void Post([FromBody] string value)
+    //{
+    //}
 
-        // POST api/<SanPhamAPI>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+    // PUT api/<SanPhamAPI>/5
+    [HttpPost]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Them([FromForm] SanPhamVM sp)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var sanphamId = await _sanPhamService.Create(sp);
+        if (sanphamId == 0)
+            return BadRequest();
+        var sanpham = await _sanPhamService.GetById(sanphamId);
+        return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
+    }
+    [HttpPut("{id}")]
+    [Consumes("multipart/form-data")]
 
-        // PUT api/<SanPhamAPI>/5
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Them([FromForm] SanPhamVM sp)
+    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] SanPhamVM sp)
+    {
+        if (!ModelState.IsValid)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var sanphamId = await _sanPhamService.Create(sp);
-            if (sanphamId == 0)
-                return BadRequest();
-            var sanpham = await _sanPhamService.GetById(sanphamId);
-            return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
+            return BadRequest(ModelState);
         }
-        [HttpPut("{id}")]
-        [Consumes("multipart/form-data")]
-
-        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] SanPhamVM sp)
+        sp.Id = id;
+        var affectedResult = await _sanPhamService.Edit(sp);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
+    }
+    [HttpGet("sanpham/{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var sanpham = await _sanPhamService.GetById(id);
+        if (sanpham == null)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            sp.Id = id;
-            var affectedResult = await _sanPhamService.Edit(sp);
-            if (affectedResult == 0)
-                return BadRequest();
-            return Ok();
+            return BadRequest("Can't find sanpham");
         }
-        [HttpGet("sanpham/{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var sanpham = await _sanPhamService.GetById(id);
-            if (sanpham == null)
-            {
-                return BadRequest("Can't find sanpham");
-            }
-            return Ok(sanpham);
-        }
-        // DELETE api/<ChucVuAPI>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var affectedResult = await _sanPhamService.Delete(id);
-            if (affectedResult == 0)
-                return BadRequest();
-            return Ok();
-        }
+        return Ok(sanpham);
+    }
+    // DELETE api/<ChucVuAPI>/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var affectedResult = await _sanPhamService.Delete(id);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
     }
 }

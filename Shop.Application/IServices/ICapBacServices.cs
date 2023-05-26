@@ -1,13 +1,12 @@
 ﻿using Shop.Application.ViewModels;
 
-namespace Shop.Application.IServices
+namespace Shop.Application.IServices;
+
+public interface ICapBacServices
 {
-    public interface ICapBacServices
-    {
-        Task<int> Create(CapBacVM cb);
-        Task<int> Edit(CapBacVM kh);
-        Task<int> Delete(int id);
-        Task<List<CapBacVM>> GetAll();
-        Task<CapBacVM> GetById(int id);
-    }
+    Task<int> Create(CapBacVM cb);
+    Task<int> Edit(CapBacVM kh);
+    Task<int> Delete(Guid id);
+    Task<List<CapBacVM>> GetAll();
+    Task<CapBacVM> GetById(Guid id);
 }

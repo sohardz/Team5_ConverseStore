@@ -4,78 +4,77 @@ using Shop.Application.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Shop.WebAPI.Controllers
+namespace Shop.WebAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class AnhAPI : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AnhAPI : ControllerBase
+    private readonly ILogger<AnhAPI> _logger;
+    private readonly IAnhServices _anhServices;
+
+    public AnhAPI(ILogger<AnhAPI> logger, IAnhServices anhServices)
     {
-        private readonly ILogger<AnhAPI> _logger;
-        private readonly IAnhServices _anhServices;
+        _logger = logger;
+        _anhServices = anhServices;
+    }
 
-        public AnhAPI(ILogger<AnhAPI> logger, IAnhServices anhServices)
-        {
-            _logger = logger;
-            _anhServices = anhServices;
-        }
+    // GET: api/<AnhAPI>
+    [HttpGet]
+    public async Task<List<AnhVM>> GetAllAnhVM()
+    {
+        return await _anhServices.GetAll();
+    }
 
-        // GET: api/<AnhAPI>
-        [HttpGet]
-        public async Task<List<AnhVM>> GetAllAnhVM()
+    // PUT api/<ChucVuAPI>/5
+    [HttpPost]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Create([FromForm] AnhVM anhVM)
+    {
+        if (!ModelState.IsValid)
         {
-            return await _anhServices.GetAll();
+            return BadRequest(ModelState);
         }
+        var anhId = await _anhServices.Create(anhVM);
+        if (anhId == 0)
+            return BadRequest();
+        var anh = await _anhServices.GetById(anhId);
+        return CreatedAtAction(nameof(GetById), new { id = anhId }, anh);
+    }
 
-        // PUT api/<ChucVuAPI>/5
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Create([FromForm] AnhVM anhVM)
+    [HttpPut("{id}")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] AnhVM anhVM)
+    {
+        if (!ModelState.IsValid)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var anhId = await _anhServices.Create(anhVM);
-            if (anhId == 0)
-                return BadRequest();
-            var anh = await _anhServices.GetById(anhId);
-            return CreatedAtAction(nameof(GetById), new { id = anhId }, anh);
+            return BadRequest(ModelState);
         }
+        anhVM.Id = id;
+        var affectedResult = await _anhServices.Edit(anhVM);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
+    }
 
-        [HttpPut("{id}")]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] AnhVM anhVM)
+    [HttpGet("anh/{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var anh = await _anhServices.GetById(id);
+        if (anh == null)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            anhVM.Id = id;
-            var affectedResult = await _anhServices.Edit(anhVM);
-            if (affectedResult == 0)
-                return BadRequest();
-            return Ok();
+            return BadRequest("Can't find anh");
         }
+        return Ok(anh);
+    }
 
-        [HttpGet("anh/{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var anh = await _anhServices.GetById(id);
-            if (anh == null)
-            {
-                return BadRequest("Can't find anh");
-            }
-            return Ok(anh);
-        }
-
-        // DELETE api/<ChucVuAPI>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var affectedResult = await _anhServices.Delete(id);
-            if (affectedResult == 0)
-                return BadRequest();
-            return Ok();
-        }
+    // DELETE api/<ChucVuAPI>/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var affectedResult = await _anhServices.Delete(id);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
     }
 }

@@ -5,72 +5,69 @@ using Shop.Application.ViewModels;
 using Shop.Data.Context;
 using Shop.Data.Models;
 
-namespace Shop.Application.Services
+namespace Shop.Application.Services;
+
+public class GioHangService : IGioHangService
 {
-    public class GioHangService : IGioHangService
+    private readonly ShopDbContext _shopDbContext;
+    public GioHangService(ShopDbContext shopDbContext)
     {
-        private readonly ShopDbContext _shopDbContext;
-        public GioHangService(ShopDbContext shopDbContext)
-        {
-            _shopDbContext = shopDbContext;
-        }
-        public async Task<List<GioHangVM>> GetAll()
-        {
-            return await _shopDbContext.GioHangs
-                    .Select(i => new GioHangVM()
-                    {
-                        IdKh = i.IdKh,
-                        MoTa = i.MoTa,
-                        TrangThai = i.TrangThai,
-                    }
-                ).ToListAsync();
-        }
+        _shopDbContext = shopDbContext;
+    }
+    public async Task<List<GioHangVM>> GetAll()
+    {
+        return await _shopDbContext.GioHangs
+                .Select(i => new GioHangVM()
+                {
+                    IdKh = i.IdKh,
+                    MoTa = i.MoTa,
+                    TrangThai = i.TrangThai,
+                }
+            ).ToListAsync();
+    }
 
-        public async Task<GioHangVM> GetById(int id)
+    public async Task<GioHangVM> GetById(Guid id)
+    {
+        var giohang = await _shopDbContext.GioHangs.FindAsync(id);
+        var giohangviewmodel = new GioHangVM()
         {
-            var giohang = await _shopDbContext.GioHangs.FindAsync(id);
-            var giohangviewmodel = new GioHangVM()
-            {
-                IdKh = id,
-                MoTa = giohang.MoTa,
-                TrangThai = giohang.TrangThai
-            };
-            return giohangviewmodel;
-        }
+            IdKh = id,
+            MoTa = giohang.MoTa,
+            TrangThai = giohang.TrangThai
+        };
+        return giohangviewmodel;
+    }
 
-        public async Task<int> Edit(GioHangVM gh)
+    public async Task<int> Edit(GioHangVM gh)
+    {
+        var giohang = await _shopDbContext.GioHangs.FindAsync(gh.IdKh);
+        if (giohang == null) throw new ShopExeption($"Không thể tim thấy giỏ hàng với Id:  {gh.IdKh}");
+
+        giohang.MoTa = gh.MoTa;
+        giohang.TrangThai = gh.TrangThai;
+        return await _shopDbContext.SaveChangesAsync();
+    }
+
+    public async Task<int> Create(GioHangVM gh)
+    {
+        var giohang = new GioHang()
         {
-            var giohang = await _shopDbContext.GioHangs.FindAsync(gh.IdKh);
-            if (giohang == null) throw new ShopExeption($"Không thể tim thấy giỏ hàng với Id:  {gh.IdKh}");
+            IdKh=gh.IdKh,
+            MoTa = gh.MoTa,
+            TrangThai = gh.TrangThai,
+        };
+        await _shopDbContext.AddAsync(giohang);
+        return await _shopDbContext.SaveChangesAsync();       
+    }
 
-            giohang.MoTa = gh.MoTa;
-            giohang.TrangThai = gh.TrangThai;
-            return await _shopDbContext.SaveChangesAsync();
-        }
-
-        public async Task<int> Create(GioHangVM gh)
+    public async Task<int> Delete(Guid id)
+    {
+        var giohang = await _shopDbContext.GioHangs.FindAsync(id);
+        if (giohang == null)
         {
-            var giohang = new GioHang()
-            {
-                IdKh=gh.IdKh,
-                MoTa = gh.MoTa,
-                TrangThai = gh.TrangThai,
-            };
-            _shopDbContext.Add(giohang);
-            await _shopDbContext.SaveChangesAsync();
-            return giohang.IdKh;
+            throw new ShopExeption($"Không thể tìm thấy 1 giỏ hàng : {id}");
         }
-
-        public async Task<int> Delete(int id)
-        {
-            var giohang = await _shopDbContext.GioHangs.FindAsync(id);
-            if (giohang == null)
-            {
-                throw new ShopExeption($"Không thể tìm thấy 1 giỏ hàng : {id}");
-            }
-
-            _shopDbContext.GioHangs.Remove(giohang);
-            return await _shopDbContext.SaveChangesAsync();
-        }
+        _shopDbContext.GioHangs.Remove(giohang);
+        return await _shopDbContext.SaveChangesAsync();
     }
 }

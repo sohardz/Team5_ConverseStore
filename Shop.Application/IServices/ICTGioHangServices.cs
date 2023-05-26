@@ -6,15 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Application.IServices
-{
-    public interface ICTGioHangServices
-    {
-        Task<List<CTGioHangVM>> GetAllCTGioHang();
-        Task<int> Them(CTGioHangVM ctgh);
-        Task<int> Sua(CTGioHangVM ctgh);
-        Task<int> Xoa(int id);
+namespace Shop.Application.IServices;
 
-        Task<CTGioHangVM> GetById(int id);
-    }
+public interface ICTGioHangServices
+{
+    Task<List<CTGioHangVM>> GetAll();
+    Task<int> Create(CTGioHangVM ctgh);
+    Task<int> Edit(CTGioHangVM ctgh);
+    Task<int> Delete(Guid id);
+    Task<CTGioHangVM> GetById(Guid id);
 }

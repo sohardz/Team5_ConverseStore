@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
 namespace Shop.Data.Configurations;
+
 public class HoaDonConfiguration : IEntityTypeConfiguration<HoaDon>
 {
     public void Configure(EntityTypeBuilder<HoaDon> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).UseIdentityColumn();
         builder.Property(x => x.Ma).HasColumnType("varchar(100)");
         builder.Property(x => x.MaNv).HasColumnType("varchar(100)");
         builder.Property(x => x.NgayTao);

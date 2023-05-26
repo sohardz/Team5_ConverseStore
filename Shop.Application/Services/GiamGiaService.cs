@@ -7,100 +7,98 @@ using Shop.Data.Models;
 
 
 
-namespace Shop.Application.Services
+namespace Shop.Application.Services;
+
+public class GiamGiaService : IGiamGiaService
 {
-    public class GiamGiaService : IGiamGiaService
+    private readonly ShopDbContext _shopDbContext;
+    public GiamGiaService(ShopDbContext shopDbContext)
     {
-        private readonly ShopDbContext _shopDbContext;
-        public GiamGiaService(ShopDbContext shopDbContext)
+        _shopDbContext = shopDbContext;
+    }
+    public async Task<List<GiamGiaVM>> GetAll()
+    {
+        return await _shopDbContext.GiamGias
+                 .Select(i => new GiamGiaVM()
+                 {
+                     Id = i.Id,
+                     Ma = i.Ma,
+                     Ten = i.Ten,
+                     NgayBatDau = i.NgayBatDau,
+                     NgayKetThuc = i.NgayKetThuc,
+                     MucGiamGiaPhanTram = i.MucGiamGiaPhanTram,
+                     MucGiamGiaTienMat = i.MucGiamGiaTienMat,
+                     DieuKienGiamGia = i.DieuKienGiamGia,
+                     LoaiGiamGia = i.LoaiGiamGia,
+                     TrangThai = i.TrangThai,
+                 }
+             ).ToListAsync();
+    }
+
+    public async Task<GiamGiaVM> GetById(Guid id)
+    {
+        var giamgia = await _shopDbContext.GiamGias.FindAsync(id);
+        var giamgiaviewmodel = new GiamGiaVM()
         {
-            _shopDbContext = shopDbContext;
-        }
-        public async Task<List<GiamGiaVM>> GetAll()
+            Id = giamgia.Id,
+            Ma = giamgia.Ma,
+            Ten = giamgia.Ten,
+            NgayBatDau = giamgia.NgayBatDau,
+            NgayKetThuc = giamgia.NgayKetThuc,
+            MucGiamGiaPhanTram = giamgia.MucGiamGiaPhanTram,
+            MucGiamGiaTienMat = giamgia.MucGiamGiaTienMat,
+            DieuKienGiamGia = giamgia.DieuKienGiamGia,
+            LoaiGiamGia = giamgia.LoaiGiamGia,
+            TrangThai = giamgia.TrangThai,
+        };
+        return giamgiaviewmodel;
+    }
+
+    public async Task<int> Edit(GiamGiaVM gg)
+    {
+        var giamgia = await _shopDbContext.GiamGias.FindAsync(gg.Id);
+        if (giamgia == null) throw new ShopExeption($"Không thể tim thấy giảm giá với Id:  {gg.Id}");
+        giamgia.Ma = gg.Ma;
+        giamgia.Ten = gg.Ten;
+        giamgia.NgayBatDau = gg.NgayBatDau;
+        giamgia.NgayKetThuc = gg.NgayKetThuc;
+        giamgia.MucGiamGiaPhanTram = gg.MucGiamGiaPhanTram;
+        giamgia.MucGiamGiaTienMat = gg.MucGiamGiaTienMat;
+        giamgia.DieuKienGiamGia = gg.DieuKienGiamGia;
+        giamgia.LoaiGiamGia = gg.LoaiGiamGia;
+        giamgia.TrangThai = 1;
+
+        return await _shopDbContext.SaveChangesAsync();
+    }
+
+    public async Task<int> Create(GiamGiaVM gg)
+    {
+        var giamgia = new GiamGia()
         {
-            return await _shopDbContext.GiamGias
-                     .Select(i => new GiamGiaVM()
-                     {
-                         Id = i.Id,
-                         Ma = i.Ma,
-                         Ten = i.Ten,
-                         NgayBatDau = i.NgayBatDau,
-                         NgayKetThuc = i.NgayKetThuc,
-                         MucGiamGiaPhanTram = i.MucGiamGiaPhanTram,
-                         MucGiamGiaTienMat = i.MucGiamGiaTienMat,
-                         DieuKienGiamGia = i.DieuKienGiamGia,
-                         LoaiGiamGia = i.LoaiGiamGia,
-                         TrangThai = i.TrangThai,
-                     }
-                 ).ToListAsync();
-        }
 
-        public async Task<GiamGiaVM> GetById(int id)
+            Ma = gg.Ma,
+            Ten = gg.Ten,
+            NgayBatDau = DateTime.Now,
+            NgayKetThuc = DateTime.Now,
+            MucGiamGiaPhanTram = gg.MucGiamGiaPhanTram,
+            MucGiamGiaTienMat = gg.MucGiamGiaTienMat,
+            DieuKienGiamGia = gg.DieuKienGiamGia,
+            LoaiGiamGia = gg.LoaiGiamGia,
+            TrangThai = 1,
+        };
+        await _shopDbContext.AddAsync(giamgia);
+        return await _shopDbContext.SaveChangesAsync();        
+    }
+
+    public async Task<int> Delete(Guid id)
+    {
+        var giamgia = await _shopDbContext.GiamGias.FindAsync(id);
+        if (giamgia == null)
         {
-            var giamgia = await _shopDbContext.GiamGias.FindAsync(id);
-            var giamgiaviewmodel = new GiamGiaVM()
-            {
-                Id = giamgia.Id,
-                Ma = giamgia.Ma,
-                Ten = giamgia.Ten,
-                NgayBatDau = giamgia.NgayBatDau,
-                NgayKetThuc = giamgia.NgayKetThuc,
-                MucGiamGiaPhanTram = giamgia.MucGiamGiaPhanTram,
-                MucGiamGiaTienMat = giamgia.MucGiamGiaTienMat,
-                DieuKienGiamGia = giamgia.DieuKienGiamGia,
-                LoaiGiamGia = giamgia.LoaiGiamGia,
-                TrangThai = giamgia.TrangThai,
-            };
-            return giamgiaviewmodel;
+            throw new ShopExeption($"Không thể tìm thấy 1 giảm giá : {id}");
         }
 
-        public async Task<int> Edit(GiamGiaVM gg)
-        {
-            var giamgia = await _shopDbContext.GiamGias.FindAsync(gg.Id);
-            if (giamgia == null) throw new ShopExeption($"Không thể tim thấy giảm giá với Id:  {gg.Id}");
-            giamgia.Ma = gg.Ma;
-            giamgia.Ten = gg.Ten;
-            giamgia.NgayBatDau = gg.NgayBatDau;
-            giamgia.NgayKetThuc = gg.NgayKetThuc;
-            giamgia.MucGiamGiaPhanTram = gg.MucGiamGiaPhanTram;
-            giamgia.MucGiamGiaTienMat = gg.MucGiamGiaTienMat;
-            giamgia.DieuKienGiamGia = gg.DieuKienGiamGia;
-            giamgia.LoaiGiamGia = gg.LoaiGiamGia;
-            giamgia.TrangThai = 1;
-
-            return await _shopDbContext.SaveChangesAsync();
-        }
-
-        public async Task<int> Create(GiamGiaVM gg)
-        {
-            var giamgia = new GiamGia()
-            {
-
-                Ma = gg.Ma,
-                Ten = gg.Ten,
-                NgayBatDau = DateTime.Now,
-                NgayKetThuc = DateTime.Now,
-                MucGiamGiaPhanTram = gg.MucGiamGiaPhanTram,
-                MucGiamGiaTienMat = gg.MucGiamGiaTienMat,
-                DieuKienGiamGia = gg.DieuKienGiamGia,
-                LoaiGiamGia = gg.LoaiGiamGia,
-                TrangThai = 1,
-            };
-            _shopDbContext.Add(giamgia);
-            await _shopDbContext.SaveChangesAsync();
-            return giamgia.Id;
-        }
-
-        public async Task<int> Delete(int id)
-        {
-            var giamgia = await _shopDbContext.GiamGias.FindAsync(id);
-            if (giamgia == null)
-            {
-                throw new ShopExeption($"Không thể tìm thấy 1 giảm giá : {id}");
-            }
-
-            _shopDbContext.GiamGias.Remove(giamgia);
-            return await _shopDbContext.SaveChangesAsync();
-        }
+        _shopDbContext.GiamGias.Remove(giamgia);
+        return await _shopDbContext.SaveChangesAsync();
     }
 }

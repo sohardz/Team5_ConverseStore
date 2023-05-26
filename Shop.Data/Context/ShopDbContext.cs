@@ -3,6 +3,7 @@ using Shop.Data.Models;
 using System.Reflection;
 
 namespace Shop.Data.Context;
+
 public class ShopDbContext : DbContext
 {
     public DbSet<Anh> Anhs { get; set; }

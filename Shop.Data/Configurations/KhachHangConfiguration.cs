@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
 namespace Shop.Data.Configurations;
+
 public class KhachHangConfiguration : IEntityTypeConfiguration<KhachHang>
 {
     public void Configure(EntityTypeBuilder<KhachHang> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).UseIdentityColumn();
         builder.Property(x => x.Ma).HasColumnType("varchar(50)");
         builder.Property(x => x.HoVaTen).HasColumnType("nvarchar(256)");
         builder.Property(x => x.TenTaiKhoan).HasColumnType("varchar(50)");

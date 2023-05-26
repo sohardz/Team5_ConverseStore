@@ -1,13 +1,12 @@
 ﻿using Shop.Application.ViewModels;
 
-namespace Shop.Application.IServices
+namespace Shop.Application.IServices;
+
+public interface IVoucherService
 {
-    public interface IVoucherService
-    {
-        Task<List<VoucherVM>> GetAll();
-        Task<int> Create(VoucherVM v);
-        Task<int> Edit(VoucherVM v);
-        Task<int> Delete(int id);
-        Task<VoucherVM> GetById(int id);
-    }
+    Task<List<VoucherVM>> GetAll();
+    Task<int> Create(VoucherVM v);
+    Task<int> Edit(VoucherVM v);
+    Task<int> Delete(Guid id);
+    Task<VoucherVM> GetById(Guid id);
 }

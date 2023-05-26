@@ -1,10 +1,9 @@
-﻿namespace Shop.Application.ViewModels
+﻿namespace Shop.Application.ViewModels;
+
+public class AnhVM
 {
-    public class AnhVM
-    {
-        public int Id { get; set; }
-        public int IdCTSP { get; set; }
-        public string DuongDan { get; set; }
-        public int TrangThai { get; set; }
-    }
+    public Guid? Id { get; set; }
+    public Guid? IdCtsp { get; set; }
+    public string DuongDan { get; set; }
+    public int TrangThai { get; set; }
 }
