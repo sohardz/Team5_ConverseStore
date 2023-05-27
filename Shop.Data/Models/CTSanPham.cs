@@ -3,7 +3,7 @@
 public class CTSanPham
 {
     public Guid Id { get; set; }
-    public Guid IdCtsp { get; set; }
+    public Guid IdSanPham { get; set; }
     public string Ma { get; set; }
     public decimal GiaNhap { get; set; }
     public decimal GiaBan { get; set; }
