@@ -24,8 +24,7 @@ public class KichCoAPI : ControllerBase
 
         return await _kichCoService.GetAll();
     }
-    
-    
+
     [HttpPost]
     [Consumes("multipart/form-data")]
     public async Task<ActionResult> Them([FromForm] KichCoVM kc)
@@ -37,14 +36,18 @@ public class KichCoAPI : ControllerBase
         var kichcoId = await _kichCoService.Create(kc);
         if (kichcoId == 0)
             return BadRequest();
-        var kichco = await _kichCoService.GetById(kichcoId);
-        return CreatedAtAction(nameof(GetById), new { id = kichcoId }, kichco);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(kc);
+        }
+        //var kichco = await _kichCoService.GetById(kichcoId);
+        //return CreatedAtAction(nameof(GetById), new { id = kichcoId }, kichco);
     }
-
 
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] KichCoVM kc)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] KichCoVM kc)
     {
         if (!ModelState.IsValid)
         {
@@ -57,9 +60,8 @@ public class KichCoAPI : ControllerBase
         return Ok();
     }
 
-
     [HttpGet("kichco/{id}")]
-    public async Task<ActionResult> GetById(int id)
+    public async Task<ActionResult> GetById(Guid id)
     {
         var kichco = await _kichCoService.GetById(id);
         if (kichco == null)
@@ -71,16 +73,11 @@ public class KichCoAPI : ControllerBase
 
     // DELETE: api/KichCoAPI/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _kichCoService.Delete(id);
         if (affectedResult == 0)
             return BadRequest();
         return Ok();
     }
-
-    //private bool KichCoExists(int id)
-    //{
-    //    return (_context.KichCos?.Any(e => e.Id == id)).GetValueOrDefault();
-    //}
 }

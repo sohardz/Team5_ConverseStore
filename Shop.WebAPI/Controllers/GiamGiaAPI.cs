@@ -12,11 +12,13 @@ public class GiamGiaAPI : ControllerBase
 {
     private readonly ILogger<GiamGiaAPI> _logger;
     private readonly IGiamGiaService _giamgiaService;
+
     public GiamGiaAPI(ILogger<GiamGiaAPI> logger, IGiamGiaService giamGiaService)
     {
         _logger = logger;
         _giamgiaService = giamGiaService;
     }
+
     // GET: api/<GiamGiaAPI>
     [HttpGet]
     public async Task<List<GiamGiaVM>> GetAllGiamGiaVM()
@@ -24,24 +26,10 @@ public class GiamGiaAPI : ControllerBase
         return await _giamgiaService.GetAll();
     }
 
-    // GET api/<GiamGiaAPI>/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
-    }
-
-    // POST api/<GiamGiaAPI>
-    //[HttpPost]
-    //public void Post([FromBody] string value)
-    //{
-
-    //}
-
     // PUT api/<GiamGiaAPI>/5
     [HttpPost]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Them([FromForm] GiamGiaVM gg)
+    public async Task<IActionResult> Create([FromForm] GiamGiaVM gg)
     {
         if (!ModelState.IsValid)
         {
@@ -50,13 +38,17 @@ public class GiamGiaAPI : ControllerBase
         var giamgiaId = await _giamgiaService.Create(gg);
         if (giamgiaId == 0)
             return BadRequest();
-        var giamgia = await _giamgiaService.GetById(giamgiaId);
-        return CreatedAtAction(nameof(GetById), new { id = giamgiaId }, giamgia);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(gg);
+        }
+        //var giamgia = await _giamgiaService.GetById(giamgiaId);
+        //return CreatedAtAction(nameof(GetById), new { id = giamgiaId }, giamgia);
     }
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] GiamGiaVM gg)
+    public async Task<IActionResult> Edit([FromRoute] Guid id, [FromForm] GiamGiaVM gg)
     {
         if (!ModelState.IsValid)
         {
@@ -69,7 +61,7 @@ public class GiamGiaAPI : ControllerBase
         return Ok();
     }
     [HttpGet("giamgia/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var giamgia = await _giamgiaService.GetById(id);
         if (giamgia == null)
@@ -81,7 +73,7 @@ public class GiamGiaAPI : ControllerBase
 
     // DELETE api/<GiamGiaAPI>/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _giamgiaService.Delete(id);
         if (affectedResult == 0)

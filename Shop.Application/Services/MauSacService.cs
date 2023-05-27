@@ -57,7 +57,7 @@ public class MauSacService : IMauSacService
         };
         await _shopDbContext.AddAsync(mausac);
         return await _shopDbContext.SaveChangesAsync();
-        
+
     }
 
     public async Task<int> Delete(Guid id)

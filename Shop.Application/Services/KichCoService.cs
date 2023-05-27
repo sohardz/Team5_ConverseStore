@@ -58,7 +58,7 @@ public class KichCoService : IKichCoService
         };
         await _shopDbContext.AddAsync(kichco);
         return await _shopDbContext.SaveChangesAsync();
-    
+
     }
 
     public async Task<int> Delete(Guid id)

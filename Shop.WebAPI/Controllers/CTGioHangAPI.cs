@@ -9,7 +9,7 @@ namespace Shop.WebAPI.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class CTGioHangAPI : ControllerBase
-{   
+{
 
     private readonly ILogger<CTGioHangAPI> _logger;
     private readonly ICTGioHangServices _ctgioHangService;
@@ -24,22 +24,8 @@ public class CTGioHangAPI : ControllerBase
     [HttpGet]
     public async Task<List<CTGioHangVM>> GetAllGioHangVM()
     {
-        return await _ctgioHangService.GetAllCTGioHang();
+        return await _ctgioHangService.GetAll();
     }
-
-    // GET api/<CTGioHangAPI>/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
-    }
-
-    // POST api/<CTGioHangAPI>
-    //[HttpPost]
-    //public void Post([FromBody] string value)
-    //{
-
-    //}
 
     // PUT api/<CTGioHangAPI>/5
     [HttpPost]
@@ -50,29 +36,34 @@ public class CTGioHangAPI : ControllerBase
         {
             return BadRequest(ModelState);
         }
-        var ctgiohangId = await _ctgioHangService.Them(ctgh);
+        var ctgiohangId = await _ctgioHangService.Create(ctgh);
         if (ctgiohangId == 0)
             return BadRequest();
-        var ctgiohang = await _ctgioHangService.GetById(ctgiohangId);
-        return CreatedAtAction(nameof(GetById), new { id = ctgiohangId }, ctgiohang);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(ctgh);
+        }
+        //var ctgiohang = await _ctgioHangService.GetById(ctgiohangId);
+        //return CreatedAtAction(nameof(GetById), new { id = ctgiohangId }, ctgiohang);
     }
+
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] CTGioHangVM ctgh)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] CTGioHangVM ctgh)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
         ctgh.Id = id;
-        var affectedResult = await _ctgioHangService.Sua(ctgh);
+        var affectedResult = await _ctgioHangService.Edit(ctgh);
         if (affectedResult == 0)
             return BadRequest();
         return Ok();
     }
     [HttpGet("ctgiohang/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var ctgiohang = await _ctgioHangService.GetById(id);
         if (ctgiohang == null)
@@ -83,9 +74,9 @@ public class CTGioHangAPI : ControllerBase
     }
     // DELETE api/<CTGioHangAPI>/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var affectedResult = await _ctgioHangService.Xoa(id);
+        var affectedResult = await _ctgioHangService.Delete(id);
         if (affectedResult == 0)
             return BadRequest();
         return Ok();

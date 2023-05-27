@@ -38,13 +38,18 @@ public class MauSacAPI : ControllerBase
         var mausacId = await _mauSacService.Create(ms);
         if (mausacId == 0)
             return BadRequest();
-        var mausac = await _mauSacService.GetById(mausacId);
-        return CreatedAtAction(nameof(GetById), new { id = mausacId }, mausac);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(ms);
+        }
+        //var mausac = await _mauSacService.GetById(mausacId);
+        //return CreatedAtAction(nameof(GetById), new { id = mausacId }, mausac);
     }
 
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] MauSacVM ms)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] MauSacVM ms)
     {
         if (!ModelState.IsValid)
         {
@@ -58,7 +63,7 @@ public class MauSacAPI : ControllerBase
     }
 
     [HttpGet("mausac/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var mausac = await _mauSacService.GetById(id);
         if (mausac == null)
@@ -68,18 +73,12 @@ public class MauSacAPI : ControllerBase
         return Ok(mausac);
     }
 
-
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _mauSacService.Delete(id);
         if (affectedResult == 0)
             return BadRequest();
         return Ok();
     }
-
-    //private bool MauSacExists(int id)
-    //{
-    //    return (_context.MauSacs?.Any(e => e.Id == id)).GetValueOrDefault();
-    //}
 }

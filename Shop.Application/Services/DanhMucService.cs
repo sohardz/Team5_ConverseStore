@@ -57,7 +57,7 @@ public class DanhMucService : IDanhMucService
             TrangThai = dm.TrangThai,
         };
         await _shopDbContext.AddAsync(danhMuc);
-        return await _shopDbContext.SaveChangesAsync();        
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)

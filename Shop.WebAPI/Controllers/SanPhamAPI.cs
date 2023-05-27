@@ -25,19 +25,6 @@ public class SanPhamAPI : ControllerBase
         return await _sanPhamService.GetAll();
     }
 
-    // GET api/<SanPhamAPI>/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
-    }
-
-    // POST api/<SanPhamAPI>
-    //[HttpPost]
-    //public void Post([FromBody] string value)
-    //{
-    //}
-
     // PUT api/<SanPhamAPI>/5
     [HttpPost]
     [Consumes("multipart/form-data")]
@@ -50,13 +37,18 @@ public class SanPhamAPI : ControllerBase
         var sanphamId = await _sanPhamService.Create(sp);
         if (sanphamId == 0)
             return BadRequest();
-        var sanpham = await _sanPhamService.GetById(sanphamId);
-        return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(sp);
+        }
+        //var sanpham = await _sanPhamService.GetById(sanphamId);
+        //return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
     }
+
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] SanPhamVM sp)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] SanPhamVM sp)
     {
         if (!ModelState.IsValid)
         {
@@ -68,8 +60,9 @@ public class SanPhamAPI : ControllerBase
             return BadRequest();
         return Ok();
     }
+
     [HttpGet("sanpham/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var sanpham = await _sanPhamService.GetById(id);
         if (sanpham == null)
@@ -78,9 +71,10 @@ public class SanPhamAPI : ControllerBase
         }
         return Ok(sanpham);
     }
+
     // DELETE api/<ChucVuAPI>/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _sanPhamService.Delete(id);
         if (affectedResult == 0)

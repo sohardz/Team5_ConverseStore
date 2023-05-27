@@ -26,7 +26,7 @@ public class HoaDonAPI : ControllerBase
     }
 
     [HttpGet("sanpham/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var hoadon = await _hoaDonServices.GetById(id);
         if (hoadon == null)
@@ -40,7 +40,6 @@ public class HoaDonAPI : ControllerBase
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> Create([FromForm] HoaDonVM request)
     {
-        int x = request.Id;
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
@@ -48,13 +47,18 @@ public class HoaDonAPI : ControllerBase
         var hoadonId = await _hoaDonServices.Create(request);
         if (hoadonId == 0)
             return BadRequest();
-        var sanpham = await _hoaDonServices.GetById(hoadonId);
-        return CreatedAtAction(nameof(GetById), new { id = hoadonId }, sanpham);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(request);
+        }
+        //var sanpham = await _hoaDonServices.GetById(hoadonId);
+        //return CreatedAtAction(nameof(GetById), new { id = hoadonId }, sanpham);
     }
 
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] HoaDonVM p)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] HoaDonVM p)
     {
         if (!ModelState.IsValid)
         {
@@ -68,7 +72,7 @@ public class HoaDonAPI : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _hoaDonServices.Delete(id);
         if (affectedResult == 0)

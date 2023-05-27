@@ -41,7 +41,7 @@ public class HoaDonServices : IHoaDonServices
             TienShip = p.TienShip,
         };
         await _shopDbContext.AddAsync(hd);
-        return await _shopDbContext.SaveChangesAsync();       
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)

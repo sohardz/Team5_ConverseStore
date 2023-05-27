@@ -100,7 +100,7 @@ public class CTSanPhamService : ICTSanPhamService
         };
 
         await _shopDbContext.CTSanPhams.AddAsync(sanPham);
-        return await _shopDbContext.SaveChangesAsync();        
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)

@@ -58,7 +58,7 @@ public class SanPhamServices : ISanPhamService
             TrangThai = sp.TrangThai,
         };
         await _shopDbContext.AddAsync(sanpham);
-        return await _shopDbContext.SaveChangesAsync();        
+        return await _shopDbContext.SaveChangesAsync();
     }
 
     public async Task<int> Delete(Guid id)
