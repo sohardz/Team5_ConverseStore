@@ -19,7 +19,7 @@ public class CTSanPhamService : ICTSanPhamService
     public async Task<List<CTSanPhamVM>> GetAll()
     {
         var query = from p in _shopDbContext.CTSanPhams
-                    join pt in _shopDbContext.SanPhams on p.IdCtsp equals pt.Id
+                    join pt in _shopDbContext.SanPhams on p.IdSanPham equals pt.Id
                     join m in _shopDbContext.MauSacs on p.IdMauSac equals m.Id
                     join k in _shopDbContext.KichCos on p.IdKichCo equals k.Id
                     join d in _shopDbContext.DanhMucs on p.IdDanhMuc equals d.Id
@@ -58,7 +58,7 @@ public class CTSanPhamService : ICTSanPhamService
             TenMauSac = _shopDbContext.MauSacs.FirstOrDefault(x => x.Id == cTSP.IdMauSac).Ten,
             TenDanhMuc = _shopDbContext.DanhMucs.FirstOrDefault(x => x.Id == cTSP.IdDanhMuc).Ten,
             MaGiamGia = _shopDbContext.GiamGias.FirstOrDefault(x => x.Id == cTSP.IdGiamGia).Ma,
-            TenSP = _shopDbContext.SanPhams.FirstOrDefault(x => x.Id == cTSP.IdCtsp).Ten,
+            TenSP = _shopDbContext.SanPhams.FirstOrDefault(x => x.Id == cTSP.IdSanPham).Ten,
             SoSize = _shopDbContext.KichCos.FirstOrDefault(x => x.Id == cTSP.IdKichCo).SoSize
         };
         return sanPhamViewModel;
@@ -74,7 +74,7 @@ public class CTSanPhamService : ICTSanPhamService
         sanPham.SoLuongTon = p.SoLuongTon;
         sanPham.MoTa = p.MoTa;
         sanPham.TrangThai = p.TrangThai;
-        sanPham.IdCtsp = p.IdCtsp;
+        sanPham.IdSanPham = p.IdSanPham;
         sanPham.IdMauSac = p.IdMauSac;
         sanPham.IdDanhMuc = p.IdDanhMuc;
         sanPham.IdGiamGia = p.IdGiamGia;
@@ -96,7 +96,7 @@ public class CTSanPhamService : ICTSanPhamService
             IdGiamGia = p.IdGiamGia,
             IdMauSac = p.IdMauSac,
             IdKichCo = p.IdKichCo,
-            IdCtsp = p.IdCtsp,
+            IdSanPham = p.IdSanPham,
         };
 
         await _shopDbContext.CTSanPhams.AddAsync(sanPham);

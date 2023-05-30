@@ -12,7 +12,7 @@ public class CTSanPhamVM
     public string TenMauSac { get; set; }
     public string TenDanhMuc { get; set; }
     public string MaGiamGia { get; set; }
-    public Guid IdCtsp { get; set; }
+    public Guid IdSanPham { get; set; }
     public Guid IdKichCo { get; set; }
     public Guid IdMauSac { get; set; }
     public Guid IdDanhMuc { get; set; }

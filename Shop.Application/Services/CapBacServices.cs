@@ -22,6 +22,8 @@ public class CapBacServices : ICapBacServices
                 .Select(i => new CapBacVM()
                 {
                     Id = i.Id,
+                    Ma = i.Ma,
+                    SoDiemCan = i.SoDiemCan,
                     Ten = i.Ten,
                     TrangThai = i.TrangThai,
                 }
@@ -31,26 +33,37 @@ public class CapBacServices : ICapBacServices
     public async Task<CapBacVM> GetById(Guid id)
     {
         var c = await _shopDbContext.CapBacs.FindAsync(id);
-        var capBac = new CapBacVM()
+        if(c == null)
         {
-            Id = id,
-            Ten = c.Ten,
-            SoDiemCan = c.SoDiemCan,
-            TrangThai = c.TrangThai
-        };
-        return capBac;
+            throw new ShopExeption("Không tìm thấy cấp bậc");
+        }
+        else
+        {
+            var capBac = new CapBacVM()
+            {
+                Id = c.Id,
+                Ma = c.Ma,
+                Ten = c.Ten,
+                SoDiemCan = c.SoDiemCan,
+                TrangThai = c.TrangThai
+            };
+            return capBac;
+        }
     }
 
-    public async Task<int> Create(CapBacVM c)
+    public async Task<Guid> Create(CapBacVM cb)
     {
         CapBac capBac = new()
         {
-            Ten = c.Ten,
-            SoDiemCan = c.SoDiemCan,
-            TrangThai = c.TrangThai,
+            Id = Guid.NewGuid(),
+            Ma = cb.Ma,
+            Ten = cb.Ten,
+            SoDiemCan = cb.SoDiemCan,
+            TrangThai = cb.TrangThai,
         };
         await _shopDbContext.CapBacs.AddAsync(capBac);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return capBac.Id;
     }
 
     public async Task<int> Edit(CapBacVM c)

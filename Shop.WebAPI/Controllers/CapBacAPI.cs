@@ -38,20 +38,20 @@ public class CapBacAPI : ControllerBase
     }
 
     [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Add([FromForm] CapBacVM cb)
+    public async Task<IActionResult> Create([FromForm]CapBacVM cb)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
         var check = await _capBacServices.Create(cb);
-        if (check == 0)
+        if (check == Guid.Empty)
+        {
             return BadRequest();
+        }
         else
         {
-            HttpContext.Response.StatusCode = 201;
-            return Ok(cb);
+            return await GetById(check);
         }
         //var mausac = await _capBacServices.GetById(capbacId);
         //return CreatedAtAction(nameof(GetById), new { id = capbacId }, mausac);

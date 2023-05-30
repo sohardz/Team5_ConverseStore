@@ -26,7 +26,7 @@ public class CTGioHangServices : ICTGioHangServices
             {
                 Id = x.p.Id,
                 IdKh = x.m.IdKh,
-                IdCtsp = x.pt.IdCtsp,
+                IdCtsp = x.pt.IdSanPham,
                 SoLuong = x.p.SoLuong,
 
 

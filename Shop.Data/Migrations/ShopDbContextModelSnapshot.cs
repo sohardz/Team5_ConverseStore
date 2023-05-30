@@ -24,36 +24,82 @@ namespace Shop.Data.Migrations
 
             modelBuilder.Entity("Shop.Data.Models.Anh", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DuongDan")
                         .IsRequired()
                         .HasColumnType("varchar(400)");
 
-                    b.Property<int>("IdCTSP")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("IdCtsp")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TrangThai")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCTSP");
+                    b.HasIndex("IdCtsp");
 
                     b.ToTable("Anhs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("34c178f4-fa6b-4f5c-bd34-784393a8437a"),
+                            DuongDan = "/image/1.png",
+                            IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
+                            Ma = "SP 1",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("dbfa5886-01ab-401f-b671-9a5d1e070e28"),
+                            DuongDan = "/image/2.png",
+                            IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
+                            Ma = "SP 1",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("2f355c69-3c5a-42e5-895a-e5093bf41e79"),
+                            DuongDan = "/image/3.png",
+                            IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
+                            Ma = "SP 1",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("27ce22ac-ff4e-4442-83e0-6289ef849328"),
+                            DuongDan = "/image/4.png",
+                            IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
+                            Ma = "SP 1",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("d6c09720-859c-4a45-9123-d2a9853dd720"),
+                            DuongDan = "/image/5.png",
+                            IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
+                            Ma = "SP 1",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.CapBac", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SoDiemCan")
                         .HasColumnType("int");
@@ -68,15 +114,67 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CapBacs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("76a8265a-1c5a-4b8c-9a53-c5b2937b9731"),
+                            Ma = "Hang 1",
+                            SoDiemCan = 0,
+                            Ten = "Thân Thiện",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("1fa242d3-99c5-4d96-84a7-2a0c42c5f01a"),
+                            Ma = "Hang 2",
+                            SoDiemCan = 500,
+                            Ten = "Đồng",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("fb0496fb-aef3-4693-9cf7-8f66ae988a9b"),
+                            Ma = "Hang 3",
+                            SoDiemCan = 1000,
+                            Ten = "Bạc",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("8384a802-700c-4040-b80d-744a028a74e0"),
+                            Ma = "Hang 4",
+                            SoDiemCan = 2000,
+                            Ten = "Vàng",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("894e4300-be80-489c-ad4b-c81cca3ef451"),
+                            Ma = "Hang 5",
+                            SoDiemCan = 5000,
+                            Ten = "Bạch Kim",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("746cb698-abdc-42a4-8f0c-f6aea599dfba"),
+                            Ma = "Hang 6",
+                            SoDiemCan = 10000,
+                            Ten = "Kim Cương",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.ChucVu", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
@@ -88,70 +186,83 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ChucVus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e0abfb76-d44c-42e0-8a7a-542e55b874c0"),
+                            Ma = "CV 1",
+                            Ten = "Quan Ly",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("3698ae73-eaf4-414e-890c-32d7e8073a1c"),
+                            Ma = "CV 2",
+                            Ten = "Nhân Viên Bán Hàng",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.CTGioHang", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<Guid>("IdCtsp")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdKh")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdSanPham")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdKh")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("SoLuong")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdKh");
+                    b.HasIndex("IdCtsp");
 
-                    b.HasIndex("IdSanPham");
+                    b.HasIndex("IdKh");
 
                     b.ToTable("CTGioHangs");
                 });
 
             modelBuilder.Entity("Shop.Data.Models.CTHoaDon", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("DonGia")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("IdHoaDon")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdCtsp")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdSanPham")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdHoaDon")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("SoLuong")
                         .HasColumnType("int");
 
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdHoaDon");
+                    b.HasIndex("IdCtsp");
 
-                    b.HasIndex("IdSanPham");
+                    b.HasIndex("IdHoaDon");
 
                     b.ToTable("CTHoaDons");
                 });
 
             modelBuilder.Entity("Shop.Data.Models.CTSanPham", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("GiaBan")
                         .HasColumnType("decimal(18,2)");
@@ -159,20 +270,24 @@ namespace Shop.Data.Migrations
                     b.Property<decimal>("GiaNhap")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("IdDanhMuc")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdDanhMuc")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdGiamGia")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdGiamGia")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdKichCo")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdKichCo")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdMauSac")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdMauSac")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdSanPham")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdSanPham")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MoTa")
                         .IsRequired()
@@ -198,15 +313,49 @@ namespace Shop.Data.Migrations
                     b.HasIndex("IdSanPham");
 
                     b.ToTable("CTSanPhams");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
+                            GiaBan = 1500000m,
+                            GiaNhap = 1000000m,
+                            IdDanhMuc = new Guid("a1ef45d3-64a2-41db-8e2f-92f94be68901"),
+                            IdGiamGia = new Guid("408db8d3-3690-454c-bef4-bdfe2e6c117a"),
+                            IdKichCo = new Guid("1f9ef290-cba3-4fd5-a5d8-453c1ab422a2"),
+                            IdMauSac = new Guid("a427ff0d-44ac-4194-9c72-ca86f0d84b4e"),
+                            IdSanPham = new Guid("9cfe9060-0102-427e-a78f-1d8706ff1ded"),
+                            Ma = "SP 1",
+                            MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
+                            SoLuongTon = 100,
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("93351f9a-eb83-4bc2-969d-a46275a16c7a"),
+                            GiaBan = 799000m,
+                            GiaNhap = 700000m,
+                            IdDanhMuc = new Guid("d2a7e269-21e1-4dec-969a-b034ddc2ce56"),
+                            IdGiamGia = new Guid("a0078543-2638-481e-9609-17960504eb63"),
+                            IdKichCo = new Guid("f342f0a1-7e87-4917-979c-02d5ba80be80"),
+                            IdMauSac = new Guid("2e97d6b9-2f4a-4b41-accf-18f86223621d"),
+                            IdSanPham = new Guid("5033bc0f-afe2-4f74-b15b-f1fcc36d2aa3"),
+                            Ma = "SP 2",
+                            MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
+                            SoLuongTon = 90,
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.DanhMuc", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
@@ -218,15 +367,29 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DanhMucs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a1ef45d3-64a2-41db-8e2f-92f94be68901"),
+                            Ma = "Loại 1",
+                            Ten = "Real",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("d2a7e269-21e1-4dec-969a-b034ddc2ce56"),
+                            Ma = "Loại 2",
+                            Ten = "Rep 1:1",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.GiamGia", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DieuKienGiamGia")
                         .IsRequired()
@@ -263,12 +426,44 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GiamGias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("408db8d3-3690-454c-bef4-bdfe2e6c117a"),
+                            DieuKienGiamGia = "Mười",
+                            LoaiGiamGia = 1,
+                            Ma = "Loại 1",
+                            MucGiamGiaPhanTram = 10,
+                            MucGiamGiaTienMat = 100000m,
+                            NgayBatDau = new DateTime(2023, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Ten = "Xả hàng",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("a0078543-2638-481e-9609-17960504eb63"),
+                            DieuKienGiamGia = "Hai",
+                            LoaiGiamGia = 2,
+                            Ma = "Loại 2",
+                            MucGiamGiaPhanTram = 40,
+                            MucGiamGiaTienMat = 200000m,
+                            NgayBatDau = new DateTime(2023, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Ten = "Hàng Tồn Kho",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.GioHang", b =>
                 {
-                    b.Property<int>("IdKh")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdKh")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MoTa")
                         .IsRequired()
@@ -284,43 +479,45 @@ namespace Shop.Data.Migrations
 
             modelBuilder.Entity("Shop.Data.Models.HoaDon", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DiaChi")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("IdKh")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("IdKh")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdNv")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("IdNv")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdVoucher")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("IdVoucher")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Ma")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
+                    b.Property<string>("MaKh")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("MaNv")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime>("NgayNhan")
+                    b.Property<DateTime?>("NgayNhan")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("NgayShip")
+                    b.Property<DateTime?>("NgayShip")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("NgayTao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("NgayThanhToan")
+                    b.Property<DateTime?>("NgayThanhToan")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PhanTramGiamGia")
@@ -370,11 +567,9 @@ namespace Shop.Data.Migrations
 
             modelBuilder.Entity("Shop.Data.Models.KhachHang", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DiaChi")
                         .IsRequired()
@@ -395,8 +590,8 @@ namespace Shop.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("IdBac")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("IdBac")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Ma")
                         .IsRequired()
@@ -428,15 +623,53 @@ namespace Shop.Data.Migrations
                     b.HasIndex("IdBac");
 
                     b.ToTable("KhachHangs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9bc9a001-7fa3-4a16-a4ee-34df4fcc53c5"),
+                            DiaChi = "Cầu Giấy, Hà Nội",
+                            Email = "hq37na@gmail.com",
+                            GhiChu = "Khách hàng thân thiện",
+                            GioiTinh = 1,
+                            HoVaTen = "Nguyễn Kim Học",
+                            IdBac = new Guid("76a8265a-1c5a-4b8c-9a53-c5b2937b9731"),
+                            Ma = "KH 1",
+                            MatKhau = "hoc123456",
+                            NgaySinh = new DateTime(2003, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoDiem = 0,
+                            SoDienThoai = "0395297378",
+                            TenTaiKhoan = "hocnk123",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("c63a7259-0d4d-4d80-80db-774922c47951"),
+                            DiaChi = "Sóc Sơn, Hà Nội",
+                            Email = "cuongnpm@gmail.com",
+                            GhiChu = "Khách hàng Bạch Kim",
+                            GioiTinh = 1,
+                            HoVaTen = "Nguyễn Phúc Minh Cương",
+                            IdBac = new Guid("894e4300-be80-489c-ad4b-c81cca3ef451"),
+                            Ma = "KH 2",
+                            MatKhau = "cuong123456",
+                            NgaySinh = new DateTime(2003, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoDiem = 5000,
+                            SoDienThoai = "0972756511",
+                            TenTaiKhoan = "cuongnpm123",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.KichCo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SoSize")
                         .HasColumnType("int");
@@ -447,15 +680,33 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("KichCos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1f9ef290-cba3-4fd5-a5d8-453c1ab422a2"),
+                            Ma = "KC 1",
+                            SoSize = 40,
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("f342f0a1-7e87-4917-979c-02d5ba80be80"),
+                            Ma = "KC 2",
+                            SoSize = 42,
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.MauSac", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
@@ -467,15 +718,29 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MauSacs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a427ff0d-44ac-4194-9c72-ca86f0d84b4e"),
+                            Ma = "MS 1",
+                            Ten = "Trắng",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("2e97d6b9-2f4a-4b41-accf-18f86223621d"),
+                            Ma = "Ms 2",
+                            Ten = "Đen",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.NhanVien", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Anh")
                         .IsRequired()
@@ -489,8 +754,12 @@ namespace Shop.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(75)");
 
-                    b.Property<int>("IdCv")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdCv")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MatKhau")
                         .IsRequired()
@@ -514,11 +783,13 @@ namespace Shop.Data.Migrations
 
             modelBuilder.Entity("Shop.Data.Models.SanPham", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
@@ -530,15 +801,29 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SanPhams");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9cfe9060-0102-427e-a78f-1d8706ff1ded"),
+                            Ma = "SP 1",
+                            Ten = "Giày Converse",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("5033bc0f-afe2-4f74-b15b-f1fcc36d2aa3"),
+                            Ma = "SP 2",
+                            Ten = "Cotton On Ruby ",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.Voucher", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Ma")
                         .IsRequired()
@@ -573,30 +858,56 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vouchers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("90c348df-4cfa-428e-873b-8a700340c99a"),
+                            Ma = "Voucher 1",
+                            MoTa = "Mua một triệu giảm 100000",
+                            NgayApDung = new DateTime(2023, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 100,
+                            SoTienCan = 1000000m,
+                            SoTienGiam = 100000m,
+                            Ten = "Giảm giá tháng 5 và 6",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("97078617-27fc-4874-afaf-1e5e8468fe95"),
+                            Ma = "Voucher 2",
+                            MoTa = "Giảm 400000 khi mua hàng đạt 2000000vnd",
+                            NgayApDung = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoLuong = 50,
+                            SoTienCan = 2000000m,
+                            SoTienGiam = 400000m,
+                            Ten = "Giảm giá tháng 5",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Shop.Data.Models.Anh", b =>
                 {
                     b.HasOne("Shop.Data.Models.CTSanPham", "CTSanPham")
                         .WithMany("Anhs")
-                        .HasForeignKey("IdCTSP")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdCtsp");
 
                     b.Navigation("CTSanPham");
                 });
 
             modelBuilder.Entity("Shop.Data.Models.CTGioHang", b =>
                 {
-                    b.HasOne("Shop.Data.Models.GioHang", "GioHang")
+                    b.HasOne("Shop.Data.Models.CTSanPham", "CTSanPham")
                         .WithMany("CTGioHangs")
-                        .HasForeignKey("IdKh")
+                        .HasForeignKey("IdCtsp")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shop.Data.Models.CTSanPham", "CTSanPham")
+                    b.HasOne("Shop.Data.Models.GioHang", "GioHang")
                         .WithMany("CTGioHangs")
-                        .HasForeignKey("IdSanPham")
+                        .HasForeignKey("IdKh")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -607,15 +918,15 @@ namespace Shop.Data.Migrations
 
             modelBuilder.Entity("Shop.Data.Models.CTHoaDon", b =>
                 {
-                    b.HasOne("Shop.Data.Models.HoaDon", "HoaDon")
+                    b.HasOne("Shop.Data.Models.CTSanPham", "CTSanPham")
                         .WithMany("CTHoaDons")
-                        .HasForeignKey("IdHoaDon")
+                        .HasForeignKey("IdCtsp")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shop.Data.Models.CTSanPham", "CTSanPham")
+                    b.HasOne("Shop.Data.Models.HoaDon", "HoaDon")
                         .WithMany("CTHoaDons")
-                        .HasForeignKey("IdSanPham")
+                        .HasForeignKey("IdHoaDon")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -682,21 +993,15 @@ namespace Shop.Data.Migrations
                 {
                     b.HasOne("Shop.Data.Models.KhachHang", "KhachHang")
                         .WithMany("HoaDons")
-                        .HasForeignKey("IdKh")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdKh");
 
                     b.HasOne("Shop.Data.Models.NhanVien", "NhanVien")
                         .WithMany("HoaDons")
-                        .HasForeignKey("IdNv")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdNv");
 
                     b.HasOne("Shop.Data.Models.Voucher", "Voucher")
                         .WithMany("HoaDons")
-                        .HasForeignKey("IdVoucher")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdVoucher");
 
                     b.Navigation("KhachHang");
 
@@ -709,9 +1014,7 @@ namespace Shop.Data.Migrations
                 {
                     b.HasOne("Shop.Data.Models.CapBac", "CapBac")
                         .WithMany("KhachHangs")
-                        .HasForeignKey("IdBac")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdBac");
 
                     b.Navigation("CapBac");
                 });

@@ -13,7 +13,7 @@ public static class ModelBuilderExtensions
         var dmId1 = new Guid("A1EF45D3-64A2-41DB-8E2F-92F94BE68901");
         var dmId2 = new Guid("D2A7E269-21E1-4DEC-969A-B034DDC2CE56");
         modelBuilder.Entity<DanhMuc>().HasData(
-                new DanhMuc() { Id = dmId1,Ma= "Loại 1", Ten = "Real", TrangThai = 1 },
+                new DanhMuc() { Id = dmId1, Ma = "Loại 1", Ten = "Real", TrangThai = 1 },
                 new DanhMuc() { Id = dmId2, Ma = "Loại 2", Ten = "Rep 1:1", TrangThai = 1 });
         //SanPham
         var sp1 = new Guid("9CFE9060-0102-427E-A78F-1D8706FF1DED");
@@ -37,20 +37,22 @@ public static class ModelBuilderExtensions
         var g1 = new Guid("408DB8D3-3690-454C-BEF4-BDFE2E6C117A");
         var g2 = new Guid("A0078543-2638-481E-9609-17960504EB63");
         modelBuilder.Entity<GiamGia>().HasData(
-                new GiamGia() { 
-                    Id = g1,
-                    Ma = "Loại 1",
-                    Ten = "Xả hàng",
-                    NgayBatDau= new DateTime(2023,5,20),
-                    NgayKetThuc = new DateTime(2023,5,30),
-                    MucGiamGiaPhanTram=10,
-                    MucGiamGiaTienMat= 100000,
-                    DieuKienGiamGia="Mười",
-                    LoaiGiamGia=1,
-                    TrangThai = 1 },
                 new GiamGia()
                 {
                     Id = g1,
+                    Ma = "Loại 1",
+                    Ten = "Xả hàng",
+                    NgayBatDau = new DateTime(2023, 5, 20),
+                    NgayKetThuc = new DateTime(2023, 5, 30),
+                    MucGiamGiaPhanTram = 10,
+                    MucGiamGiaTienMat = 100000,
+                    DieuKienGiamGia = "Mười",
+                    LoaiGiamGia = 1,
+                    TrangThai = 1
+                },
+                new GiamGia()
+                {
+                    Id = g2,
                     Ma = "Loại 2",
                     Ten = "Hàng Tồn Kho",
                     NgayBatDau = new DateTime(2023, 5, 20),
@@ -150,13 +152,13 @@ public static class ModelBuilderExtensions
         var cb5 = new Guid("894E4300-BE80-489C-AD4B-C81CCA3EF451");
         var cb6 = new Guid("746CB698-ABDC-42A4-8F0C-F6AEA599DFBA");
         modelBuilder.Entity<CapBac>().HasData(
-                new CapBac() 
+                new CapBac()
                 {
-                    Id =cb1,
+                    Id = cb1,
                     Ma = "Hang 1",
                     Ten = "Thân Thiện",
                     SoDiemCan = 0,
-                    TrangThai =1
+                    TrangThai = 1
                 },
                 new CapBac()
                 {
@@ -189,7 +191,7 @@ public static class ModelBuilderExtensions
                     Ten = "Bạch Kim",
                     SoDiemCan = 5000,
                     TrangThai = 1
-                }, 
+                },
                 new CapBac()
                 {
                     Id = cb6,
@@ -206,17 +208,17 @@ public static class ModelBuilderExtensions
                 {
                     Id = cv1,
                     Ma = "CV 1",
-                    Ten ="Quan Ly",
+                    Ten = "Quan Ly",
                     TrangThai = 1
                 },
                 new ChucVu()
                 {
                     Id = cv2,
                     Ma = "CV 2",
-                    Ten ="Nhân Viên Bán Hàng",
+                    Ten = "Nhân Viên Bán Hàng",
                     TrangThai = 1
                 });
-        
+
         //Voucher
         var v1 = new Guid("90C348DF-4CFA-428E-873B-8A700340C99A");
         var v2 = new Guid("97078617-27FC-4874-AFAF-1E5E8468FE95");
@@ -228,9 +230,9 @@ public static class ModelBuilderExtensions
                     Ten = "Giảm giá tháng 5 và 6",
                     SoTienCan = 1000000,
                     SoTienGiam = 100000,
-                    NgayApDung = new DateTime(2023,5,20),
-                    NgayKetThuc = new DateTime(2023,6,20),
-                    MoTa="Mua một triệu giảm 100000",
+                    NgayApDung = new DateTime(2023, 5, 20),
+                    NgayKetThuc = new DateTime(2023, 6, 20),
+                    MoTa = "Mua một triệu giảm 100000",
                     SoLuong = 100,
                     TrangThai = 1
                 },
@@ -246,7 +248,7 @@ public static class ModelBuilderExtensions
                     MoTa = "Giảm 400000 khi mua hàng đạt 2000000vnd",
                     SoLuong = 50,
                     TrangThai = 1
-                }); 
+                });
         //Khách Hàng
         var kh1 = new Guid("9BC9A001-7FA3-4A16-A4EE-34DF4FCC53C5");
         var kh2 = new Guid("C63A7259-0D4D-4D80-80DB-774922C47951");
@@ -255,11 +257,12 @@ public static class ModelBuilderExtensions
                 {
                     Id = kh1,
                     Ma = "KH 1",
-                    HoVaTen ="Nguyễn Kim Học",
-                    TenTaiKhoan ="hocnk123",
+                    HoVaTen = "Nguyễn Kim Học",
+                    TenTaiKhoan = "hocnk123",
                     MatKhau = "hoc123456",
                     Email = "hq37na@gmail.com",
-                    NgaySinh = new DateTime(2003,7,19),
+                    SoDienThoai = "0395297378",
+                    NgaySinh = new DateTime(2003, 7, 19),
                     DiaChi = "Cầu Giấy, Hà Nội",
                     GioiTinh = 1,
                     GhiChu = "Khách hàng thân thiện",
@@ -275,6 +278,7 @@ public static class ModelBuilderExtensions
                    TenTaiKhoan = "cuongnpm123",
                    MatKhau = "cuong123456",
                    Email = "cuongnpm@gmail.com",
+                   SoDienThoai = "0972756511",
                    NgaySinh = new DateTime(2003, 6, 11),
                    DiaChi = "Sóc Sơn, Hà Nội",
                    GioiTinh = 1,
@@ -283,7 +287,7 @@ public static class ModelBuilderExtensions
                    SoDiem = 5000,
                    TrangThai = 1
                });
-        
-       
+
+
     }
 }

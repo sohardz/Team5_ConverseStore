@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shop.Data.Extensions;
 using Shop.Data.Models;
 using System.Reflection;
 
@@ -38,5 +39,6 @@ public class ShopDbContext : DbContext
             .HasOne(a => a.GioHang)
             .WithOne(b => b.KhachHang)
             .HasForeignKey<GioHang>(b => b.IdKh);
+        modelBuilder.Seed();
     }
 }
