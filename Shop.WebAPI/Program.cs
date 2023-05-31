@@ -28,6 +28,7 @@ builder.Services.AddTransient<IHoaDonServices, HoaDonServices>();
 builder.Services.AddTransient<ICTHoaDonServices, CTHoaDonServices>();
 builder.Services.AddTransient<IDanhMucService, DanhMucService>();
 builder.Services.AddTransient<IVoucherService, VoucherService>();
+builder.Services.AddTransient<ICTGioHangServices, CTGioHangServices>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
