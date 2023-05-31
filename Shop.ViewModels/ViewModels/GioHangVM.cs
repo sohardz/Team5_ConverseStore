@@ -1,4 +1,4 @@
-﻿namespace Shop.Application.ViewModels;
+﻿namespace Shop.ViewModels.ViewModels;
 
 public class GioHangVM
 {

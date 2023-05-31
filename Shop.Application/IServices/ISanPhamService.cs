@@ -1,4 +1,4 @@
-﻿using Shop.Application.ViewModels;
+﻿using Shop.ViewModels.ViewModels;
 
 namespace Shop.Application.IServices;
 

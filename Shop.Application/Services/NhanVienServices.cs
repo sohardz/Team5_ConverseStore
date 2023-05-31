@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.Application.IServices;
-using Shop.Application.ViewModels;
 using Shop.Data.Context;
 using Shop.Data.Models;
+using Shop.ViewModels.ViewModels;
 
 namespace Shop.Application.Services;
 

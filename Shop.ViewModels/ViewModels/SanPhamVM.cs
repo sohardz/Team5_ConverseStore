@@ -1,6 +1,6 @@
-﻿namespace Shop.Application.ViewModels;
+﻿namespace Shop.ViewModels.ViewModels;
 
-public class DanhMucVM
+public class SanPhamVM
 {
     public Guid Id { get; set; }
     public string Ma { get; set; }
