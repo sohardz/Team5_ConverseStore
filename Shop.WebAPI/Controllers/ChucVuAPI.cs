@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
-using Shop.Application.Services;
 using Shop.Application.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,22 +23,8 @@ public class ChucVuAPI : ControllerBase
     [HttpGet]
     public async Task<List<ChucVuVM>> GetAllChucVuVM()
     {
-        return await _chucVuService.GetAllChucVu();
+        return await _chucVuService.GetAll();
     }
-
-    // GET api/<ChucVuAPI>/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
-    }
-
-    // POST api/<ChucVuAPI>
-    //[HttpPost]
-    //public void Post([FromBody] ChucVuVM cv)
-    //{
-
-    //}
 
     // PUT api/<ChucVuAPI>/5
     [HttpPost]
@@ -51,29 +35,36 @@ public class ChucVuAPI : ControllerBase
         {
             return BadRequest(ModelState);
         }
-        var chucvuId = await _chucVuService.Them(cv);
+        var chucvuId = await _chucVuService.Create(cv);
         if (chucvuId == 0)
             return BadRequest();
-        var chucvu = await _chucVuService.GetById(chucvuId);
-        return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(cv);
+        }
+        //var chucvu = await _chucVuService.GetById(chucvuId);
+        //return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
     }
+
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-    
-    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] ChucVuVM cv)
+
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] ChucVuVM cv)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
         cv.Id = id;
-        var affectedResult = await _chucVuService.Sua(cv);
+        var affectedResult = await _chucVuService.Edit(cv);
         if (affectedResult == 0)
             return BadRequest();
         return Ok();
     }
+
     [HttpGet("chucvu/{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var chucvu = await _chucVuService.GetById(id);
         if (chucvu == null)
@@ -82,11 +73,12 @@ public class ChucVuAPI : ControllerBase
         }
         return Ok(chucvu);
     }
+
     // DELETE api/<ChucVuAPI>/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var affectedResult = await _chucVuService.Xoa(id);
+        var affectedResult = await _chucVuService.Delete(id);
         if (affectedResult == 0)
             return BadRequest();
         return Ok();

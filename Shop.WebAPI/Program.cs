@@ -2,9 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Shop.Application.IServices;
 using Shop.Application.Services;
 using Shop.Data.Context;
-using Shop.Data.IRepositories;
-using Shop.Data.Models;
-using Shop.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +15,19 @@ builder.Services.AddDbContext<ShopDbContext>(x => x.UseSqlServer(connectionStrin
 
 builder.Services.AddTransient<INhanVienServices, NhanVienServices>();
 builder.Services.AddTransient<IChucVuService, ChucVuService>();
-
+builder.Services.AddTransient<IGiamGiaService, GiamGiaService>();
+builder.Services.AddTransient<IGioHangService, GioHangService>();
+builder.Services.AddTransient<IKichCoService, KichCoService>();
+builder.Services.AddTransient<IMauSacService, MauSacService>();
+builder.Services.AddTransient<IAnhServices, AnhServices>();
+builder.Services.AddTransient<IKhachhangServices, KhachHangServices>();
+builder.Services.AddTransient<ICTSanPhamService, CTSanPhamService>();
+builder.Services.AddTransient<ISanPhamService, SanPhamServices>();
+builder.Services.AddTransient<ICapBacServices, CapBacServices>();
+builder.Services.AddTransient<IHoaDonServices, HoaDonServices>();
+builder.Services.AddTransient<ICTHoaDonServices, CTHoaDonServices>();
+builder.Services.AddTransient<IDanhMucService, DanhMucService>();
+builder.Services.AddTransient<IVoucherService, VoucherService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

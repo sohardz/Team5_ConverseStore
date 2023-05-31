@@ -1,11 +1,12 @@
-﻿using Shop.Application.ViewModels;
+﻿using Shop.ViewModels.ViewModels;
 
-namespace Shop.Application.IServices
+namespace Shop.Application.IServices;
+
+public interface INhanVienServices
 {
-    public interface INhanVienServices
-    {
-        Task<List<NhanVienVM>> GetAllNhanVien();
-        Task<int> Add(NhanVienVM nv);
-        Task<NhanVienVM> GetById(int id);
-    }
+    Task<List<NhanVienVM>> GetAll();
+    Task<int> Create(NhanVienVM nv);
+    Task<int> Edit(NhanVienVM nv);
+    Task<int> Delete(Guid id);
+    Task<NhanVienVM> GetById(Guid id);
 }

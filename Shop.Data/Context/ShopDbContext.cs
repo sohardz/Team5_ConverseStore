@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shop.Data.Extensions;
 using Shop.Data.Models;
 using System.Reflection;
 
 namespace Shop.Data.Context;
+
 public class ShopDbContext : DbContext
 {
     public DbSet<Anh> Anhs { get; set; }
     public DbSet<ChucVu> ChucVus { get; set; }
+    public DbSet<CapBac> CapBacs { get; set; }
     public DbSet<CTGioHang> CTGioHangs { get; set; }
     public DbSet<CTHoaDon> CTHoaDons { get; set; }
     public DbSet<CTSanPham> CTSanPhams { get; set; }
@@ -36,5 +39,6 @@ public class ShopDbContext : DbContext
             .HasOne(a => a.GioHang)
             .WithOne(b => b.KhachHang)
             .HasForeignKey<GioHang>(b => b.IdKh);
+        modelBuilder.Seed();
     }
 }

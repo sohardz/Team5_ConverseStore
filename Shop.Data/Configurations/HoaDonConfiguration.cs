@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Data.Models;
 
 namespace Shop.Data.Configurations;
+
 public class HoaDonConfiguration : IEntityTypeConfiguration<HoaDon>
 {
     public void Configure(EntityTypeBuilder<HoaDon> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).UseIdentityColumn();
         builder.Property(x => x.Ma).HasColumnType("varchar(100)");
         builder.Property(x => x.MaNv).HasColumnType("varchar(100)");
         builder.Property(x => x.NgayTao);
@@ -26,8 +26,8 @@ public class HoaDonConfiguration : IEntityTypeConfiguration<HoaDon>
         builder.Property(x => x.SoDiemSuDung);
         builder.Property(x => x.SoTienQuyDoi);
         builder.Property(x => x.TienShip);
-        builder.HasOne(x => x.Voucher).WithMany(x => x.HoaDons).HasForeignKey(x=>x.IdVoucher);
-        builder.HasOne(x => x.KhachHang).WithMany(x => x.HoaDons).HasForeignKey(x=>x.IdKh);
-        builder.HasOne(x => x.NhanVien).WithMany(x => x.HoaDons).HasForeignKey(x=>x.IdVoucher);
+        builder.HasOne(x => x.Voucher).WithMany(x => x.HoaDons).HasForeignKey(x => x.IdVoucher);
+        builder.HasOne(x => x.KhachHang).WithMany(x => x.HoaDons).HasForeignKey(x => x.IdKh);
+        builder.HasOne(x => x.NhanVien).WithMany(x => x.HoaDons).HasForeignKey(x => x.IdNv);
     }
 }

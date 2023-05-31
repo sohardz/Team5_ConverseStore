@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Shop.WebAPI\Shop.WebAPI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\image\" />
+  </ItemGroup>
+
 </Project>

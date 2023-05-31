@@ -1,87 +1,73 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.Application.Exeptions;
 using Shop.Application.IServices;
-using Shop.Application.ViewModels;
 using Shop.Data.Context;
-using Shop.Data.IRepositories;
 using Shop.Data.Models;
-using Shop.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shop.ViewModels.ViewModels;
 
-namespace Shop.Application.Services
+namespace Shop.Application.Services;
+
+public class ChucVuService : IChucVuService
 {
-    public class ChucVuService : IChucVuService
+    private readonly ShopDbContext _shopDbContext;
+    public ChucVuService(ShopDbContext shopDbContext)
     {
-        private readonly ShopDbContext _shopDbContext;
-        public ChucVuService(ShopDbContext shopDbContext)
+        _shopDbContext = shopDbContext;
+    }
+
+    public async Task<List<ChucVuVM>> GetAll()
+    {
+        return await _shopDbContext.ChucVus
+                .Select(i => new ChucVuVM()
+                {
+                    Id = i.Id,
+                    Ten = i.Ten,
+                    TrangThai = i.TrangThai,
+                }
+            ).ToListAsync();
+    }
+
+    public async Task<ChucVuVM> GetById(Guid id)
+    {
+        var chucvu = await _shopDbContext.ChucVus.FindAsync(id);
+        var chucvuviewmodel = new ChucVuVM()
         {
-            _shopDbContext = shopDbContext;
-        }
+            Id = id,
+            Ten = chucvu.Ten,
+            TrangThai = chucvu.TrangThai
+        };
+        return chucvuviewmodel;
+    }
 
-        
+    public async Task<int> Edit(ChucVuVM cv)
+    {
+        var chucvu = await _shopDbContext.ChucVus.FindAsync(cv.Id);
+        if (chucvu == null) throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {cv.Id}");
 
-        public async Task<List<ChucVuVM>> GetAllChucVu()
+        chucvu.Ten = cv.Ten;
+        chucvu.TrangThai = cv.TrangThai;
+        return await _shopDbContext.SaveChangesAsync();
+    }
+
+    public async Task<int> Create(ChucVuVM cv)
+    {
+        var chucvu = new ChucVu()
         {
-            return await _shopDbContext.ChucVus
-                    .Select(i=> new ChucVuVM()
-                    {
-                        Id = i.Id,
-                        Ten = i.Ten,
-                        TrangThai = i.TrangThai,
-                    }
-                ).ToListAsync();
-        }
+            Ten = cv.Ten,
+            TrangThai = cv.TrangThai,
+        };
+        await _shopDbContext.ChucVus.AddAsync(chucvu);
+        return await _shopDbContext.SaveChangesAsync();
+    }
 
-        public async Task<ChucVuVM> GetById(int id)
+    public async Task<int> Delete(Guid id)
+    {
+        var chucvu = await _shopDbContext.ChucVus.FindAsync(id);
+        if (chucvu == null)
         {
-            var chucvu = await _shopDbContext.ChucVus.FindAsync(id);
-            var chucvuviewmodel = new ChucVuVM()
-            {
-                Id = id,
-                Ten = chucvu.Ten,
-                TrangThai = chucvu.TrangThai
-            };
-            return chucvuviewmodel;
+            throw new ShopExeption($"Không thể tìm thấy 1 Chuc Vu : {id}");
         }
-
-        public async Task<int> Sua(ChucVuVM cv)
-        {
-            var chucvu = await _shopDbContext.ChucVus.FindAsync(cv.Id);
-            if (chucvu == null)  throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {cv.Id}");
-
-            chucvu.Ten = cv.Ten;
-            chucvu.TrangThai = cv.TrangThai;
-            return await _shopDbContext.SaveChangesAsync();
-            
-            
-        }
-
-        public async Task<int> Them(ChucVuVM cv)
-        {
-            var chucvu = new ChucVu()
-            {
-                Ten = cv.Ten,
-                TrangThai = cv.TrangThai,
-            };
-            _shopDbContext.Add(chucvu);
-            await _shopDbContext.SaveChangesAsync();
-            return chucvu.Id;
-        }
-
-        public async Task<int> Xoa(int id)
-        {
-            var chucvu = await _shopDbContext.ChucVus.FindAsync(id);
-            if (chucvu == null)
-            {
-                throw new ShopExeption($"Không thể tìm thấy 1 Chuc Vu : {id}");
-            }
-            
-            _shopDbContext.ChucVus.Remove(chucvu);
-            return await _shopDbContext.SaveChangesAsync();
-        }
+        _shopDbContext.ChucVus.Remove(chucvu);
+        return await _shopDbContext.SaveChangesAsync();
     }
 }

@@ -1,66 +1,84 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
-using Shop.Application.Services;
 using Shop.Application.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Shop.WebAPI.Controllers
+namespace Shop.WebAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class NhanVienAPI : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NhanVienAPI : ControllerBase
+    private readonly ILogger<NhanVienAPI> _logger;
+    private readonly INhanVienServices _nhanVienServices;
+
+    public NhanVienAPI(ILogger<NhanVienAPI> logger, INhanVienServices nhanVienServices)
     {
-        private readonly ILogger<NhanVienAPI> _logger;
-        private readonly INhanVienServices _nhanVienServices;
+        _logger = logger;
+        _nhanVienServices = nhanVienServices;
+    }
 
-        public NhanVienAPI(ILogger<NhanVienAPI> logger, INhanVienServices nhanVienServices)
-        {
-            _logger = logger;
-            _nhanVienServices = nhanVienServices;
-        }
+    // GET: api/<NhanVienAPI>
+    [HttpGet]
+    public async Task<List<NhanVienVM>> GetAllNhanVienVM()
+    {
+        return await _nhanVienServices.GetAll();
+    }
 
-        // GET: api/<NhanVienAPI>
-        [HttpGet]
-        public async Task<List<NhanVienVM>> GetAllChucVuVM()
+    [HttpPost]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Create([FromForm] NhanVienVM nv)
+    {
+        if (!ModelState.IsValid)
         {
-            return await _nhanVienServices.GetAllNhanVien();
+            return BadRequest(ModelState);
         }
+        var khachHangId = await _nhanVienServices.Create(nv);
+        if (khachHangId == 0)
+            return BadRequest();
+        else
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(nv);
+        }
+        //var khachhang = await _khachhangServices.GetById(khachHangId);
+        //return CreatedAtAction(nameof(GetById), new { id = khachHangId }, khachhang);
+    }
 
-        // GET api/<NhanVienAPI>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+    [HttpPut("{id}")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] NhanVienVM kh)
+    {
+        if (!ModelState.IsValid)
         {
-            return "value";
+            return BadRequest(ModelState);
         }
+        kh.Id = id;
+        var affectedResult = await _nhanVienServices.Edit(kh);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
+    }
 
-        // POST api/<NhanVienAPI>
-        [HttpPost]
-        public void Post([FromBody] string value)
+    [HttpGet("khachhang/{id}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var khachhang = await _nhanVienServices.GetById(id);
+        if (khachhang == null)
         {
+            return BadRequest("Can't find nhanvien");
         }
+        return Ok(khachhang);
+    }
 
-        // PUT api/<NhanVienAPI>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<NhanVienAPI>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-
-        [HttpGet("nhanvien/{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var chucvu = await _nhanVienServices.GetById(id);
-            if (chucvu == null)
-            {
-                return BadRequest("Can't find chucvu");
-            }
-            return Ok(chucvu);
-        }
+    // DELETE api/<KhachHangsAPI>/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var affectedResult = await _nhanVienServices.Delete(id);
+        if (affectedResult == 0)
+            return BadRequest();
+        return Ok();
     }
 }

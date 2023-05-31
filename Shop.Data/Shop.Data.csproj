@@ -30,8 +30,4 @@
     <None Include="C:\Users\adm\Desktop\Net105_Team5_ConverseStore\Shop.Data\.editorconfig" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
