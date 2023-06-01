@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using Shop.ViewModels.ViewModels;
 using System.Text;
@@ -31,6 +32,9 @@ namespace Shop.AdminApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CapBacVM capBacVM)
         {
+            if (!ModelState.IsValid)
+                return View(capBacVM);
+
             var httpClient = new HttpClient();
 
             string apiURL = "https://localhost:7146/api/CapBacAPI";
@@ -43,7 +47,7 @@ namespace Shop.AdminApp.Controllers
             {
                return RedirectToAction("ShowAllCapBac");
             }
-            BadRequest();
+            ModelState.AddModelError("","Sai roi");
 
             return View(capBacVM);
         }
