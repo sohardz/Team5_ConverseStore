@@ -21,7 +21,7 @@ public class CapBacAPI : ControllerBase
     }
 
     // GET: api/<CapBacAPI>
-    [HttpGet]
+    [HttpGet("get-all-capbac")]
     public async Task<List<CapBacVM>> GetAll()
     {
         return await _capBacServices.GetAll();
