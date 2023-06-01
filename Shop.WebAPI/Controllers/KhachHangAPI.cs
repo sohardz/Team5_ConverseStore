@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
-using Shop.Application.ViewModels;
+
+using Shop.ViewModels.ViewModels;
 
 namespace Shop.WebAPI.Controllers;
 

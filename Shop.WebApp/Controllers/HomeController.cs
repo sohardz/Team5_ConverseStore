@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Application.ViewModels;
+using Shop.ViewModels.ViewModels;
 using Shop.WebApp.Models;
 using Shop.WebApp.Services;
 using System.Diagnostics;
