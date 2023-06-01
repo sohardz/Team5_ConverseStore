@@ -37,13 +37,14 @@ namespace Shop.AdminApp.Controllers
 
             var json = JsonConvert.SerializeObject(capBacVM);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-
+            
             var response = await httpClient.PostAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
-                RedirectToAction("ShowAllCapBac");
+               return RedirectToAction("ShowAllCapBac");
             }
             BadRequest();
+
             return View(capBacVM);
         }
     }

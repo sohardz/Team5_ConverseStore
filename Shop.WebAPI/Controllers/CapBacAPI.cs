@@ -39,7 +39,7 @@ public class CapBacAPI : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromForm]CapBacVM cb)
+    public async Task<IActionResult> Create([FromBody]CapBacVM cb)
     {
         if (!ModelState.IsValid)
         {
