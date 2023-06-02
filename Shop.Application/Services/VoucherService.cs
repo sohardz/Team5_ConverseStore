@@ -52,7 +52,7 @@ public class VoucherService : IVoucherService
         return voucherViewModel;
     }
 
-    public async Task<int> Edit(VoucherVM v)
+    public async Task<Guid> Edit(VoucherVM v)
     {
         var voucher = await _shopDbContext.Vouchers.FindAsync(v.Id);
         if (voucher == null) throw new ShopExeption($"Không thể tim thấy voucher với Id:  {v.Id}");
@@ -66,14 +66,17 @@ public class VoucherService : IVoucherService
         voucher.MoTa = v.MoTa;
         voucher.TrangThai = v.TrangThai;
         _shopDbContext.Update(voucher);
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return voucher.Id;
     }
 
-    public async Task<int> Create(VoucherVM v)
+    public async Task<Guid> Create(VoucherVM v)
     {
         var voucher = new Voucher()
         {
+            Id = Guid.NewGuid(),
             Ten = v.Ten,
+            Ma = v.Ma,
             SoTienCan = v.SoTienCan,
             SoTienGiam = v.SoTienGiam,
             NgayApDung = v.NgayApDung,
@@ -83,7 +86,8 @@ public class VoucherService : IVoucherService
             TrangThai = v.TrangThai,
         };
         await _shopDbContext.AddAsync(voucher);
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return voucher.Id;
     }
 
     public async Task<int> Delete(Guid id)

@@ -22,6 +22,7 @@ public class SanPhamServices : ISanPhamService
             .Select(i => new SanPhamVM()
             {
                 Id = i.Id,
+                Ma = i.Ma,
                 Ten = i.Ten,
                 TrangThai = i.TrangThai,
             }
@@ -34,31 +35,36 @@ public class SanPhamServices : ISanPhamService
         var sanphamviewmodel = new SanPhamVM()
         {
             Id = id,
+            Ma = sp.Ma,
             Ten = sp.Ten,
             TrangThai = sp.TrangThai
         };
         return sanphamviewmodel;
     }
 
-    public async Task<int> Edit(SanPhamVM sp)
+    public async Task<Guid> Edit(SanPhamVM sp)
     {
         var sanpham = await _shopDbContext.SanPhams.FindAsync(sp.Id);
         if (sanpham == null) throw new ShopExeption($"Không thể tim thấy Sản Phẩm với Id:  {sp.Id}");
-
+        sanpham.Ma = sp.Ma;
         sanpham.Ten = sp.Ten;
         sanpham.TrangThai = sp.TrangThai;
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return sanpham.Id;
     }
 
-    public async Task<int> Create(SanPhamVM sp)
+    public async Task<Guid> Create(SanPhamVM sp)
     {
         var sanpham = new SanPham()
         {
+            Id = Guid.NewGuid(),
+            Ma = sp.Ma,
             Ten = sp.Ten,
             TrangThai = sp.TrangThai,
         };
         await _shopDbContext.AddAsync(sanpham);
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return sanpham.Id;
     }
 
     public async Task<int> Delete(Guid id)

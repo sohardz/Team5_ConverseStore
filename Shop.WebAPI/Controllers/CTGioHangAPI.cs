@@ -38,7 +38,7 @@ public class CTGioHangAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var ctgiohangId = await _ctgioHangService.Create(ctgh);
-        if (ctgiohangId == 0)
+        if (ctgiohangId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -59,7 +59,7 @@ public class CTGioHangAPI : ControllerBase
         }
         ctgh.Id = id;
         var affectedResult = await _ctgioHangService.Edit(ctgh);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
+using Shop.Application.Services;
 using Shop.ViewModels.ViewModels;
 
 
@@ -27,22 +28,22 @@ public class ChucVuAPI : ControllerBase
         return await _chucVuService.GetAll();
     }
 
-    // PUT api/<ChucVuAPI>/5
+    
     [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Them([FromForm] ChucVuVM cv)
+    public async Task<IActionResult> Them([FromBody] ChucVuVM cv)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-        var chucvuId = await _chucVuService.Create(cv);
-        if (chucvuId == 0)
+        var check = await _chucVuService.Create(cv);
+        if (check == Guid.Empty)
+        {
             return BadRequest();
+        }
         else
         {
-            HttpContext.Response.StatusCode = 201;
-            return Ok(cv);
+            return await GetById(check);
         }
         //var chucvu = await _chucVuService.GetById(chucvuId);
         //return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
@@ -50,7 +51,6 @@ public class ChucVuAPI : ControllerBase
 
     [HttpPut("{id}")]
     [Consumes("multipart/form-data")]
-
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] ChucVuVM cv)
     {
         if (!ModelState.IsValid)
@@ -59,7 +59,7 @@ public class ChucVuAPI : ControllerBase
         }
         cv.Id = id;
         var affectedResult = await _chucVuService.Edit(cv);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

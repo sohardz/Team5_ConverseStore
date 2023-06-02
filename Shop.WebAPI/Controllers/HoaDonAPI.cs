@@ -46,7 +46,7 @@ public class HoaDonAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var hoadonId = await _hoaDonServices.Create(request);
-        if (hoadonId == 0)
+        if (hoadonId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -67,7 +67,7 @@ public class HoaDonAPI : ControllerBase
         }
         p.Id = id;
         var affectedResult = await _hoaDonServices.Edit(p);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

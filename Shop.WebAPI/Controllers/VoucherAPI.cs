@@ -37,7 +37,7 @@ public class VoucherAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var voucherId = await _voucherService.Create(v);
-        if (voucherId == 0)
+        if (voucherId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -58,7 +58,7 @@ public class VoucherAPI : ControllerBase
         }
         v.Id = id;
         var affectedResult = await _voucherService.Edit(v);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

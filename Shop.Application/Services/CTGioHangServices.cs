@@ -50,29 +50,31 @@ public class CTGioHangServices : ICTGioHangServices
         return ctgiohangviewmodel;
     }
 
-    public async Task<int> Edit(CTGioHangVM ctgh)
+    public async Task<Guid> Edit(CTGioHangVM ctgh)
     {
         var ctgiohang = await _shopDbContext.CTGioHangs.FindAsync(ctgh.Id);
 
         if (ctgiohang == null) throw new ShopExeption($"Can't find a product with id: {ctgh.Id}");
         ctgiohang.SoLuong = ctgh.SoLuong;
-        ctgiohang.IdKh = ctgh.IdKh;
         ctgiohang.IdCtsp = ctgh.IdCtsp;
         _shopDbContext.Update(ctgiohang);
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return ctgiohang.Id;
     }
 
-    public async Task<int> Create(CTGioHangVM ctgh)
+    public async Task<Guid> Create(CTGioHangVM ctgh)
     {
         var ctgiohang = new CTGioHang()
         {
+            Id = Guid.NewGuid(),
             SoLuong = ctgh.SoLuong,
             IdKh = ctgh.IdKh,
             IdCtsp = ctgh.IdCtsp,
         };
 
         await _shopDbContext.CTGioHangs.AddAsync(ctgiohang);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return ctgiohang.Id;
     }
 
     public async Task<int> Delete(Guid id)

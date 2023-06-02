@@ -6,7 +6,7 @@ public interface ISanPhamService
 {
     public Task<List<SanPhamVM>> GetAll();
     public Task<SanPhamVM> GetById(Guid id);
-    public Task<int> Edit(SanPhamVM sp);
-    public Task<int> Create(SanPhamVM sp);
+    public Task<Guid> Edit(SanPhamVM sp);
+    public Task<Guid> Create(SanPhamVM sp);
     public Task<int> Delete(Guid id);
 }

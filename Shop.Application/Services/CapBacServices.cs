@@ -66,13 +66,15 @@ public class CapBacServices : ICapBacServices
         return capBac.Id;
     }
 
-    public async Task<int> Edit(CapBacVM c)
+    public async Task<Guid> Edit(CapBacVM c)
     {
         var capbac = await _shopDbContext.CapBacs.FindAsync(c.Id);
         if (capbac == null) throw new ShopExeption($"Không thể tim thấy cấp bậc với Id:  {c.Id}");
+        capbac.Ma = c.Ma;
         capbac.Ten = c.Ten;
         capbac.TrangThai = c.TrangThai;
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return capbac.Id;
     }
 
     public async Task<int> Delete(Guid id)

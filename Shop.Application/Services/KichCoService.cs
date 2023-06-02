@@ -21,6 +21,7 @@ public class KichCoService : IKichCoService
                 .Select(i => new KichCoVM()
                 {
                     Id = i.Id,
+                    Ma = i.Ma,
                     SoSize = i.SoSize,
                     TrangThai = i.TrangThai,
                 }
@@ -33,31 +34,36 @@ public class KichCoService : IKichCoService
         var kichcoviewmodel = new KichCoVM()
         {
             Id = id,
+            Ma = kichco.Ma,
             SoSize = kichco.SoSize,
             TrangThai = kichco.TrangThai
         };
         return kichcoviewmodel;
     }
 
-    public async Task<int> Edit(KichCoVM kc)
+    public async Task<Guid> Edit(KichCoVM kc)
     {
         var kichco = await _shopDbContext.KichCos.FindAsync(kc.Id);
         if (kichco == null) throw new ShopExeption($"Không thể tim thấy Kích Cỡ với Id:  {kc.Id}");
-
+        kichco.Ma = kc.Ma;
         kichco.SoSize = kc.SoSize;
         kichco.TrangThai = kc.TrangThai;
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return kichco.Id;
     }
 
-    public async Task<int> Create(KichCoVM kc)
+    public async Task<Guid> Create(KichCoVM kc)
     {
         var kichco = new KichCo()
         {
+            Id = Guid.NewGuid(),
+            Ma = kc.Ma,
             SoSize = kc.SoSize,
             TrangThai = kc.TrangThai,
         };
         await _shopDbContext.AddAsync(kichco);
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return kichco.Id;
 
     }
 

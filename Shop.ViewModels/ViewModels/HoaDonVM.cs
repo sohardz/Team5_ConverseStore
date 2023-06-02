@@ -2,7 +2,7 @@
 
 public class HoaDonVM
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public Guid? IdKh { get; set; }
     public Guid? IdNv { get; set; }
     public Guid? IdVoucher { get; set; }

@@ -36,7 +36,7 @@ public class SanPhamAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var sanphamId = await _sanPhamService.Create(sp);
-        if (sanphamId == 0)
+        if (sanphamId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -57,9 +57,9 @@ public class SanPhamAPI : ControllerBase
         }
         sp.Id = id;
         var affectedResult = await _sanPhamService.Edit(sp);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
-        return Ok();
+        return Ok(sp);
     }
 
     [HttpGet("sanpham/{id}")]

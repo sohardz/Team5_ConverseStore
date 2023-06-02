@@ -37,7 +37,7 @@ public class MauSacAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var mausacId = await _mauSacService.Create(ms);
-        if (mausacId == 0)
+        if (mausacId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -58,7 +58,7 @@ public class MauSacAPI : ControllerBase
         }
         ms.Id = id;
         var affectedResult = await _mauSacService.Edit(ms);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

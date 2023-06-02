@@ -15,17 +15,19 @@ public class CTHoaDonServices : ICTHoaDonServices
         _shopDbContext = shopDbContext;
     }
 
-    public async Task<int> Create(CTHoaDonVM p)
+    public async Task<Guid> Create(CTHoaDonVM p)
     {
         CTHoaDon ct = new()
         {
+            Id = Guid.NewGuid(),
             IdHoaDon = p.IdHoaDon,
             IdCtsp = p.IdCtsp,
             SoLuong = p.SoLuong,
             DonGia = p.DonGia,
         };
         await _shopDbContext.AddAsync(ct);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return ct.Id;
     }
 
     public async Task<int> Delete(Guid idhd, Guid idctsp)
@@ -35,12 +37,13 @@ public class CTHoaDonServices : ICTHoaDonServices
         return await _shopDbContext.SaveChangesAsync();
     }
 
-    public async Task<int> Edit(CTHoaDonVM p)
+    public async Task<Guid> Edit(CTHoaDonVM p)
     {
         CTHoaDon ct = await _shopDbContext.CTHoaDons.FirstOrDefaultAsync(x => x.IdHoaDon == p.IdHoaDon && x.IdCtsp == p.IdCtsp);
         ct.SoLuong = p.SoLuong;
         _shopDbContext.Update(ct);
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return ct.Id;
     }
 
     public async Task<CTHoaDonVM> GetById(Guid idcthd)

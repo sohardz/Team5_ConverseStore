@@ -36,7 +36,7 @@ public class DanhMucAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var danhMucId = await _danhMucService.Create(dm);
-        if (danhMucId == 0)
+        if (danhMucId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -57,7 +57,7 @@ public class DanhMucAPI : ControllerBase
         }
         dm.Id = id;
         var affectedResult = await _danhMucService.Edit(dm);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

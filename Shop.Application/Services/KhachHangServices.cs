@@ -45,29 +45,30 @@ public class KhachHangServices : IKhachhangServices
 
     public async Task<KhachHangVM> GetById(Guid id)
     {
-        var Khachhang = await _shopDbContext.KhachHangs.FindAsync(id);
-        var KhachHangVewmodel = new KhachHangVM()
+        var khachHang = await _shopDbContext.KhachHangs.FindAsync(id);
+        var khachHangViewmodel = new KhachHangVM()
         {
             Id = id,
-            Ma = Khachhang.Ma,
-            HoVaTen = Khachhang.HoVaTen,
-            MatKhau = Khachhang.MatKhau,
-            SoDienThoai = Khachhang.SoDienThoai,
-            GioiTinh = Khachhang.GioiTinh,
-            Email = Khachhang.Email,
-            NgaySinh = Khachhang.NgaySinh,
-            DiaChi = Khachhang.DiaChi,
-            GhiChu = Khachhang.GhiChu,
-            TrangThai = Khachhang.TrangThai,
-            IdBac = id
+            Ma = khachHang.Ma,
+            HoVaTen = khachHang.HoVaTen,
+            MatKhau = khachHang.MatKhau,
+            SoDienThoai = khachHang.SoDienThoai,
+            GioiTinh = khachHang.GioiTinh,
+            Email = khachHang.Email,
+            NgaySinh = khachHang.NgaySinh,
+            DiaChi = khachHang.DiaChi,
+            GhiChu = khachHang.GhiChu,
+            TrangThai = khachHang.TrangThai,
+            IdBac = khachHang.IdBac
         };
-        return KhachHangVewmodel;
+        return khachHangViewmodel;
     }
 
-    public async Task<int> Edit(KhachHangVM kh)
+    public async Task<Guid> Edit(KhachHangVM kh)
     {
         var khachhang = await _shopDbContext.KhachHangs.FindAsync(kh.Id);
-        if (khachhang == null) throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {kh.Id}");
+        if (khachhang == null) throw new ShopExeption($"Không thể tim thấy khách hàng với Id:  {kh.Id}");
+        khachhang.Ma = kh.Ma;
         khachhang.HoVaTen = kh.HoVaTen;
         khachhang.MatKhau = kh.MatKhau;
         khachhang.SoDienThoai = kh.SoDienThoai;
@@ -78,13 +79,16 @@ public class KhachHangServices : IKhachhangServices
         khachhang.NgaySinh = kh.NgaySinh;
         khachhang.IdBac = kh.IdBac;
         khachhang.TrangThai = kh.TrangThai;
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return khachhang.Id;
     }
 
-    public async Task<int> Create(KhachHangVM kh)
+    public async Task<Guid> Create(KhachHangVM kh)
     {
         var khachhang = new KhachHang()
         {
+            Id = Guid.NewGuid(),
+            Ma = kh.Ma,
             HoVaTen = kh.HoVaTen,
             TenTaiKhoan = kh.TenTaiKhoan,
             MatKhau = kh.MatKhau,
@@ -99,7 +103,8 @@ public class KhachHangServices : IKhachhangServices
             TrangThai = kh.TrangThai,
         };
         await _shopDbContext.AddAsync(khachhang);
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return khachhang.Id;
     }
 
     public async Task<int> Delete(Guid id)
@@ -107,7 +112,7 @@ public class KhachHangServices : IKhachhangServices
         var khachhang = await _shopDbContext.KhachHangs.FindAsync(id);
         if (khachhang == null)
         {
-            throw new ShopExeption($"Không thể tìm thấy 1 Chuc Vu : {id}");
+            throw new ShopExeption($"Không thể tìm thấy khách hàng với : {id}");
         }
 
         _shopDbContext.KhachHangs.Remove(khachhang);

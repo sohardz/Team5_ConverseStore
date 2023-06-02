@@ -16,10 +16,11 @@ public class HoaDonServices : IHoaDonServices
         _shopDbContext = shopDbContext;
     }
 
-    public async Task<int> Create(HoaDonVM p)
+    public async Task<Guid> Create(HoaDonVM p)
     {
         HoaDon hd = new()
         {
+            Id = Guid.NewGuid(),
             IdKh = p.IdKh,
             IdNv = p.IdNv,
             IdVoucher = p.IdVoucher,
@@ -41,7 +42,8 @@ public class HoaDonServices : IHoaDonServices
             TienShip = p.TienShip,
         };
         await _shopDbContext.AddAsync(hd);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return hd.Id;
     }
 
     public async Task<int> Delete(Guid id)
@@ -55,7 +57,7 @@ public class HoaDonServices : IHoaDonServices
         return await _shopDbContext.SaveChangesAsync();
     }
 
-    public async Task<int> Edit(HoaDonVM p)
+    public async Task<Guid> Edit(HoaDonVM p)
     {
         HoaDon hd = await _shopDbContext.HoaDons.FindAsync(p.Id);
         hd.IdKh = p.IdKh;
@@ -78,7 +80,8 @@ public class HoaDonServices : IHoaDonServices
         hd.SoTienQuyDoi = p.SoTienQuyDoi;
         hd.TienShip = p.TienShip;
         _shopDbContext.HoaDons.Update(hd);
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return hd.Id;
     }
 
     public async Task<List<HoaDonVM>> GetAll()

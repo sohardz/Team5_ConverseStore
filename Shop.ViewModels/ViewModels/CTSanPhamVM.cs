@@ -2,7 +2,7 @@
 
 public class CTSanPhamVM
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public string TenSP { get; set; }
     public decimal GiaNhap { get; set; }
     public decimal GiaBan { get; set; }

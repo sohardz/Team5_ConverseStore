@@ -68,7 +68,7 @@ public class CapBacAPI : ControllerBase
         }
         cb.Id = id;
         var affectedResult = await _capBacServices.Edit(cb);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

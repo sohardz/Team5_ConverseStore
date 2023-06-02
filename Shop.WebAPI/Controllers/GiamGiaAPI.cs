@@ -37,7 +37,7 @@ public class GiamGiaAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var giamgiaId = await _giamgiaService.Create(gg);
-        if (giamgiaId == 0)
+        if (giamgiaId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -57,7 +57,7 @@ public class GiamGiaAPI : ControllerBase
         }
         gg.Id = id;
         var affectedResult = await _giamgiaService.Edit(gg);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }
