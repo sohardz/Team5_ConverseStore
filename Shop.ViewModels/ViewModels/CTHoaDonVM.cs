@@ -2,7 +2,7 @@
 
 public class CTHoaDonVM
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public Guid IdHoaDon { get; set; }
     public Guid IdCtsp { get; set; }
     public int SoLuong { get; set; }

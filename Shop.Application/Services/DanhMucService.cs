@@ -39,25 +39,28 @@ public class DanhMucService : IDanhMucService
         return danhMucViewModel;
     }
 
-    public async Task<int> Edit(DanhMucVM dm)
+    public async Task<Guid> Edit(DanhMucVM dm)
     {
         var danhMuc = await _shopDbContext.DanhMucs.FindAsync(dm.Id);
         if (danhMuc == null) throw new ShopExeption($"Không thể tim thấy danh mục với Id:  {dm.Id}");
 
         danhMuc.Ten = dm.Ten;
         danhMuc.TrangThai = dm.TrangThai;
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return danhMuc.Id;
     }
 
-    public async Task<int> Create(DanhMucVM dm)
+    public async Task<Guid> Create(DanhMucVM dm)
     {
         var danhMuc = new DanhMuc()
         {
+            Id = Guid.NewGuid(),
             Ten = dm.Ten,
             TrangThai = dm.TrangThai,
         };
         await _shopDbContext.AddAsync(danhMuc);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return danhMuc.Id;
     }
 
     public async Task<int> Delete(Guid id)
@@ -65,7 +68,7 @@ public class DanhMucService : IDanhMucService
         var danhMuc = await _shopDbContext.DanhMucs.FindAsync(id);
         if (danhMuc == null)
         {
-            throw new ShopExeption($"Không thể tìm thấy 1 danh mục : {id}");
+            throw new ShopExeption($"Không thể tìm thấy danh mục với id : {id}");
         }
         _shopDbContext.DanhMucs.Remove(danhMuc);
         return await _shopDbContext.SaveChangesAsync();

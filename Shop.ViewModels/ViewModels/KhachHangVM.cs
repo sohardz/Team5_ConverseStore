@@ -2,7 +2,7 @@
 
 public class KhachHangVM
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public string Ma { get; set; }
     public string HoVaTen { get; set; }
     public string TenTaiKhoan { get; set; }

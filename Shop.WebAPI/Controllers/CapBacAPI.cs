@@ -66,7 +66,7 @@ public class CapBacAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var affectedResult = await _capBacServices.Edit(cb);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

@@ -31,7 +31,7 @@ public class CTSanPhamAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var sanphamId = await _sanPhamService.Create(request);
-        if (sanphamId == 0)
+        if (sanphamId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -64,7 +64,7 @@ public class CTSanPhamAPI : ControllerBase
         }
         p.Id = id;
         var affectedResult = await _sanPhamService.Edit(p);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

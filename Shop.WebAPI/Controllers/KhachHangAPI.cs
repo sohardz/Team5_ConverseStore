@@ -35,7 +35,7 @@ public class KhachHangAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var khachHangId = await _khachhangServices.Create(kh);
-        if (khachHangId == 0)
+        if (khachHangId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -56,7 +56,7 @@ public class KhachHangAPI : ControllerBase
         }
         kh.Id = id;
         var affectedResult = await _khachhangServices.Edit(kh);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

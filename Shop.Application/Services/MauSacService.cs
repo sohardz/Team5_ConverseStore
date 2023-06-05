@@ -20,6 +20,7 @@ public class MauSacService : IMauSacService
                 .Select(i => new MauSacVM()
                 {
                     Id = i.Id,
+                    Ma = i.Ma,
                     Ten = i.Ten,
                     TrangThai = i.TrangThai,
                 }
@@ -32,31 +33,36 @@ public class MauSacService : IMauSacService
         var mausacviewmodel = new MauSacVM()
         {
             Id = id,
+            Ma = mausac.Ma,
             Ten = mausac.Ten,
             TrangThai = mausac.TrangThai
         };
         return mausacviewmodel;
     }
 
-    public async Task<int> Edit(MauSacVM ms)
+    public async Task<Guid> Edit(MauSacVM ms)
     {
         var mausac = await _shopDbContext.MauSacs.FindAsync(ms.Id);
         if (mausac == null) throw new ShopExeption($"Không thể tim thấy màu sắc với Id:  {ms.Id}");
-
+        mausac.Ma = ms.Ma;
         mausac.Ten = ms.Ten;
         mausac.TrangThai = ms.TrangThai;
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return mausac.Id;
     }
 
-    public async Task<int> Create(MauSacVM ms)
+    public async Task<Guid> Create(MauSacVM ms)
     {
         var mausac = new MauSac()
         {
+            Id = Guid.NewGuid(),
+            Ma = ms.Ma,
             Ten = ms.Ten,
             TrangThai = ms.TrangThai,
         };
         await _shopDbContext.AddAsync(mausac);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return mausac.Id;
 
     }
 

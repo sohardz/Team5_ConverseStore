@@ -64,11 +64,12 @@ public class CTSanPhamService : ICTSanPhamService
         return sanPhamViewModel;
     }
 
-    public async Task<int> Edit(CTSanPhamVM p)
+    public async Task<Guid> Edit(CTSanPhamVM p)
     {
         var sanPham = await _shopDbContext.CTSanPhams.FindAsync(p.Id);
         //var capbac = await _shopDbContext.CapBacs.FirstOrDefaultAsync(x => x.Id == kh.IdBac);
         if (sanPham == null) throw new ShopExeption($"Can't find a product with id: {p.Id}");
+
         sanPham.GiaBan = p.GiaBan;
         sanPham.GiaNhap = p.GiaNhap;
         sanPham.SoLuongTon = p.SoLuongTon;
@@ -79,14 +80,16 @@ public class CTSanPhamService : ICTSanPhamService
         sanPham.IdDanhMuc = p.IdDanhMuc;
         sanPham.IdGiamGia = p.IdGiamGia;
         sanPham.IdKichCo = p.IdKichCo;
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return sanPham.Id;
     }
 
-    public async Task<int> Create(CTSanPhamVM p)
+    public async Task<Guid> Create(CTSanPhamVM p)
     {
 
         var sanPham = new CTSanPham()
         {
+            Id = Guid.NewGuid(),
             GiaBan = p.GiaBan,
             GiaNhap = p.GiaNhap,
             SoLuongTon = p.SoLuongTon,
@@ -100,7 +103,8 @@ public class CTSanPhamService : ICTSanPhamService
         };
 
         await _shopDbContext.CTSanPhams.AddAsync(sanPham);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return sanPham.Id;
     }
 
     public async Task<int> Delete(Guid id)

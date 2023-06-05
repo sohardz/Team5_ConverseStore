@@ -37,7 +37,7 @@ public class GioHangAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var giohangId = await _gioHangService.Create(gh);
-        if (giohangId == 0)
+        if (giohangId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -58,7 +58,7 @@ public class GioHangAPI : ControllerBase
         }
         gh.IdKh = id;
         var affectedResult = await _gioHangService.Edit(gh);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

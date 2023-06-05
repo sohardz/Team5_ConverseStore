@@ -37,7 +37,7 @@ public class CTHoaDonAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var cthdId = await _cTHoaDonServices.Create(request);
-        if (cthdId == 0)
+        if (cthdId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -58,7 +58,7 @@ public class CTHoaDonAPI : ControllerBase
         }
         p.Id = id;
         var affectedResult = await _cTHoaDonServices.Edit(p);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

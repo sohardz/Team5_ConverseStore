@@ -21,6 +21,7 @@ public class ChucVuService : IChucVuService
                 .Select(i => new ChucVuVM()
                 {
                     Id = i.Id,
+                    Ma = i.Ma,
                     Ten = i.Ten,
                     TrangThai = i.TrangThai,
                 }
@@ -33,31 +34,36 @@ public class ChucVuService : IChucVuService
         var chucvuviewmodel = new ChucVuVM()
         {
             Id = id,
+            Ma = chucvu.Ma,
             Ten = chucvu.Ten,
             TrangThai = chucvu.TrangThai
         };
         return chucvuviewmodel;
     }
 
-    public async Task<int> Edit(ChucVuVM cv)
+    public async Task<Guid> Edit(ChucVuVM cv)
     {
         var chucvu = await _shopDbContext.ChucVus.FindAsync(cv.Id);
         if (chucvu == null) throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {cv.Id}");
-
+        chucvu.Ma = cv.Ma;
         chucvu.Ten = cv.Ten;
         chucvu.TrangThai = cv.TrangThai;
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return chucvu.Id;
     }
 
-    public async Task<int> Create(ChucVuVM cv)
+    public async Task<Guid> Create(ChucVuVM cv)
     {
         var chucvu = new ChucVu()
         {
+            Id = Guid.NewGuid(),
+            Ma = cv.Ma,
             Ten = cv.Ten,
             TrangThai = cv.TrangThai,
         };
         await _shopDbContext.ChucVus.AddAsync(chucvu);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return chucvu.Id;
     }
 
     public async Task<int> Delete(Guid id)
@@ -68,6 +74,7 @@ public class ChucVuService : IChucVuService
             throw new ShopExeption($"Không thể tìm thấy 1 Chuc Vu : {id}");
         }
         _shopDbContext.ChucVus.Remove(chucvu);
-        return await _shopDbContext.SaveChangesAsync();
+         return await _shopDbContext.SaveChangesAsync();
+        
     }
 }

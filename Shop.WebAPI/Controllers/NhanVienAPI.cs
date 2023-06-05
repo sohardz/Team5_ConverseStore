@@ -36,7 +36,7 @@ public class NhanVienAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var khachHangId = await _nhanVienServices.Create(nv);
-        if (khachHangId == 0)
+        if (khachHangId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -57,7 +57,7 @@ public class NhanVienAPI : ControllerBase
         }
         kh.Id = id;
         var affectedResult = await _nhanVienServices.Edit(kh);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

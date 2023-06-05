@@ -52,7 +52,7 @@ public class GiamGiaService : IGiamGiaService
         return giamgiaviewmodel;
     }
 
-    public async Task<int> Edit(GiamGiaVM gg)
+    public async Task<Guid> Edit(GiamGiaVM gg)
     {
         var giamgia = await _shopDbContext.GiamGias.FindAsync(gg.Id);
         if (giamgia == null) throw new ShopExeption($"Không thể tim thấy giảm giá với Id:  {gg.Id}");
@@ -66,14 +66,15 @@ public class GiamGiaService : IGiamGiaService
         giamgia.LoaiGiamGia = gg.LoaiGiamGia;
         giamgia.TrangThai = 1;
 
-        return await _shopDbContext.SaveChangesAsync();
+         await _shopDbContext.SaveChangesAsync();
+        return giamgia.Id;
     }
 
-    public async Task<int> Create(GiamGiaVM gg)
+    public async Task<Guid> Create(GiamGiaVM gg)
     {
         var giamgia = new GiamGia()
         {
-
+            Id = Guid.NewGuid(),
             Ma = gg.Ma,
             Ten = gg.Ten,
             NgayBatDau = DateTime.Now,
@@ -85,7 +86,8 @@ public class GiamGiaService : IGiamGiaService
             TrangThai = 1,
         };
         await _shopDbContext.AddAsync(giamgia);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return giamgia.Id;
     }
 
     public async Task<int> Delete(Guid id)
@@ -93,7 +95,7 @@ public class GiamGiaService : IGiamGiaService
         var giamgia = await _shopDbContext.GiamGias.FindAsync(id);
         if (giamgia == null)
         {
-            throw new ShopExeption($"Không thể tìm thấy 1 giảm giá : {id}");
+            throw new ShopExeption($"Không thể tìm thấy mục giảm giá với : {id}");
         }
 
         _shopDbContext.GiamGias.Remove(giamgia);

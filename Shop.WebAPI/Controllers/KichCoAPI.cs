@@ -34,7 +34,7 @@ public class KichCoAPI : ControllerBase
             return BadRequest("ModelState");
         }
         var kichcoId = await _kichCoService.Create(kc);
-        if (kichcoId == 0)
+        if (kichcoId == Guid.Empty)
             return BadRequest();
         else
         {
@@ -55,7 +55,7 @@ public class KichCoAPI : ControllerBase
         }
         kc.Id = id;
         var affectedResult = await _kichCoService.Edit(kc);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }

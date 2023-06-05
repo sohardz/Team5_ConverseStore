@@ -38,17 +38,18 @@ public class GioHangService : IGioHangService
         return giohangviewmodel;
     }
 
-    public async Task<int> Edit(GioHangVM gh)
+    public async Task<Guid> Edit(GioHangVM gh)
     {
         var giohang = await _shopDbContext.GioHangs.FindAsync(gh.IdKh);
         if (giohang == null) throw new ShopExeption($"Không thể tim thấy giỏ hàng với Id:  {gh.IdKh}");
 
         giohang.MoTa = gh.MoTa;
         giohang.TrangThai = gh.TrangThai;
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return giohang.IdKh;   
     }
 
-    public async Task<int> Create(GioHangVM gh)
+    public async Task<Guid> Create(GioHangVM gh)
     {
         var giohang = new GioHang()
         {
@@ -57,7 +58,8 @@ public class GioHangService : IGioHangService
             TrangThai = gh.TrangThai,
         };
         await _shopDbContext.AddAsync(giohang);
-        return await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
+        return giohang.IdKh;
     }
 
     public async Task<int> Delete(Guid id)

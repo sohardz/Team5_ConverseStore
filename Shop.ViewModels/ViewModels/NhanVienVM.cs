@@ -2,7 +2,7 @@
 
 public class NhanVienVM
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public Guid IdCv { get; set; }
     public string Ma { get; set; }
     public string HoVaTen { get; set; }

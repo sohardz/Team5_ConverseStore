@@ -37,7 +37,7 @@ public class AnhAPI : ControllerBase
             return BadRequest(ModelState);
         }
         var check = await _anhServices.Create(anhVM);
-        if (check == 0) return BadRequest();
+        if (check == Guid.Empty) return BadRequest();
         else
         {
             HttpContext.Response.StatusCode = 201;
@@ -57,7 +57,7 @@ public class AnhAPI : ControllerBase
         }
         anhVM.Id = id;
         var affectedResult = await _anhServices.Edit(anhVM);
-        if (affectedResult == 0)
+        if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }
