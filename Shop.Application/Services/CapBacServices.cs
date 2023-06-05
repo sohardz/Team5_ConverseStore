@@ -70,7 +70,9 @@ public class CapBacServices : ICapBacServices
     {
         var capbac = await _shopDbContext.CapBacs.FindAsync(c.Id);
         if (capbac == null) throw new ShopExeption($"Không thể tim thấy cấp bậc với Id:  {c.Id}");
+        capbac.Ma = c.Ma;
         capbac.Ten = c.Ten;
+        capbac.SoDiemCan = c.SoDiemCan;
         capbac.TrangThai = c.TrangThai;
         return await _shopDbContext.SaveChangesAsync();
     }

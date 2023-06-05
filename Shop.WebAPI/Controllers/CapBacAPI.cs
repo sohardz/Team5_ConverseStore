@@ -27,7 +27,7 @@ public class CapBacAPI : ControllerBase
         return await _capBacServices.GetAll();
     }
 
-    [HttpGet("capbac/{id}")]
+    [HttpGet("get-capbac/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var capbac = await _capBacServices.GetById(id);
@@ -38,7 +38,7 @@ public class CapBacAPI : ControllerBase
         return Ok(capbac);
     }
 
-    [HttpPost]
+    [HttpPost("create-capbac")]
     public async Task<IActionResult> Create([FromBody]CapBacVM cb)
     {
         if (!ModelState.IsValid)
@@ -58,22 +58,20 @@ public class CapBacAPI : ControllerBase
         //return CreatedAtAction(nameof(GetById), new { id = capbacId }, mausac);
     }
 
-    [HttpPut("{id}")]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] CapBacVM cb)
+    [HttpPut("update-capbac")]
+    public async Task<IActionResult> Update([FromBody] CapBacVM cb)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-        cb.Id = id;
         var affectedResult = await _capBacServices.Edit(cb);
         if (affectedResult == 0)
             return BadRequest();
         return Ok();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("delete-capbac/{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _capBacServices.Delete(id);
