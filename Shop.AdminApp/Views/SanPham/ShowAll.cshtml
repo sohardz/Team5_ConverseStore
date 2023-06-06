@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "ShowAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>ShowAll</h1>
@@ -43,9 +44,9 @@
                 @Html.DisplayFor(modelItem => item.TrangThai)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
 }
