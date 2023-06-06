@@ -50,8 +50,8 @@ public class ChucVuAPI : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] ChucVuVM cv)
+    
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ChucVuVM cv)
     {
         if (!ModelState.IsValid)
         {
