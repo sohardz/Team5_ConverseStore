@@ -28,8 +28,8 @@ public class NhanVienAPI : ControllerBase
     }
 
     [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Create([FromForm] NhanVienVM nv)
+    
+    public async Task<IActionResult> Create([FromBody] NhanVienVM nv)
     {
         if (!ModelState.IsValid)
         {
@@ -48,8 +48,8 @@ public class NhanVienAPI : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] NhanVienVM kh)
+    
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] NhanVienVM kh)
     {
         if (!ModelState.IsValid)
         {
@@ -62,7 +62,7 @@ public class NhanVienAPI : ControllerBase
         return Ok();
     }
 
-    [HttpGet("khachhang/{id}")]
+    [HttpGet("nhanvien/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var khachhang = await _nhanVienServices.GetById(id);

@@ -94,9 +94,9 @@ public class NhanVienServices : INhanVienServices
         nhanVien.HoVaTen = nv.HoVaTen;
         nhanVien.MatKhau = nv.MatKhau;
         nhanVien.Email = nv.Email;
-        nhanVien.TenTaiKhoan = nv.TenTaiKhoan;
+        
         nhanVien.TrangThai = nv.TrangThai;
-        _shopDbContext.Update(nv);
+        
         await _shopDbContext.SaveChangesAsync();
         return nhanVien.Id;
     }
