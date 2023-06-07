@@ -53,7 +53,7 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/NhanVienAPI/khachhang/{id}";
+            string apiURL = $"https://localhost:7146/api/NhanVienAPI/nhanvien/{id}";
 
             var response = await httpClient.GetAsync(apiURL);
 
@@ -71,8 +71,6 @@ namespace Shop.AdminApp.Controllers
                 
             var json = JsonConvert.SerializeObject(nhanVienVM);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            //var content = new StringContent(JsonConvert.SerializeObject(capBacVM, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PutAsync(apiURL, content);
             if (response.IsSuccessStatusCode)

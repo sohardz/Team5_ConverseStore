@@ -26,11 +26,11 @@
                 <input asp-for="HoVaTen" class="form-control" />
                 <span asp-validation-for="HoVaTen" class="text-danger"></span>
             </div>
-           @* <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label asp-for="TenTaiKhoan" class="control-label"></label>
-                <input asp-for="TenTaiKhoan" class="form-control" />
+                <input type="hidden" asp-for="TenTaiKhoan" class="form-control" />
                 <span asp-validation-for="TenTaiKhoan" class="text-danger"></span>
-            </div>*@
+            </div>
             <div class="form-group">
                 <label asp-for="MatKhau" class="control-label"></label>
                 <input asp-for="MatKhau" class="form-control" />
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Anh" class="control-label"></label>
-                <input asp-for="Anh" class="form-control" />
+                <input type="file" asp-for="Anh" accept="image/*" />
                 <span asp-validation-for="Anh" class="text-danger"></span>
             </div>
             <div class="form-group">
