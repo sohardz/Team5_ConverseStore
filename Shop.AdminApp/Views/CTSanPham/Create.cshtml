@@ -14,13 +14,13 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
+                <label asp-for="Ma" class="control-label"></label>
+                <input asp-for="Ma" class="form-control" />
+                <span asp-validation-for="Ma" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label asp-for="TenSP" class="control-label"></label>
-                <input asp-for="TenSP" class="form-control" />
+                <input type="hidden" asp-for="TenSP" class="form-control" />
                 <span asp-validation-for="TenSP" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -43,24 +43,24 @@
                 <input asp-for="MoTa" class="form-control" />
                 <span asp-validation-for="MoTa" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label asp-for="SoSize" class="control-label"></label>
-                <input asp-for="SoSize" class="form-control" />
+                <input type="hidden" asp-for="SoSize" class="form-control" />
                 <span asp-validation-for="SoSize" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label asp-for="TenMauSac" class="control-label"></label>
-                <input asp-for="TenMauSac" class="form-control" />
+                <input type="hidden" asp-for="TenMauSac" class="form-control" />
                 <span asp-validation-for="TenMauSac" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label asp-for="TenDanhMuc" class="control-label"></label>
-                <input asp-for="TenDanhMuc" class="form-control" />
+                <input type="hidden" asp-for="TenDanhMuc" class="form-control" />
                 <span asp-validation-for="TenDanhMuc" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label asp-for="MaGiamGia" class="control-label"></label>
-                <input asp-for="MaGiamGia" class="form-control" />
+                <input type="hidden" asp-for="MaGiamGia" class="form-control" />
                 <span asp-validation-for="MaGiamGia" class="text-danger"></span>
             </div>
             <div class="form-group">

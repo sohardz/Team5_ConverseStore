@@ -56,7 +56,7 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/SanPhamAPI/{id}";
+            string apiURL = $"https://localhost:7146/api/SanPhamAPI/sanpham/{id}";
 
             var response = await httpClient.GetAsync(apiURL);
 
@@ -70,7 +70,7 @@ namespace Shop.AdminApp.Controllers
             if (!ModelState.IsValid) return View(sanPhamVM);
 
             var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/SanPhamAPI/";
+            string apiURL = $"https://localhost:7146/api/SanPhamAPI/{sanPhamVM.Id}";
 
             var json = JsonConvert.SerializeObject(sanPhamVM);
             var content = new StringContent(json, Encoding.UTF8, "application/json");

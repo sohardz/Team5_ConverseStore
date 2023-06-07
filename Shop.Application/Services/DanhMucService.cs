@@ -21,6 +21,7 @@ public class DanhMucService : IDanhMucService
                 .Select(i => new DanhMucVM()
                 {
                     Id = i.Id,
+                    Ma = i.Ma,
                     Ten = i.Ten,
                     TrangThai = i.TrangThai,
                 }
@@ -33,6 +34,7 @@ public class DanhMucService : IDanhMucService
         var danhMucViewModel = new DanhMucVM()
         {
             Id = id,
+            Ma = danhMuc.Ma,
             Ten = danhMuc.Ten,
             TrangThai = danhMuc.TrangThai
         };
@@ -45,6 +47,7 @@ public class DanhMucService : IDanhMucService
         if (danhMuc == null) throw new ShopExeption($"Không thể tim thấy danh mục với Id:  {dm.Id}");
 
         danhMuc.Ten = dm.Ten;
+        danhMuc.Ma = dm.Ma;
         danhMuc.TrangThai = dm.TrangThai;
         await _shopDbContext.SaveChangesAsync();
         return danhMuc.Id;
@@ -56,6 +59,7 @@ public class DanhMucService : IDanhMucService
         {
             Id = Guid.NewGuid(),
             Ten = dm.Ten,
+            Ma = dm.Ma,
             TrangThai = dm.TrangThai,
         };
         await _shopDbContext.AddAsync(danhMuc);

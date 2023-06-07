@@ -29,6 +29,7 @@ public class CTSanPhamService : ICTSanPhamService
             .Select(x => new CTSanPhamVM()
             {
                 Id = x.p.Id,
+                Ma = x.p.Ma,
                 GiaBan = x.p.GiaBan,
                 GiaNhap = x.p.GiaNhap,
                 SoLuongTon = x.p.SoLuongTon,
@@ -50,6 +51,7 @@ public class CTSanPhamService : ICTSanPhamService
         var sanPhamViewModel = new CTSanPhamVM()
         {
             Id = ctspId,
+            Ma = cTSP.Ma,
             GiaBan = cTSP.GiaBan,
             GiaNhap = cTSP.GiaNhap,
             MoTa = cTSP.MoTa,
@@ -70,6 +72,7 @@ public class CTSanPhamService : ICTSanPhamService
         //var capbac = await _shopDbContext.CapBacs.FirstOrDefaultAsync(x => x.Id == kh.IdBac);
         if (sanPham == null) throw new ShopExeption($"Can't find a product with id: {p.Id}");
 
+        sanPham.Ma = p.Ma;
         sanPham.GiaBan = p.GiaBan;
         sanPham.GiaNhap = p.GiaNhap;
         sanPham.SoLuongTon = p.SoLuongTon;
@@ -90,6 +93,7 @@ public class CTSanPhamService : ICTSanPhamService
         var sanPham = new CTSanPham()
         {
             Id = Guid.NewGuid(),
+            Ma = p.Ma,
             GiaBan = p.GiaBan,
             GiaNhap = p.GiaNhap,
             SoLuongTon = p.SoLuongTon,
