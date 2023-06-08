@@ -27,8 +27,7 @@ public class KhachHangAPI : ControllerBase
 
     // PUT api/<KhachHangsAPI>/5
     [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Them([FromForm] KhachHangVM kh)
+    public async Task<IActionResult> Them([FromBody] KhachHangVM kh)
     {
         if (!ModelState.IsValid)
         {
@@ -47,8 +46,7 @@ public class KhachHangAPI : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] KhachHangVM kh)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] KhachHangVM kh)
     {
         if (!ModelState.IsValid)
         {

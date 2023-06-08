@@ -36,20 +36,28 @@ public class VoucherService : IVoucherService
     public async Task<VoucherVM> GetById(Guid id)
     {
         var voucher = await _shopDbContext.Vouchers.FindAsync(id);
-        var voucherViewModel = new VoucherVM()
+        if (voucher == null)
         {
-            Id = voucher.Id,
-            Ma = voucher.Ma,
-            Ten = voucher.Ten,
-            SoTienCan = voucher.SoTienCan,
-            SoTienGiam = voucher.SoTienGiam,
-            NgayApDung = voucher.NgayApDung,
-            NgayKetThuc = voucher.NgayKetThuc,
-            SoLuong = voucher.SoLuong,
-            MoTa = voucher.MoTa,
-            TrangThai = voucher.TrangThai,
-        };
-        return voucherViewModel;
+            throw new ShopExeption("Không tìm thấy voucher");
+        }
+        else
+        {
+            var voucherViewModel = new VoucherVM()
+            {
+                Id = voucher.Id,
+                Ma = voucher.Ma,
+                Ten = voucher.Ten,
+                SoTienCan = voucher.SoTienCan,
+                SoTienGiam = voucher.SoTienGiam,
+                NgayApDung = voucher.NgayApDung,
+                NgayKetThuc = voucher.NgayKetThuc,
+                SoLuong = voucher.SoLuong,
+                MoTa = voucher.MoTa,
+                TrangThai = voucher.TrangThai,
+            };
+            return voucherViewModel;
+        }
+        
     }
 
     public async Task<Guid> Edit(VoucherVM v)
@@ -65,14 +73,13 @@ public class VoucherService : IVoucherService
         voucher.SoLuong = v.SoLuong;
         voucher.MoTa = v.MoTa;
         voucher.TrangThai = v.TrangThai;
-        _shopDbContext.Update(voucher);
          await _shopDbContext.SaveChangesAsync();
         return voucher.Id;
     }
 
     public async Task<Guid> Create(VoucherVM v)
     {
-        var voucher = new Voucher()
+        Voucher voucher = new ()
         {
             Id = Guid.NewGuid(),
             Ten = v.Ten,
@@ -86,7 +93,7 @@ public class VoucherService : IVoucherService
             TrangThai = v.TrangThai,
         };
         await _shopDbContext.AddAsync(voucher);
-         await _shopDbContext.SaveChangesAsync();
+        await _shopDbContext.SaveChangesAsync();
         return voucher.Id;
     }
 
