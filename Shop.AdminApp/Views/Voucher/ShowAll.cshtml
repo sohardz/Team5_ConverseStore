@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Shop.ViewModels.ViewModels.VoucherVM>
+
+@{
+    ViewData["Title"] = "ShowAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ShowAll</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Voucher</h3>
+
+        <div class="card-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0">
+        <table class="table table-hover text-nowrap">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ma)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ten)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SoTienCan)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SoTienGiam)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NgayApDung)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NgayKetThuc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SoLuong)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MoTa)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TrangThai)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ma)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ten)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoTienCan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoTienGiam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayApDung)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayKetThuc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoLuong)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>

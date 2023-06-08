@@ -15,21 +15,31 @@ public class DanhMucAPI : ControllerBase
     private readonly IDanhMucService _danhMucService;
     public DanhMucAPI(ILogger<DanhMucAPI> logger, IDanhMucService danhMucService)
     {
-        _logger = logger;
         _danhMucService = danhMucService;
+        _logger = logger;
+ 
     }
 
     //// GET: api/<DanhMucAPI>
-    [HttpGet]
-    public async Task<List<DanhMucVM>> GetAllDanhMucVM()
+    [HttpGet("get-all-danhMuc")]
+    public async Task<List<DanhMucVM>> GetAll()
     {
         return await _danhMucService.GetAll();
     }
 
-    //// POST api/<DanhMucAPI>
-    [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Create([FromForm] DanhMucVM dm)
+    [HttpGet("get-danhMuc/{id}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var danhMuc = await _danhMucService.GetById(id);
+        if (danhMuc == null)
+        {
+            return BadRequest("Can't find danhmuc");
+        }
+        return Ok(danhMuc);
+    }
+
+    [HttpPost("create-danhMuc")]
+    public async Task<IActionResult> Create([FromBody] DanhMucVM dm)
     {
         if (!ModelState.IsValid)
         {
@@ -40,42 +50,25 @@ public class DanhMucAPI : ControllerBase
             return BadRequest();
         else
         {
-            HttpContext.Response.StatusCode = 201;
-            return Ok(dm);
-        }
-        //var danhMuc = await _danhMucService.GetById(danhMucId);
-        //return CreatedAtAction(nameof(GetById), new { id = danhMucId }, danhMuc);
+            return await GetById(danhMucId);
+        }       
     }
 
-    [HttpPut("{id}")]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Edit([FromRoute] Guid id, [FromForm] DanhMucVM dm)
+    [HttpPut("edit-danhMuc")]
+    public async Task<IActionResult> Edit([FromBody] DanhMucVM dm)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-        dm.Id = id;
         var affectedResult = await _danhMucService.Edit(dm);
         if (affectedResult == Guid.Empty)
             return BadRequest();
         return Ok();
     }
 
-    [HttpGet("danhmuc/{id}")]
-    public async Task<IActionResult> GetById(Guid id)
-    {
-        var danhMuc = await _danhMucService.GetById(id);
-        if (danhMuc == null)
-        {
-            return BadRequest("Khong tim thay danh muc");
-        }
-        return Ok(danhMuc);
-    }
-
-
-    //// DELETE api/<DanhMucAPI>/5
-    [HttpDelete("{id}")]
+    
+    [HttpDelete("delete-danhMuc/{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _danhMucService.Delete(id);
