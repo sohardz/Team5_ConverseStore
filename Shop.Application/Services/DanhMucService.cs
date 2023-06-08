@@ -21,6 +21,7 @@ public class DanhMucService : IDanhMucService
                 .Select(i => new DanhMucVM()
                 {
                     Id = i.Id,
+                    Ma = i.Ma,
                     Ten = i.Ten,
                     TrangThai = i.TrangThai,
                 }
@@ -30,35 +31,45 @@ public class DanhMucService : IDanhMucService
     public async Task<DanhMucVM> GetById(Guid id)
     {
         var danhMuc = await _shopDbContext.DanhMucs.FindAsync(id);
-        var danhMucViewModel = new DanhMucVM()
+        if (danhMuc == null)
         {
-            Id = id,
+            throw new ShopExeption("Không tìm thấy danh muc");
+        }
+        else
+        {
+            var danhMucViewModel = new DanhMucVM() { 
+            Id = danhMuc.Id,
+            Ma = danhMuc.Ma,
             Ten = danhMuc.Ten,
             TrangThai = danhMuc.TrangThai
+            };
+            return danhMucViewModel;
         };
-        return danhMucViewModel;
+        
+    }
+
+    public async Task<Guid> Create(DanhMucVM dm)
+    {
+        DanhMuc danhMuc = new ()
+        {
+            Id = Guid.NewGuid(),
+            Ma = dm.Ma,
+            Ten = dm.Ten,
+            Ma = dm.Ma,
+            TrangThai = dm.TrangThai,
+        };
+        await _shopDbContext.AddAsync(danhMuc);
+        await _shopDbContext.SaveChangesAsync();
+        return danhMuc.Id;
     }
 
     public async Task<Guid> Edit(DanhMucVM dm)
     {
         var danhMuc = await _shopDbContext.DanhMucs.FindAsync(dm.Id);
         if (danhMuc == null) throw new ShopExeption($"Không thể tim thấy danh mục với Id:  {dm.Id}");
-
+        danhMuc.Ma = dm.Ma;
         danhMuc.Ten = dm.Ten;
         danhMuc.TrangThai = dm.TrangThai;
-        await _shopDbContext.SaveChangesAsync();
-        return danhMuc.Id;
-    }
-
-    public async Task<Guid> Create(DanhMucVM dm)
-    {
-        var danhMuc = new DanhMuc()
-        {
-            Id = Guid.NewGuid(),
-            Ten = dm.Ten,
-            TrangThai = dm.TrangThai,
-        };
-        await _shopDbContext.AddAsync(danhMuc);
         await _shopDbContext.SaveChangesAsync();
         return danhMuc.Id;
     }
