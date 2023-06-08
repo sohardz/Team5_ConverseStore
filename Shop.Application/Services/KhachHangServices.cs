@@ -48,10 +48,11 @@ public class KhachHangServices : IKhachhangServices
         var khachHang = await _shopDbContext.KhachHangs.FindAsync(id);
         var khachHangViewmodel = new KhachHangVM()
         {
-            Id = id,
+            Id =id,
             Ma = khachHang.Ma,
             HoVaTen = khachHang.HoVaTen,
             MatKhau = khachHang.MatKhau,
+            TenTaiKhoan= khachHang.TenTaiKhoan,
             SoDienThoai = khachHang.SoDienThoai,
             GioiTinh = khachHang.GioiTinh,
             Email = khachHang.Email,
@@ -59,6 +60,7 @@ public class KhachHangServices : IKhachhangServices
             DiaChi = khachHang.DiaChi,
             GhiChu = khachHang.GhiChu,
             TrangThai = khachHang.TrangThai,
+            SoDiem = khachHang.SoDiem,
             IdBac = khachHang.IdBac
         };
         return khachHangViewmodel;
