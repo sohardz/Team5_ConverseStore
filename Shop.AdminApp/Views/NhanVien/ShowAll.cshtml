@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Shop.ViewModels.ViewModels.NhanVienVM>
+
+@{
+    ViewData["Title"] = "ShowAllNhanVien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> imageExtensions = new List<string>()
+    {
+        ".jpg", ".png", ".webp", ".gif", ".pdf", ".tiff", ".jpeg"
+    };
+}
+
+
+<p>
+    <a asp-action="Create">Cresate New</a>
+</p>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Cấp Bậc</h3>
+
+        <div class="card-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+
+    <div class="card-body table-responsive p-0">
+        <table class="table table-hover text-nowrap">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdCv)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ma)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HoVaTen)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TenTaiKhoan)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MatKhau)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Anh)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TrangThai)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdCv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ma)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoVaTen)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenTaiKhoan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MatKhau)
+                        </td>
+                        <td>
+                            @{
+                                var extension = System.IO.Path.GetExtension(item.Anh);
+                            }
+                            @if (imageExtensions.Contains(extension))
+                            {
+                                <img src="~/Image/@item.Anh" height="30px">
+                            }
+                            else
+                            {
+                                <img src="~/Image/banner.png" height="30px">
+                            }
+
+                        <td>
+                        <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                                    @Html.DisplayFor(modelItem => item.TrangThai)
+                        </td>
+                        <td>
+                                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
+                                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                                    @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>

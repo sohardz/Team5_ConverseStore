@@ -28,8 +28,7 @@ public class SanPhamAPI : ControllerBase
 
     // PUT api/<SanPhamAPI>/5
     [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Them([FromForm] SanPhamVM sp)
+    public async Task<IActionResult> Them([FromBody] SanPhamVM sp)
     {
         if (!ModelState.IsValid)
         {
@@ -48,8 +47,7 @@ public class SanPhamAPI : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] SanPhamVM sp)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] SanPhamVM sp)
     {
         if (!ModelState.IsValid)
         {

@@ -55,6 +55,7 @@ public class DanhMucService : IDanhMucService
             Id = Guid.NewGuid(),
             Ma = dm.Ma,
             Ten = dm.Ten,
+            Ma = dm.Ma,
             TrangThai = dm.TrangThai,
         };
         await _shopDbContext.AddAsync(danhMuc);

@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Shop.ViewModels.ViewModels;
 using System.Text;
-using static System.Net.WebRequestMethods;
 
 namespace Shop.AdminApp.Controllers
 {
-    public class CapBacController : Controller
+    public class CTSanPhamController : Controller
     {
-        public CapBacController()
+        public CTSanPhamController()
         {
 
         }
@@ -17,12 +16,11 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> ShowAll()
         {
             var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/CapBacAPI/get-all-capbac";
-                             
+            string apiURL = "https://localhost:7146/api/CTSanPhamAPI/";
 
             var response = await httpClient.GetAsync(apiURL);
             string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<CapBacVM>>(apiData);
+            var result = JsonConvert.DeserializeObject<List<CTSanPhamVM>>(apiData);
             return View(result);
         }
 
@@ -32,53 +30,50 @@ namespace Shop.AdminApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CapBacVM capBacVM)
+        public async Task<IActionResult> Create(CTSanPhamVM cTSanPhamVM)
         {
             if (!ModelState.IsValid)
-                return View(capBacVM);
+                return View(cTSanPhamVM);
 
             var httpClient = new HttpClient();
 
-            string apiURL = "https://localhost:7146/api/CapBacAPI";
+            string apiURL = "https://localhost:7146/api/CTSanPhamAPI/";
 
-            var json = JsonConvert.SerializeObject(capBacVM);
+            var json = JsonConvert.SerializeObject(cTSanPhamVM);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            
+
             var response = await httpClient.PostAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
-               return RedirectToAction("ShowAll");
+                return RedirectToAction("ShowAll");
             }
-            ModelState.AddModelError("","Sai roi");
+            ModelState.AddModelError("", "Sai roi");
 
-            return View(capBacVM);
+            return View(cTSanPhamVM);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/CapBacAPI/get-capbac/{id}";
+            string apiURL = $"https://localhost:7146/api/CTSanPhamAPI/{id}";
 
             var response = await httpClient.GetAsync(apiURL);
 
             string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<CapBacVM>(apiData);
+            var result = JsonConvert.DeserializeObject<CTSanPhamVM>(apiData);
             return View(result);
         }
 
-        public async Task<IActionResult> Edit(CapBacVM capBacVM)
+        public async Task<IActionResult> Edit(CTSanPhamVM cTSanPhamVM)
         {
-            if(!ModelState.IsValid) return View(capBacVM);
+            if (!ModelState.IsValid) return View(cTSanPhamVM);
 
             var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/CapBacAPI/update-capbac";
+            string apiURL = "https://localhost:7146/api/CTSanPhamAPI/";
 
-            var json = JsonConvert.SerializeObject(capBacVM);
+            var json = JsonConvert.SerializeObject(cTSanPhamVM);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            //var content = new StringContent(JsonConvert.SerializeObject(capBacVM, Encoding.UTF8, "application/json");
-
             var response = await httpClient.PutAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
@@ -86,13 +81,13 @@ namespace Shop.AdminApp.Controllers
             }
             ModelState.AddModelError("", "sai roi be oi");
 
-            return View(capBacVM);
+            return View(cTSanPhamVM);
         }
 
         public async Task<IActionResult> Delete(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/CapBacAPI/delete-capbac/{id}";
+            string apiURL = $"https://localhost:7146/api/CTSanPhamAPI/{id}";
 
             var response = await httpClient.DeleteAsync(apiURL);
             if (response.IsSuccessStatusCode)

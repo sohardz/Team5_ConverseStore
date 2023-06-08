@@ -23,8 +23,7 @@ public class CTSanPhamAPI : ControllerBase
     }
 
     [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Create([FromForm] CTSanPhamVM request)
+    public async Task<IActionResult> Create([FromBody] CTSanPhamVM request)
     {
         if (!ModelState.IsValid)
         {
@@ -54,9 +53,8 @@ public class CTSanPhamAPI : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Consumes("multipart/form-data")]
 
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] CTSanPhamVM p)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] CTSanPhamVM p)
     {
         if (!ModelState.IsValid)
         {

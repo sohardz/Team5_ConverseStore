@@ -21,47 +21,13 @@ public class GiamGiaAPI : ControllerBase
     }
 
     // GET: api/<GiamGiaAPI>
-    [HttpGet]
+    [HttpGet("get-all-giamgia")]
     public async Task<List<GiamGiaVM>> GetAllGiamGiaVM()
     {
         return await _giamgiaService.GetAll();
     }
 
-    // PUT api/<GiamGiaAPI>/5
-    [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Create([FromForm] GiamGiaVM gg)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        var giamgiaId = await _giamgiaService.Create(gg);
-        if (giamgiaId == Guid.Empty)
-            return BadRequest();
-        else
-        {
-            HttpContext.Response.StatusCode = 201;
-            return Ok(gg);
-        }
-        //var giamgia = await _giamgiaService.GetById(giamgiaId);
-        //return CreatedAtAction(nameof(GetById), new { id = giamgiaId }, giamgia);
-    }
-    [HttpPut("{id}")]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Edit([FromRoute] Guid id, [FromForm] GiamGiaVM gg)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        gg.Id = id;
-        var affectedResult = await _giamgiaService.Edit(gg);
-        if (affectedResult == Guid.Empty)
-            return BadRequest();
-        return Ok();
-    }
-    [HttpGet("giamgia/{id}")]
+    [HttpGet("get-giamgia/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var giamgia = await _giamgiaService.GetById(id);
@@ -72,8 +38,43 @@ public class GiamGiaAPI : ControllerBase
         return Ok(giamgia);
     }
 
-    // DELETE api/<GiamGiaAPI>/5
-    [HttpDelete("{id}")]
+
+    [HttpPost("create-giamgia")]
+    public async Task<IActionResult> Create([FromBody] GiamGiaVM gg)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var check = await _giamgiaService.Create(gg);
+        if (check == Guid.Empty)
+            return BadRequest();
+        else
+        {
+            return await GetById(check);
+        }
+        //var giamgia = await _giamgiaService.GetById(giamgiaId);
+        //return CreatedAtAction(nameof(GetById), new { id = giamgiaId }, giamgia);
+    }
+
+    [HttpPut("update-giamgia")]
+
+    public async Task<IActionResult> Edit([FromBody] GiamGiaVM gg)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var affectedResult = await _giamgiaService.Edit(gg);
+        if (affectedResult == Guid.Empty)
+            return BadRequest();
+        return Ok();
+    }
+
+
+
+    [HttpDelete("delete-giamgia/{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _giamgiaService.Delete(id);
