@@ -17,7 +17,6 @@ namespace Shop.AdminApp.Controllers
         {
             var httpClient = new HttpClient();
             string apiURL = "https://localhost:7146/api/SanPhamAPI/";
-
             var response = await httpClient.GetAsync(apiURL);
             string apiData = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<List<SanPhamVM>>(apiData);
@@ -36,13 +35,11 @@ namespace Shop.AdminApp.Controllers
                 return View(sanPhamVM);
 
             var httpClient = new HttpClient();
-
             string apiURL = "https://localhost:7146/api/SanPhamAPI/";
-
             var json = JsonConvert.SerializeObject(sanPhamVM);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-
             var response = await httpClient.PostAsync(apiURL, content);
+
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("ShowAll");
@@ -65,7 +62,7 @@ namespace Shop.AdminApp.Controllers
             return View(result);
         }
 
-        public async Task<IActionResult> Edit(CTSanPhamVM sanPhamVM)
+        public async Task<IActionResult> Edit(SanPhamVM sanPhamVM)
         {
             if (!ModelState.IsValid) return View(sanPhamVM);
 

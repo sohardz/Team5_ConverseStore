@@ -41,7 +41,7 @@ public class CTSanPhamAPI : ControllerBase
         //return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
     }
 
-    [HttpGet("sanpham/{id}")]
+    [HttpGet("ctsanpham/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var sanpham = await _sanPhamService.GetById(id);

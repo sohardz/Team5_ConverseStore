@@ -39,7 +39,13 @@ public class CTSanPhamService : ICTSanPhamService
                 SoSize = x.k.SoSize,
                 MaGiamGia = x.g.Ma,
                 TenMauSac = x.m.Ten,
-                TenSP = x.pt.Ten
+                TenSP = x.pt.Ten,
+                IdKichCo = x.p.IdKichCo,
+                IdGiamGia = x.p.IdGiamGia,
+                IdMauSac = x.p.IdMauSac,
+                IdSanPham = x.p.IdSanPham,
+                IdDanhMuc = x.p.IdDanhMuc
+
             }
             ).ToListAsync();
         return data;
@@ -61,7 +67,12 @@ public class CTSanPhamService : ICTSanPhamService
             TenDanhMuc = _shopDbContext.DanhMucs.FirstOrDefault(x => x.Id == cTSP.IdDanhMuc).Ten,
             MaGiamGia = _shopDbContext.GiamGias.FirstOrDefault(x => x.Id == cTSP.IdGiamGia).Ma,
             TenSP = _shopDbContext.SanPhams.FirstOrDefault(x => x.Id == cTSP.IdSanPham).Ten,
-            SoSize = _shopDbContext.KichCos.FirstOrDefault(x => x.Id == cTSP.IdKichCo).SoSize
+            SoSize = _shopDbContext.KichCos.FirstOrDefault(x => x.Id == cTSP.IdKichCo).SoSize,
+            IdDanhMuc = cTSP.IdDanhMuc,
+            IdSanPham = cTSP.IdSanPham,
+            IdMauSac = cTSP.IdMauSac,
+            IdGiamGia = cTSP.IdGiamGia,
+            IdKichCo = cTSP.IdKichCo,
         };
         return sanPhamViewModel;
     }
