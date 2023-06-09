@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using Shop.Data.Models;
 using Shop.ViewModels.ViewModels;
+using System.Net.Http;
 using System.Text;
 
 namespace Shop.AdminApp.Controllers
@@ -17,24 +20,45 @@ namespace Shop.AdminApp.Controllers
             var result = JsonConvert.DeserializeObject<List<KhachHangVM>>(apiData);
             return View(result);
         }
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(Guid capBacId)
         {
+            var httpClient = new HttpClient();
+            string apiURL1 = "https://localhost:7146/api/CapBacAPI/get-all-capbac/";
+            var response1 = await httpClient.GetAsync(apiURL1);
+            string apiData1 = await response1.Content.ReadAsStringAsync();
+            var result9 = JsonConvert.DeserializeObject<List<CapBacVM>>(apiData1);
+            ViewBag.CapBac = result9.Select(x => new SelectListItem()
+            {
+                Text = x.Ten,
+                Value = x.Id.ToString(),
+                Selected = capBacId.ToString() == x.Id.ToString() /*x.Id.ToString() == cTSanPhamVM.IdSanPham.ToString()*/
+            });
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(KhachHangVM khachhangVM)
+        public async Task<IActionResult> Create(KhachHangVM khachhangVM, Guid capBacId)
         {
             if (!ModelState.IsValid)
                 return View(khachhangVM);
 
             var httpClient = new HttpClient();
 
-            string apiURL = "https://localhost:7146/api/KhachHangAPI";
+            string apiURL1 = "https://localhost:7146/api/CapBacAPI/get-all-capbac/";
+            var response1 = await httpClient.GetAsync(apiURL1);
+            string apiData1 = await response1.Content.ReadAsStringAsync();
+            var result9 = JsonConvert.DeserializeObject<List<CapBacVM>>(apiData1);
+            ViewBag.Capbac = result9.Select(x => new SelectListItem()
+            {
+                Text = x.Ten,
+                Value = x.Id.ToString(),
+                Selected = capBacId.ToString() == x.Id.ToString() /*x.Id.ToString() == cTSanPhamVM.IdSanPham.ToString()*/
+            });
+            khachhangVM.IdBac = capBacId;
 
+            string apiURL = "https://localhost:7146/api/KhachHangAPI";
             var json = JsonConvert.SerializeObject(khachhangVM);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-
             var response = await httpClient.PostAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
@@ -45,7 +69,7 @@ namespace Shop.AdminApp.Controllers
             return View(khachhangVM);
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(Guid id,Guid capBacId)
         {
             var httpClient = new HttpClient();
             string apiURL = $"https://localhost:7146/api/KhachHangAPI/khachhang/{id}";
@@ -54,6 +78,17 @@ namespace Shop.AdminApp.Controllers
 
             string apiData = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<KhachHangVM>(apiData);
+
+            string apiURL1 = "https://localhost:7146/api/CapBacAPI/get-all-capbac";
+            var response1 = await httpClient.GetAsync(apiURL1);
+            string apiData1 = await response1.Content.ReadAsStringAsync();
+            var result9 = JsonConvert.DeserializeObject<List<CapBacVM>>(apiData1);
+            ViewBag.SanPham = result9.Select(x => new SelectListItem()
+            {
+                Text = x.Ten,
+                Value = x.Id.ToString(),
+                Selected = result.IdBac.ToString() == x.Id.ToString() /*x.Id.ToString() == cTSanPhamVM.IdSanPham.ToString()*/
+            });
             return View(result);
         }
 

@@ -80,6 +80,7 @@ public class KhachHangServices : IKhachhangServices
         khachhang.GioiTinh = kh.GioiTinh;
         khachhang.NgaySinh = kh.NgaySinh;
         khachhang.IdBac = kh.IdBac;
+        khachhang.SoDiem = kh.SoDiem;
         khachhang.TrangThai = kh.TrangThai;
          await _shopDbContext.SaveChangesAsync();
         return khachhang.Id;
