@@ -54,7 +54,7 @@ namespace Shop.AdminApp.Controllers
             string apiURL3 = "https://localhost:7146/api/DanhMucAPI/get-all-danhMuc/";
             var response2 = await httpClient.GetAsync(apiURL3);
             string apiData2 = await response2.Content.ReadAsStringAsync();
-            var result2 = JsonConvert.DeserializeObject<List<DanhMuc>>(apiData2);
+            var result2 = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData2);
             ViewBag.DanhMuc = result2.Select(x => new SelectListItem()
             {
                 Text = x.Ten,
@@ -119,7 +119,7 @@ namespace Shop.AdminApp.Controllers
             string apiURL3 = "https://localhost:7146/api/DanhMucAPI/get-all-danhMuc/";
             var response2 = await httpClient.GetAsync(apiURL3);
             string apiData2 = await response2.Content.ReadAsStringAsync();
-            var result2 = JsonConvert.DeserializeObject<List<DanhMuc>>(apiData2);
+            var result2 = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData2);
             ViewBag.DanhMuc = result2.Select(x => new SelectListItem()
             {
                 Text = x.Ten,
@@ -206,7 +206,7 @@ namespace Shop.AdminApp.Controllers
             string apiURL3 = "https://localhost:7146/api/DanhMucAPI/get-all-danhMuc/";
             var response2 = await httpClient.GetAsync(apiURL3);
             string apiData2 = await response2.Content.ReadAsStringAsync();
-            var result2 = JsonConvert.DeserializeObject<List<DanhMuc>>(apiData2);
+            var result2 = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData2);
             ViewBag.DanhMuc = result2.Select(x => new SelectListItem()
             {
                 Text = x.Ten,
@@ -236,8 +236,6 @@ namespace Shop.AdminApp.Controllers
                 Selected = result.IdGiamGia.ToString() == x.Id.ToString()
             });
 
-            
-            
             //result.IdDanhMuc = danhmucId;
             //result.IdSanPham = sanphamId;
             //result.IdMauSac = mausacId;
@@ -277,7 +275,7 @@ namespace Shop.AdminApp.Controllers
             string apiURL3 = "https://localhost:7146/api/DanhMucAPI/get-all-danhMuc/";
             var response2 = await httpClient.GetAsync(apiURL3);
             string apiData2 = await response2.Content.ReadAsStringAsync();
-            var result2 = JsonConvert.DeserializeObject<List<DanhMuc>>(apiData2);
+            var result2 = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData2);
             ViewBag.DanhMuc = result2.Select(x => new SelectListItem()
             {
                 Text = x.Ten,
