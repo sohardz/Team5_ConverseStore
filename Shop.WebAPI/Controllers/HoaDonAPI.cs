@@ -21,7 +21,7 @@ public class HoaDonAPI : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<HoaDonVM>> GetAllGioHangVM()
+    public async Task<List<HoaDonVM>> GetAllHoaDonVM()
     {
         return await _hoaDonServices.GetAll();
     }

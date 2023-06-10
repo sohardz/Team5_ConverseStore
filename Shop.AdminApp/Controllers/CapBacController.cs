@@ -17,8 +17,7 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> ShowAll()
         {
             var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/CapBacAPI/get-all-capbac";
-                             
+            string apiURL = "https://localhost:7146/api/CapBacAPI/get-all-capbac";                             
 
             var response = await httpClient.GetAsync(apiURL);
             string apiData = await response.Content.ReadAsStringAsync();

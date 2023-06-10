@@ -264,6 +264,10 @@ namespace Shop.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AnhBanDau")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("GiaBan")
                         .HasColumnType("decimal(18,2)");
 
@@ -318,6 +322,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
+                            AnhBanDau = "/AnhSanPham/1.webp",
                             GiaBan = 1500000m,
                             GiaNhap = 1000000m,
                             IdDanhMuc = new Guid("a1ef45d3-64a2-41db-8e2f-92f94be68901"),
@@ -333,6 +338,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("93351f9a-eb83-4bc2-969d-a46275a16c7a"),
+                            AnhBanDau = "/AnhSanPham/2.webp",
                             GiaBan = 799000m,
                             GiaNhap = 700000m,
                             IdDanhMuc = new Guid("d2a7e269-21e1-4dec-969a-b034ddc2ce56"),

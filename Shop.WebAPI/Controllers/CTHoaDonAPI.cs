@@ -17,13 +17,13 @@ public class CTHoaDonAPI : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("sanpham")]
-    public async Task<IActionResult> GetById(Guid cthdid)
+    [HttpGet("get-all/{id}")]
+    public async Task<IActionResult> GetAll([FromRoute]Guid id)
     {
-        var sanpham = await _cTHoaDonServices.GetById(cthdid);
+        var sanpham = await _cTHoaDonServices.GetAll(id);
         if (sanpham == null)
         {
-            return BadRequest("Không thể tìm sản phẩm");
+            return BadRequest("Không thể tìm chi tiết hóa đơn");
         }
         return Ok(sanpham);
     }

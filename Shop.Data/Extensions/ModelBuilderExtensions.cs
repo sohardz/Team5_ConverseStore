@@ -79,6 +79,7 @@ public static class ModelBuilderExtensions
                     GiaNhap = 1000000,
                     GiaBan = 1500000,
                     SoLuongTon = 100,
+                    AnhBanDau = "/AnhSanPham/1.webp",
                     MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
                     TrangThai = 1
                 },
@@ -94,7 +95,8 @@ public static class ModelBuilderExtensions
                     GiaNhap = 700000,
                     GiaBan = 799000,
                     SoLuongTon = 90,
-                    MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
+					AnhBanDau = "/AnhSanPham/2.webp",
+					MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
                     TrangThai = 1
                 });
         //Anh
