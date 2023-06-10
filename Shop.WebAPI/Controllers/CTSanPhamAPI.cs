@@ -37,8 +37,7 @@ public class CTSanPhamAPI : ControllerBase
             HttpContext.Response.StatusCode = 201;
             return Ok(request);
         }
-        //var sanpham = await _sanPhamService.GetById(sanphamId);
-        //return CreatedAtAction(nameof(GetById), new { id = sanphamId }, sanpham);
+        
     }
 
     [HttpGet("ctsanpham/{id}")]
