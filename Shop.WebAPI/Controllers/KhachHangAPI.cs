@@ -18,7 +18,6 @@ public class KhachHangAPI : ControllerBase
         _khachhangServices = khachhangServices;
     }
 
-    // GET: api/<KhachHangsAPI>
     [HttpGet]
     public async Task<List<KhachHangVM>> GetAllKhachhangM()
     {
@@ -26,8 +25,8 @@ public class KhachHangAPI : ControllerBase
     }
 
     // PUT api/<KhachHangsAPI>/5
-    [HttpPost]
-    public async Task<IActionResult> Them([FromBody] KhachHangVM kh)
+    [HttpPost("create-khachhang")]
+    public async Task<IActionResult> Create([FromBody] KhachHangVM kh)
     {
         if (!ModelState.IsValid)
         {

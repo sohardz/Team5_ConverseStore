@@ -9,6 +9,7 @@ public class CTSanPham
     public decimal GiaBan { get; set; }
     public int SoLuongTon { get; set; }
     public string MoTa { get; set; }
+    public string AnhBanDau { get; set; }
     public Guid IdKichCo { get; set; }
     public Guid IdMauSac { get; set; }
     public Guid IdDanhMuc { get; set; }
