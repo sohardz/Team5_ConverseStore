@@ -17,7 +17,7 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> ShowAll()
         {
             var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/DanhMucAPI/get-all-danhMuc";
+            string apiURL = "https://localhost:7146/api/DanhMucAPI/";
             var response = await httpClient.GetAsync(apiURL);
             string apiData = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData);
@@ -38,7 +38,7 @@ namespace Shop.AdminApp.Controllers
                 return View(collection);
             var httpClient = new HttpClient();
 
-            string apiURL = "https://localhost:7146/api/DanhMucAPI";
+            string apiURL = $"https://localhost:7146/api/DanhMucAPI/";
 
             var json = JsonConvert.SerializeObject(collection);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -57,7 +57,7 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/DanhMucAPI/get-danhMuc/{id}";
+            string apiURL = $"https://localhost:7146/api/DanhMucAPI/{id}";
 
             var response = await httpClient.GetAsync(apiURL);
 
@@ -67,18 +67,15 @@ namespace Shop.AdminApp.Controllers
         }
 
         // POST: DanhMucController/Edit/5
-        public async Task<IActionResult> Edit(DanhMucVM danhMucVM)
+        public async Task<IActionResult> Edit(DanhMucVM collection)
         {
-            if (!ModelState.IsValid) return View(danhMucVM);
+            if (!ModelState.IsValid) return View(collection);
 
             var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/DanhMucAPI/edit-danhMuc";
+            string apiURL = $"https://localhost:7146/api/DanhMucAPI/{collection.Id}";
 
-            var json = JsonConvert.SerializeObject(danhMucVM);
+            var json = JsonConvert.SerializeObject(collection);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-
-
             var response = await httpClient.PutAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
@@ -86,14 +83,14 @@ namespace Shop.AdminApp.Controllers
             }
             ModelState.AddModelError("", "sai roi be oi");
 
-            return View(danhMucVM);
+            return View(collection);
         }
       
         // POST: DanhMucController/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/DanhMucAPI/delete-danhMuc/{id}";
+            string apiURL = $"https://localhost:7146/api/DanhMucAPI/{id}";
 
             var response = await httpClient.DeleteAsync(apiURL);
             if (response.IsSuccessStatusCode)

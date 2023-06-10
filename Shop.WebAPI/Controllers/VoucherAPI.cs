@@ -21,13 +21,13 @@ public class VoucherAPI : ControllerBase
     }
 
     // GET: api/<VoucherAPI>
-    [HttpGet("get-all-voucher")]
+    [HttpGet]
     public async Task<List<VoucherVM>> GetAll()
     {
         return await _voucherService.GetAll();
     }
 
-    [HttpGet("get-voucher/{id}")]
+    [HttpGet("voucher/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var voucher = await _voucherService.GetById(id);
@@ -38,7 +38,7 @@ public class VoucherAPI : ControllerBase
         return Ok(voucher);
     }
     // GET api/<VoucherAPI>/5
-    [HttpPost("create-voucher")]
+    [HttpPost]
     public async Task<IActionResult> Create([FromBody] VoucherVM v)
     {
         if (!ModelState.IsValid)
@@ -49,25 +49,29 @@ public class VoucherAPI : ControllerBase
         if (voucherId == Guid.Empty)
             return BadRequest();
         else
-            return await GetById(voucherId);
+        {
+            HttpContext.Response.StatusCode = 201;
+            return Ok(v);
+        }
     }
 
-    [HttpPut("edit-voucher")]
-    public async Task<IActionResult> Edit([FromBody] VoucherVM v)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Edit([FromRoute] Guid id, [FromBody] VoucherVM v)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
+        v.Id = id;
         var affectedResult = await _voucherService.Edit(v);
         if (affectedResult == Guid.Empty)
             return BadRequest();
-        return Ok();
+        return Ok(v);
     }
 
     
 
-    [HttpDelete("delete-voucher/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _voucherService.Delete(id);

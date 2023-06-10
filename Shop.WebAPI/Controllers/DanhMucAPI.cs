@@ -21,13 +21,13 @@ public class DanhMucAPI : ControllerBase
     }
 
     //// GET: api/<DanhMucAPI>
-    [HttpGet("get-all-danhMuc")]
+    [HttpGet]
     public async Task<List<DanhMucVM>> GetAll()
     {
         return await _danhMucService.GetAll();
     }
 
-    [HttpGet("get-danhMuc/{id}")]
+    [HttpGet("danhmuc/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var danhMuc = await _danhMucService.GetById(id);
@@ -38,7 +38,7 @@ public class DanhMucAPI : ControllerBase
         return Ok(danhMuc);
     }
 
-    [HttpPost("create-danhMuc")]
+    [HttpPost]
     public async Task<IActionResult> Create([FromBody] DanhMucVM dm)
     {
         if (!ModelState.IsValid)
@@ -54,13 +54,14 @@ public class DanhMucAPI : ControllerBase
         }       
     }
 
-    [HttpPut("edit-danhMuc")]
-    public async Task<IActionResult> Edit([FromBody] DanhMucVM dm)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Edit([FromRoute] Guid id, [FromBody] DanhMucVM dm)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
+        dm.Id = id;
         var affectedResult = await _danhMucService.Edit(dm);
         if (affectedResult == Guid.Empty)
             return BadRequest();
@@ -68,7 +69,7 @@ public class DanhMucAPI : ControllerBase
     }
 
     
-    [HttpDelete("delete-danhMuc/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var affectedResult = await _danhMucService.Delete(id);
