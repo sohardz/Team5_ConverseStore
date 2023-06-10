@@ -16,7 +16,7 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> ShowAll()
         {
             var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/VoucherAPI/get-all-voucher";
+            string apiURL = "https://localhost:7146/api/VoucherAPI/";
             var response = await httpClient.GetAsync(apiURL);
             string apiData = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<List<VoucherVM>>(apiData);
@@ -37,7 +37,7 @@ namespace Shop.AdminApp.Controllers
                 return View(collection);
             var httpClient = new HttpClient();
 
-            string apiURL = "https://localhost:7146/api/VoucherAPI";
+            string apiURL = "https://localhost:7146/api/VoucherAPI/";
 
             var json = JsonConvert.SerializeObject(collection);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -56,7 +56,7 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/VoucherAPI/get-voucher/{id}";
+            string apiURL = $"https://localhost:7146/api/VoucherAPI/{id}";
 
             var response = await httpClient.GetAsync(apiURL);
 
@@ -71,13 +71,10 @@ namespace Shop.AdminApp.Controllers
             if (!ModelState.IsValid) return View(voucherVM);
 
             var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/VoucherAPI/edit-voucher";
+            string apiURL = $"https://localhost:7146/api/VoucherAPI/{voucherVM.Id}";
 
             var json = JsonConvert.SerializeObject(voucherVM);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-
-
             var response = await httpClient.PutAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
@@ -93,7 +90,7 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/VoucherAPI/delete-voucher/{id}";
+            string apiURL = $"https://localhost:7146/api/VoucherAPI/{id}";
 
             var response = await httpClient.DeleteAsync(apiURL);
             if (response.IsSuccessStatusCode)
