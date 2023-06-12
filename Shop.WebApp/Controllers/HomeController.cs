@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Shop.ViewModels.ViewModels;
 using Shop.WebApp.Models;
@@ -79,8 +80,48 @@ public class HomeController : Controller
 		}
 		return View();
 	}
+	public IActionResult Blog()
+	{
+		var idUser = HttpContext.ToString();
+		ViewData["idUser"] = idUser;
+        if (!string.IsNullOrEmpty(idUser))
+            return View();
+        return RedirectToAction("Login");
+    }
+	public ActionResult BlogDetails() {
+        var idUser = HttpContext.ToString();
+        ViewData["idUser"] = idUser;
+        if (!string.IsNullOrEmpty(idUser))
+            return View();
+        return RedirectToAction("Login");
+    }
+    public ActionResult Contact()
+    {
+        var idUser = HttpContext.ToString();
+        ViewData["idUser"] = idUser;
+        if (!string.IsNullOrEmpty(idUser))
+            return View();
+        return RedirectToAction("Login");
+    }
+    public ActionResult Tracking()
+    {
+        var idUser = HttpContext.ToString();
+        ViewData["idUser"] = idUser;
+        if (!string.IsNullOrEmpty(idUser))
+            return View();
+        return RedirectToAction("Login");
+    }
+    public ActionResult Elements()
+    {
+        var idUser = HttpContext.ToString();
+        ViewData["idUser"] = idUser;
+        if (!string.IsNullOrEmpty(idUser))
+            return View();
+        return RedirectToAction("Login");
+    }
 
-	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 	public IActionResult Error()
 	{
 		return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
