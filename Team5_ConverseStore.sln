@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.AdminApp", "Shop.Admin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Infrastructure", "1.Infrastructure", "{2806B082-8797-4149-921A-885CA5C528AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.ViewModels", "Shop.ViewModels\Shop.ViewModels.csproj", "{54D948B3-DEF1-4A20-8264-7BABD2B62586}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.ViewModels", "Shop.ViewModels\Shop.ViewModels.csproj", "{54D948B3-DEF1-4A20-8264-7BABD2B62586}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

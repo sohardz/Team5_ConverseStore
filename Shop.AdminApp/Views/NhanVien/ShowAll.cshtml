@@ -11,15 +11,15 @@
 
 
 <p>
-    <a asp-action="Create">Cresate New</a>
-</p>
+    <a asp-action="Create">Create New</a>
+</p>    
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Cấp Bậc</h3>
+        <h3 class="card-title">Nhân Viên</h3>
 
         <div class="card-tools">
-            <div class="input-group input-group-sm" style="width: 150px;">
+            <div class="input-group input-group-    " style="width: 150px;">
                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
                 <div class="input-group-append">
@@ -36,9 +36,7 @@
         <table class="table table-hover text-nowrap">
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id)
-                    </th>
+                    
                     <th>
                         @Html.DisplayNameFor(model => model.IdCv)
                     </th>
@@ -70,9 +68,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
+                        
                         <td>
                             @Html.DisplayFor(modelItem => item.IdCv)
                         </td>
@@ -100,8 +96,7 @@
                             {
                                 <img src="~/Image/banner.png" height="30px">
                             }
-
-                        <td>
+                        </td>
                         <td>
                                     @Html.DisplayFor(modelItem => item.Email)
                         </td>
