@@ -9,4 +9,5 @@ public interface IKhachhangServices
     Task<Guid> Edit(KhachHangVM kh);
     Task<int> Delete(Guid id);
     Task<KhachHangVM> GetById(Guid id);
+    Task<Guid> CustomerLogin(string username, string password);
 }

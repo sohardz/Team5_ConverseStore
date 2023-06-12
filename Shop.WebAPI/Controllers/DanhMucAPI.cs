@@ -50,8 +50,9 @@ public class DanhMucAPI : ControllerBase
             return BadRequest();
         else
         {
-            return await GetById(danhMucId);
-        }       
+            HttpContext.Response.StatusCode = 201;
+            return Ok(dm);
+        }
     }
 
     [HttpPut("{id}")]
@@ -65,7 +66,7 @@ public class DanhMucAPI : ControllerBase
         var affectedResult = await _danhMucService.Edit(dm);
         if (affectedResult == Guid.Empty)
             return BadRequest();
-        return Ok();
+        return Ok(dm);
     }
 
     
