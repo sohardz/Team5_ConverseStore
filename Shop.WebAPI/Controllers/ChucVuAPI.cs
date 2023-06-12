@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.IServices;
-using Shop.Application.Services;
 using Shop.ViewModels.ViewModels;
 
 
@@ -12,76 +11,76 @@ namespace Shop.WebAPI.Controllers;
 [ApiController]
 public class ChucVuAPI : ControllerBase
 {
-    private readonly ILogger<ChucVuAPI> _logger;
-    private readonly IChucVuService _chucVuService;
+	private readonly ILogger<ChucVuAPI> _logger;
+	private readonly IChucVuService _chucVuService;
 
-    public ChucVuAPI(ILogger<ChucVuAPI> logger, IChucVuService chucVuService)
-    {
-        _logger = logger;
-        _chucVuService = chucVuService;
-    }
+	public ChucVuAPI(ILogger<ChucVuAPI> logger, IChucVuService chucVuService)
+	{
+		_logger = logger;
+		_chucVuService = chucVuService;
+	}
 
-    // GET: api/<ChucVuAPI>
-    [HttpGet]
-    public async Task<List<ChucVuVM>> GetAllChucVuVM()
-    {
-        return await _chucVuService.GetAll();
-    }
+	// GET: api/<ChucVuAPI>
+	[HttpGet]
+	public async Task<List<ChucVuVM>> GetAllChucVuVM()
+	{
+		return await _chucVuService.GetAll();
+	}
 
-    
-    [HttpPost]
-    public async Task<IActionResult> Them([FromBody] ChucVuVM cv)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        var check = await _chucVuService.Create(cv);
-        if (check == Guid.Empty)
-        {
-            return BadRequest();
-        }
-        else
-        {
-            return await GetById(check);
-        }
-        //var chucvu = await _chucVuService.GetById(chucvuId);
-        //return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
-    }
 
-    [HttpPut("{id}")]
-    
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ChucVuVM cv)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        cv.Id = id;
-        var affectedResult = await _chucVuService.Edit(cv);
-        if (affectedResult == Guid.Empty)
-            return BadRequest();
-        return Ok();
-    }
+	[HttpPost]
+	public async Task<IActionResult> Them([FromBody] ChucVuVM cv)
+	{
+		if (!ModelState.IsValid)
+		{
+			return BadRequest(ModelState);
+		}
+		var check = await _chucVuService.Create(cv);
+		if (check == Guid.Empty)
+		{
+			return BadRequest();
+		}
+		else
+		{
+			return await GetById(check);
+		}
+		//var chucvu = await _chucVuService.GetById(chucvuId);
+		//return CreatedAtAction(nameof(GetById), new { id = chucvuId }, chucvu);
+	}
 
-    [HttpGet("chucvu/{id}")]
-    public async Task<IActionResult> GetById(Guid id)
-    {
-        var chucvu = await _chucVuService.GetById(id);
-        if (chucvu == null)
-        {
-            return BadRequest("Can't find chucvu");
-        }
-        return Ok(chucvu);
-    }
+	[HttpPut("{id}")]
 
-    // DELETE api/<ChucVuAPI>/5
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(Guid id)
-    {
-        var affectedResult = await _chucVuService.Delete(id);
-        if (affectedResult == 0)
-            return BadRequest();
-        return Ok();
-    }
+	public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ChucVuVM cv)
+	{
+		if (!ModelState.IsValid)
+		{
+			return BadRequest(ModelState);
+		}
+		cv.Id = id;
+		var affectedResult = await _chucVuService.Edit(cv);
+		if (affectedResult == Guid.Empty)
+			return BadRequest();
+		return Ok();
+	}
+
+	[HttpGet("chucvu/{id}")]
+	public async Task<IActionResult> GetById(Guid id)
+	{
+		var chucvu = await _chucVuService.GetById(id);
+		if (chucvu == null)
+		{
+			return BadRequest("Can't find chucvu");
+		}
+		return Ok(chucvu);
+	}
+
+	// DELETE api/<ChucVuAPI>/5
+	[HttpDelete("{id}")]
+	public async Task<IActionResult> Delete(Guid id)
+	{
+		var affectedResult = await _chucVuService.Delete(id);
+		if (affectedResult == 0)
+			return BadRequest();
+		return Ok();
+	}
 }

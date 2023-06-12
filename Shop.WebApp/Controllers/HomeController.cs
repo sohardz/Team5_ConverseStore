@@ -55,31 +55,29 @@ public class HomeController : Controller
 		}
 	}
 
-	public async Task<IActionResult> Login()
+	public IActionResult Login()
 	{
 		return View();
 	}
 
-	[HttpGet]
-	public async Task<IActionResult> Login(string username, string password)
+	[HttpPost]
+	public async Task<IActionResult> Login(LoginVM login)
 	{
+		/* Check login ở services
+		 * người dùng đăng nhập -> tài khoản mật khẩu -> apiURL -> api -> services check đúng sai -> trả về guid -> gán lại cho session "userId"
+		 */
 		var httpClient = new HttpClient();
-		string apiURL = "https://localhost:7146/api/KhachHangAPI";
+		string apiURL = $"https://localhost:7146/api/KhachHangAPI/login?username={login.Username}&password={login.Password}";
 
-		var response = await httpClient.GetAsync(apiURL);
-		var apiData = await response.Content.ReadAsStringAsync();
-		var result = JsonConvert.DeserializeObject<List<KhachHangVM>>(apiData);
+		var response = await httpClient.PostAsync(apiURL, new StringContent(""));
 
-		foreach (var i in result)
+		if (response.IsSuccessStatusCode)
 		{
-			if (i.TenTaiKhoan == username && i.MatKhau == password)
-			{
-				var userId = i.Id.ToString();
-				HttpContext.Session.SetString("userId", userId);
-				return RedirectToAction("Index");
-			}
+			var apiData = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<string>(apiData);
+			HttpContext.Session.SetString("userId", result);
+			return RedirectToAction("Index");
 		}
-
 		return View();
 	}
 	public IActionResult Blog()

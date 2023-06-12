@@ -121,4 +121,16 @@ public class KhachHangServices : IKhachhangServices
 		_shopDbContext.KhachHangs.Remove(khachhang);
 		return await _shopDbContext.SaveChangesAsync();
 	}
+
+	public async Task<Guid> CustomerLogin(string username, string password)
+	{
+		foreach (var i in await GetAll())
+		{
+			if (i.TenTaiKhoan == username && i.MatKhau == password)
+			{
+				return (Guid)i.Id;
+			}
+		}
+		return Guid.Empty;
+	}
 }
