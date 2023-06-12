@@ -6,94 +6,94 @@ using System.Text;
 
 namespace Shop.AdminApp.Controllers
 {
-    public class KichCoController : Controller
-    {
-        public KichCoController()
-        {
-            
-        }
-        public async Task <IActionResult> ShowAll()
-        {
-            var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/KichCoAPI";
+	public class KichCoController : Controller
+	{
+		public KichCoController()
+		{
 
-            var response = await httpClient.GetAsync(apiURL);
-            string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<KichCoVM>>(apiData);
-            return View(result);
-        }
-        public async Task<IActionResult> Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Create(KichCoVM kichCoVM)
-        {
-            if (!ModelState.IsValid)
-                return View(kichCoVM);
+		}
+		public async Task<IActionResult> ShowAll()
+		{
+			var httpClient = new HttpClient();
+			string apiURL = "https://localhost:7146/api/KichCoAPI";
 
-            var httpClient = new HttpClient();
+			var response = await httpClient.GetAsync(apiURL);
+			string apiData = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<List<KichCoVM>>(apiData);
+			return View(result);
+		}
+		public async Task<IActionResult> Create()
+		{
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> Create(KichCoVM kichCoVM)
+		{
+			if (!ModelState.IsValid)
+				return View(kichCoVM);
 
-            string apiURL = "https://localhost:7146/api/KichCoAPI";
+			var httpClient = new HttpClient();
 
-            var json = JsonConvert.SerializeObject(kichCoVM);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+			string apiURL = "https://localhost:7146/api/KichCoAPI";
 
-            var response = await httpClient.PostAsync(apiURL, content);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("ShowAll");
-            }
-            ModelState.AddModelError("", "Create Sai roi");
+			var json = JsonConvert.SerializeObject(kichCoVM);
+			var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            return View(kichCoVM);
-        }
-        [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
-        {
-            var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/KichCoAPI/kichco/{id}";
+			var response = await httpClient.PostAsync(apiURL, content);
+			if (response.IsSuccessStatusCode)
+			{
+				return RedirectToAction("ShowAll");
+			}
+			ModelState.AddModelError("", "Create Sai roi");
 
-            var response = await httpClient.GetAsync(apiURL);
+			return View(kichCoVM);
+		}
+		[HttpGet]
+		public async Task<IActionResult> Edit(Guid id)
+		{
+			var httpClient = new HttpClient();
+			string apiURL = $"https://localhost:7146/api/KichCoAPI/kichco/{id}";
 
-            string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<KichCoVM>(apiData);
-            return View(result);
-        }
+			var response = await httpClient.GetAsync(apiURL);
 
-        public async Task<IActionResult> Edit(KichCoVM kichCoVM)
-        {
-            if (!ModelState.IsValid) return View(kichCoVM);
+			string apiData = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<KichCoVM>(apiData);
+			return View(result);
+		}
 
-            var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/KichCoAPI/{kichCoVM.Id}";
+		public async Task<IActionResult> Edit(KichCoVM kichCoVM)
+		{
+			if (!ModelState.IsValid) return View(kichCoVM);
 
-            var json = JsonConvert.SerializeObject(kichCoVM);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+			var httpClient = new HttpClient();
+			string apiURL = $"https://localhost:7146/api/KichCoAPI/{kichCoVM.Id}";
 
-            //var content = new StringContent(JsonConvert.SerializeObject(capBacVM, Encoding.UTF8, "application/json");
+			var json = JsonConvert.SerializeObject(kichCoVM);
+			var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PutAsync(apiURL, content);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("ShowAll");
-            }
-            ModelState.AddModelError("", "Edit sai roi be oi");
+			//var content = new StringContent(JsonConvert.SerializeObject(capBacVM, Encoding.UTF8, "application/json");
 
-            return View(kichCoVM);
-        }
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/KichCoAPI/{id}";
+			var response = await httpClient.PutAsync(apiURL, content);
+			if (response.IsSuccessStatusCode)
+			{
+				return RedirectToAction("ShowAll");
+			}
+			ModelState.AddModelError("", "Edit sai roi be oi");
 
-            var response = await httpClient.DeleteAsync(apiURL);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("ShowAll");
-            }
-            ModelState.AddModelError("", "Delete sai tiep roi be oi");
-            return BadRequest();
-        }
-    }
+			return View(kichCoVM);
+		}
+		public async Task<IActionResult> Delete(Guid id)
+		{
+			var httpClient = new HttpClient();
+			string apiURL = $"https://localhost:7146/api/KichCoAPI/{id}";
+
+			var response = await httpClient.DeleteAsync(apiURL);
+			if (response.IsSuccessStatusCode)
+			{
+				return RedirectToAction("ShowAll");
+			}
+			ModelState.AddModelError("", "Delete sai tiep roi be oi");
+			return BadRequest();
+		}
+	}
 }

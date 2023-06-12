@@ -5,99 +5,99 @@ using System.Text;
 
 namespace Shop.AdminApp.Controllers
 {
-    public class GiamGiaController : Controller
-    {
-        public GiamGiaController()
-        {
-            
-        }
-        public async Task<IActionResult> ShowAll()
-        {
-            var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/GiamGiaAPI/get-all-giamgia";
+	public class GiamGiaController : Controller
+	{
+		public GiamGiaController()
+		{
 
-            var response = await httpClient.GetAsync(apiURL);
-            string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<GiamGiaVM>>(apiData);
-            return View(result);
-        }
+		}
+		public async Task<IActionResult> ShowAll()
+		{
+			var httpClient = new HttpClient();
+			string apiURL = "https://localhost:7146/api/GiamGiaAPI/get-all-giamgia";
 
-        public async Task<IActionResult> Create()
-        {
-            return View();
-        }
+			var response = await httpClient.GetAsync(apiURL);
+			string apiData = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<List<GiamGiaVM>>(apiData);
+			return View(result);
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> Create(GiamGiaVM GiamGiaVM)
-        {
-            if (!ModelState.IsValid)
-                return View(GiamGiaVM);
+		public async Task<IActionResult> Create()
+		{
+			return View();
+		}
 
-            var httpClient = new HttpClient();
+		[HttpPost]
+		public async Task<IActionResult> Create(GiamGiaVM GiamGiaVM)
+		{
+			if (!ModelState.IsValid)
+				return View(GiamGiaVM);
 
-            string apiURL = "https://localhost:7146/api/GiamGiaAPI/create-giamgia";
+			var httpClient = new HttpClient();
 
-            var json = JsonConvert.SerializeObject(GiamGiaVM);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+			string apiURL = "https://localhost:7146/api/GiamGiaAPI/create-giamgia";
 
-            var response = await httpClient.PostAsync(apiURL, content);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("ShowAll");
-            }
-            ModelState.AddModelError("", "Sai roi");
+			var json = JsonConvert.SerializeObject(GiamGiaVM);
+			var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            return View(GiamGiaVM);
-        }
+			var response = await httpClient.PostAsync(apiURL, content);
+			if (response.IsSuccessStatusCode)
+			{
+				return RedirectToAction("ShowAll");
+			}
+			ModelState.AddModelError("", "Sai roi");
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
-        {
-            var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/GiamGiaAPI/get-giamgia/{id}";
+			return View(GiamGiaVM);
+		}
 
-            var response = await httpClient.GetAsync(apiURL);
+		[HttpGet]
+		public async Task<IActionResult> Edit(Guid id)
+		{
+			var httpClient = new HttpClient();
+			string apiURL = $"https://localhost:7146/api/GiamGiaAPI/get-giamgia/{id}";
 
-            string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<GiamGiaVM>(apiData);
-            return View(result);
-        }
-           
-        public async Task<IActionResult> Edit(GiamGiaVM GiamGiaVM)
-        {
-           
-            if (!ModelState.IsValid) return View(GiamGiaVM);
+			var response = await httpClient.GetAsync(apiURL);
 
-            var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/GiamGiaAPI/update-giamgia";
+			string apiData = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<GiamGiaVM>(apiData);
+			return View(result);
+		}
 
-            var json = JsonConvert.SerializeObject(GiamGiaVM);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+		public async Task<IActionResult> Edit(GiamGiaVM GiamGiaVM)
+		{
 
-            //var content = new StringContent(JsonConvert.SerializeObject(GiamGiaVM, Encoding.UTF8, "application/json");
+			if (!ModelState.IsValid) return View(GiamGiaVM);
 
-            var response = await httpClient.PutAsync(apiURL, content);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("ShowAll");
-            }
-            ModelState.AddModelError("", "sai roi be oi");
+			var httpClient = new HttpClient();
+			string apiURL = "https://localhost:7146/api/GiamGiaAPI/update-giamgia";
 
-            return View(GiamGiaVM);
-        }
+			var json = JsonConvert.SerializeObject(GiamGiaVM);
+			var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/GiamGiaAPI/delete-giamgia/{id}";
+			//var content = new StringContent(JsonConvert.SerializeObject(GiamGiaVM, Encoding.UTF8, "application/json");
 
-            var response = await httpClient.DeleteAsync(apiURL);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("ShowAll");
-            }
-            ModelState.AddModelError("", "sai tiep roi be oi");
-            return BadRequest();
-        }
-    }
+			var response = await httpClient.PutAsync(apiURL, content);
+			if (response.IsSuccessStatusCode)
+			{
+				return RedirectToAction("ShowAll");
+			}
+			ModelState.AddModelError("", "sai roi be oi");
+
+			return View(GiamGiaVM);
+		}
+
+		public async Task<IActionResult> Delete(Guid id)
+		{
+			var httpClient = new HttpClient();
+			string apiURL = $"https://localhost:7146/api/GiamGiaAPI/delete-giamgia/{id}";
+
+			var response = await httpClient.DeleteAsync(apiURL);
+			if (response.IsSuccessStatusCode)
+			{
+				return RedirectToAction("ShowAll");
+			}
+			ModelState.AddModelError("", "sai tiep roi be oi");
+			return BadRequest();
+		}
+	}
 }

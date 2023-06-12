@@ -62,6 +62,9 @@ public class HomeController : Controller
 	[HttpPost]
 	public async Task<IActionResult> Login(LoginVM login)
 	{
+		/* Check login ở services
+		 * người dùng đăng nhập -> tài khoản mật khẩu -> apiURL -> api -> services check đúng sai -> trả về guid -> gán lại cho session "userId"
+		 */
 		var httpClient = new HttpClient();
 		string apiURL = $"https://localhost:7146/api/KhachHangAPI/login?username={login.Username}&password={login.Password}";
 
@@ -70,7 +73,8 @@ public class HomeController : Controller
 		if (response.IsSuccessStatusCode)
 		{
 			var apiData = await response.Content.ReadAsStringAsync();
-			HttpContext.Session.SetString("userId", apiData);
+			var result = JsonConvert.DeserializeObject<string>(apiData);
+			HttpContext.Session.SetString("userId", result);
 			return RedirectToAction("Index");
 		}
 		return View();

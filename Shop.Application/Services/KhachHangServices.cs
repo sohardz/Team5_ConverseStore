@@ -4,7 +4,6 @@ using Shop.Application.IServices;
 using Shop.Data.Context;
 using Shop.Data.Models;
 using Shop.ViewModels.ViewModels;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Shop.Application.Services;
 
@@ -127,7 +126,7 @@ public class KhachHangServices : IKhachhangServices
 	{
 		foreach (var i in await GetAll())
 		{
-			if (i.TenTaiKhoan == username&& i.MatKhau == password)
+			if (i.TenTaiKhoan == username && i.MatKhau == password)
 			{
 				return (Guid)i.Id;
 			}
