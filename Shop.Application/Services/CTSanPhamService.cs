@@ -45,7 +45,6 @@ public class CTSanPhamService : ICTSanPhamService
 				IdMauSac = x.p.IdMauSac,
 				IdSanPham = x.p.IdSanPham,
 				IdDanhMuc = x.p.IdDanhMuc,
-				AnhBanDau = x.p.AnhBanDau,
 			}
 			).ToListAsync();
 		return data;
