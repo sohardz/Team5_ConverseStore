@@ -2,9 +2,9 @@
 
 public enum TrangThaiHoaDon
 {
-    DangTienHanh,
-    DaXacNhan,
-    DangGiaoHang,
-    HoanThanh,
-    DaHuy
+	DangTienHanh,
+	DaXacNhan,
+	DangGiaoHang,
+	HoanThanh,
+	DaHuy
 }

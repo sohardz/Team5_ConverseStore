@@ -2,6 +2,6 @@
 
 public enum TrangThai
 {
-    KhongHoatDong,
-    HoatDong,
+	KhongHoatDong,
+	HoatDong,
 }

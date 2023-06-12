@@ -2,13 +2,13 @@
 
 public class ShopExeption : Exception
 {
-    public ShopExeption() { }
-    public ShopExeption(string message) : base(message)
-    {
+	public ShopExeption() { }
+	public ShopExeption(string message) : base(message)
+	{
 
-    }
-    public ShopExeption(string message, Exception inner)
-       : base(message, inner)
-    {
-    }
+	}
+	public ShopExeption(string message, Exception inner)
+	   : base(message, inner)
+	{
+	}
 }

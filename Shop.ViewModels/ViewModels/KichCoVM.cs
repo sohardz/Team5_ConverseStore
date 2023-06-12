@@ -2,8 +2,8 @@
 
 public class KichCoVM
 {
-    public Guid? Id { get; set; }
-    public string Ma { get; set; }
-    public int SoSize { get; set; }
-    public int TrangThai { get; set; }
+	public Guid? Id { get; set; }
+	public string Ma { get; set; }
+	public int SoSize { get; set; }
+	public int TrangThai { get; set; }
 }
