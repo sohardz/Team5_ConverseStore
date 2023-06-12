@@ -22,15 +22,14 @@ public class MauSacAPI : ControllerBase
 
     // GET: api/<MauSaAPI>
     [HttpGet]
-    public async Task<List<MauSacVM>> GetAllMauSacVM()
+    public async Task<List<MauSacVM>> GetAll()
     {
         return await _mauSacService.GetAll();
     }
 
     // PUT api/<MauSaAPI>/5
     [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Them([FromForm] MauSacVM ms)
+    public async Task<IActionResult> Them([FromBody] MauSacVM ms)
     {
         if (!ModelState.IsValid)
         {
@@ -49,8 +48,7 @@ public class MauSacAPI : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] MauSacVM ms)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] MauSacVM ms)
     {
         if (!ModelState.IsValid)
         {
@@ -60,7 +58,7 @@ public class MauSacAPI : ControllerBase
         var affectedResult = await _mauSacService.Edit(ms);
         if (affectedResult == Guid.Empty)
             return BadRequest();
-        return Ok();
+        return Ok(ms);
     }
 
     [HttpGet("mausac/{id}")]

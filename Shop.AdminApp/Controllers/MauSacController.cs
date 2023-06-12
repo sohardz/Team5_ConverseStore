@@ -2,29 +2,27 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Shop.ViewModels.ViewModels;
-using System.Diagnostics.Metrics;
 using System.Text;
 
 namespace Shop.AdminApp.Controllers
 {
-    public class DanhMucController : Controller
+    public class MauSacController : Controller
     {
-        public DanhMucController()
+        public MauSacController()
         {
-
+            
         }
-        // GET: DanhMucController
         public async Task<IActionResult> ShowAll()
         {
             var httpClient = new HttpClient();
-            string apiURL = "https://localhost:7146/api/DanhMucAPI/";
+            string apiURL = "https://localhost:7146/api/MauSacAPI/";
             var response = await httpClient.GetAsync(apiURL);
             string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData);
+            var result = JsonConvert.DeserializeObject<List<MauSacVM>>(apiData);
             return View(result);
         }
 
-       
+
         // GET: DanhMucController/Create
         public async Task<IActionResult> Create()
         {
@@ -32,13 +30,13 @@ namespace Shop.AdminApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DanhMucVM collection)
+        public async Task<IActionResult> Create(MauSacVM collection)
         {
             if (!ModelState.IsValid)
                 return View(collection);
             var httpClient = new HttpClient();
 
-            string apiURL = $"https://localhost:7146/api/DanhMucAPI/";
+            string apiURL = $"https://localhost:7146/api/MauSacAPI/";
 
             var json = JsonConvert.SerializeObject(collection);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -57,22 +55,22 @@ namespace Shop.AdminApp.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/DanhMucAPI/{id}";
+            string apiURL = $"https://localhost:7146/api/MauSacAPI/{id}";
 
             var response = await httpClient.GetAsync(apiURL);
 
             string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<DanhMucVM>(apiData);
+            var result = JsonConvert.DeserializeObject<MauSacVM>(apiData);
             return View(result);
         }
 
         // POST: DanhMucController/Edit/5
-        public async Task<IActionResult> Edit(DanhMucVM collection)
+        public async Task<IActionResult> Edit(MauSacVM collection)
         {
             if (!ModelState.IsValid) return View(collection);
 
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/DanhMucAPI/{collection.Id}";
+            string apiURL = $"https://localhost:7146/api/MauSacAPI/{collection.Id}";
 
             var json = JsonConvert.SerializeObject(collection);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -85,12 +83,12 @@ namespace Shop.AdminApp.Controllers
 
             return View(collection);
         }
-      
+
         // POST: DanhMucController/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7146/api/DanhMucAPI/{id}";
+            string apiURL = $"https://localhost:7146/api/MauSacAPI/{id}";
 
             var response = await httpClient.DeleteAsync(apiURL);
             if (response.IsSuccessStatusCode)
