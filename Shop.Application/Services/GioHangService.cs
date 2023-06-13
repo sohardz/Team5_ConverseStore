@@ -20,6 +20,7 @@ public class GioHangService : IGioHangService
 				.Select(i => new GioHangVM()
 				{
 					IdKh = i.IdKh,
+					Ma = i.Ma,
 					MoTa = i.MoTa,
 					TrangThai = i.TrangThai,
 				}
@@ -32,6 +33,7 @@ public class GioHangService : IGioHangService
 		var giohangviewmodel = new GioHangVM()
 		{
 			IdKh = id,
+			Ma = giohang.Ma,
 			MoTa = giohang.MoTa,
 			TrangThai = giohang.TrangThai
 		};
@@ -42,7 +44,7 @@ public class GioHangService : IGioHangService
 	{
 		var giohang = await _shopDbContext.GioHangs.FindAsync(gh.IdKh);
 		if (giohang == null) throw new ShopExeption($"Không thể tim thấy giỏ hàng với Id:  {gh.IdKh}");
-
+		giohang.Ma = gh.Ma;
 		giohang.MoTa = gh.MoTa;
 		giohang.TrangThai = gh.TrangThai;
 		await _shopDbContext.SaveChangesAsync();
@@ -54,6 +56,7 @@ public class GioHangService : IGioHangService
 		var giohang = new GioHang()
 		{
 			IdKh = gh.IdKh,
+			Ma = gh.Ma,
 			MoTa = gh.MoTa,
 			TrangThai = gh.TrangThai,
 		};

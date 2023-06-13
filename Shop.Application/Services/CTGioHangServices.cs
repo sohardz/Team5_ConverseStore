@@ -28,8 +28,7 @@ public class CTGioHangServices : ICTGioHangServices
                 IdKh = x.m.IdKh,
                 IdCtsp = x.pt.IdSanPham,
                 SoLuong = x.p.SoLuong,
-
-
+                
             }
             ).ToListAsync();
         return data;
@@ -54,16 +53,26 @@ public class CTGioHangServices : ICTGioHangServices
         return lstVM;
     }
 
-    public async Task<Guid> Edit(CTGioHangVM ctgh)
+    public async Task<Guid> Edit(Guid idkh, Guid idctsp, CTGioHangVM ctgh)
     {
-        var ctgiohang = await _shopDbContext.CTGioHangs.FindAsync(ctgh.Id);
+        //var ctgiohang = await _shopDbContext.CTGioHangs.FindAsync(ctgh.Id);
 
-        if (ctgiohang == null) throw new ShopExeption($"Can't find a product with id: {ctgh.Id}");
-        ctgiohang.SoLuong = ctgh.SoLuong;
-        ctgiohang.IdCtsp = ctgh.IdCtsp;
-        _shopDbContext.Update(ctgiohang);
+        //if (ctgiohang == null) throw new ShopExeption($"Can't find a product with id: {ctgh.Id}");
+        //ctgiohang.SoLuong = ctgh.SoLuong;
+        //_shopDbContext.Update(ctgiohang);
+        //await _shopDbContext.SaveChangesAsync();
+        //return ctgiohang.Id;
+
+        var listObj = _shopDbContext.CTGioHangs.ToList();
+        var objForUpdate = listObj.FirstOrDefault(c => c.IdKh == idkh && c.IdCtsp == idctsp);
+
+        objForUpdate.SoLuong = ctgh.SoLuong;
+
+        _shopDbContext.CTGioHangs.Update(objForUpdate);
         await _shopDbContext.SaveChangesAsync();
-        return ctgiohang.Id;
+
+        return objForUpdate.Id;
+
     }
 
     public async Task<Guid> Create(CTGioHangVM ctgh)
