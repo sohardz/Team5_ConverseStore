@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "ShowAll";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> imageExtensions = new List<string>()
+    {
+        ".jpg", ".png", ".webp", ".gif", ".pdf", ".tiff", ".jpeg"
+    };
 }
 
 <h1>ShowAll</h1>
@@ -13,9 +17,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.TenSP)
             </th>
@@ -44,20 +46,8 @@
                 @Html.DisplayNameFor(model => model.MaGiamGia)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.IdSanPham)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdKichCo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdMauSac)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdDanhMuc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdGiamGia)*@
-            @*</th>*@
+                @Html.DisplayNameFor(model => model.AnhBanDau)
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.TrangThai)
             </th>
@@ -67,9 +57,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.TenSP)
             </td>
@@ -97,21 +85,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.MaGiamGia)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.IdSanPham)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdKichCo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdMauSac)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdDanhMuc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdGiamGia)
-            </td>*@
+                @*<td>
+                    @{
+                        var extension = System.IO.Path.GetExtension(item.AnhBanDau);
+                    }
+                    @if (imageExtensions.Contains(extension))
+                    {
+                        <img src="~/Image/@item.a" height="30px">
+                    }
+                    else
+                    {
+                        <img src="~/Image/banner.png" height="30px">
+                    }
+                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.TrangThai)
             </td>

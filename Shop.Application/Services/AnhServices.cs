@@ -23,6 +23,7 @@ public class AnhServices : IAnhServices
 				{
 					Id = i.Id,
 					IdCtsp = i.IdCtsp,
+					Ma = i.Ma,
 					DuongDan = i.DuongDan,
 					TrangThai = i.TrangThai,
 				}
@@ -36,6 +37,7 @@ public class AnhServices : IAnhServices
 				{
 					Id = i.Id,
 					IdCtsp = i.IdCtsp,
+					Ma = i.Ma,
 					DuongDan = i.DuongDan,
 					TrangThai = i.TrangThai,
 				}
@@ -49,6 +51,7 @@ public class AnhServices : IAnhServices
 		{
 			Id = anh.Id,
 			IdCtsp = anh.IdCtsp,
+			Ma = anh.Ma,
 			DuongDan = anh.DuongDan,
 			TrangThai = anh.TrangThai,
 		};
@@ -59,6 +62,7 @@ public class AnhServices : IAnhServices
 	{
 		var anh = await _shopDbContext.Anhs.FindAsync(anhVm.Id);
 		if (anh == null) throw new ShopExeption($"Không thể tim thấy chức vụ với Id:  {anhVm.Id}");
+		anh.Ma = anhVm.Ma;
 		anh.DuongDan = anhVm.DuongDan;
 		anh.TrangThai = anhVm.TrangThai;
 		await _shopDbContext.SaveChangesAsync();
@@ -70,6 +74,7 @@ public class AnhServices : IAnhServices
 		var anh = new Anh()
 		{
 			Id = Guid.NewGuid(),
+			Ma = anhVm.Ma,
 			IdCtsp = anhVm.IdCtsp,
 			DuongDan = anhVm.DuongDan,
 			TrangThai = anhVm.TrangThai,
@@ -84,7 +89,7 @@ public class AnhServices : IAnhServices
 		var anh = await _shopDbContext.Anhs.FindAsync(id);
 		if (anh == null)
 		{
-			throw new ShopExeption($"Không thể tìm thấy 1 Chuc Vu : {id}");
+			throw new ShopExeption($"Không thể tìm thấy Id ảnh : {id}");
 		}
 		_shopDbContext.Anhs.Remove(anh);
 		return await _shopDbContext.SaveChangesAsync();

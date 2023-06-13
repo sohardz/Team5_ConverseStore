@@ -74,8 +74,8 @@
                 <span asp-validation-for="IdBac" class="text-danger"></span>
             </div>*@
             <div class="form-group">
-                <label asp-for="IdBac" class="control-label"></label>
-                <select name="bacId" asp-for="IdBac" onchange="this.value;" asp-items="@ViewBag.CapBac" class="form-control">
+                <label  class="control-label">Cấp bậc</label>
+                <select name="capBacId" asp-for="IdBac" onchange="this.value;" asp-items="@ViewBag.CapBac" class="form-control">
                     <option>--Chọn--</option>
                 </select>
                 <span asp-validation-for="IdBac" class="text-danger"></span>
