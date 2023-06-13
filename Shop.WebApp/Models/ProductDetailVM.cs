@@ -4,7 +4,7 @@ namespace Shop.WebApp.Models
 {
     public class ProductDetailVM
     {
-        //public CategoryVm Category { get; set; }
+        public DanhMucVM Category { get; set; }
 
         public CTSanPhamVM Product { get; set; }
 
