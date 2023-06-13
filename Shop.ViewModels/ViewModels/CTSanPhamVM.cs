@@ -20,4 +20,5 @@ public class CTSanPhamVM
 	public Guid IdDanhMuc { get; set; }
 	public Guid IdGiamGia { get; set; }
 	public int TrangThai { get; set; }
+	public List<string> Anhs { get; set; } = new List<string>();
 }

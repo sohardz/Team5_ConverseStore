@@ -4,6 +4,8 @@ using Shop.Application.IServices;
 using Shop.Data.Context;
 using Shop.Data.Models;
 using Shop.ViewModels.ViewModels;
+using System.Linq;
+using System.Security.Cryptography;
 
 namespace Shop.Application.Services;
 
@@ -24,9 +26,19 @@ public class CTSanPhamService : ICTSanPhamService
 					join k in _shopDbContext.KichCos on p.IdKichCo equals k.Id
 					join d in _shopDbContext.DanhMucs on p.IdDanhMuc equals d.Id
 					join g in _shopDbContext.GiamGias on p.IdGiamGia equals g.Id
-					select new { p, pt, m, k, d, g };
-		var data = await query
-			.Select(x => new CTSanPhamVM()
+					join a in _shopDbContext.Anhs on p.Id equals a.IdCtsp /*into apic*/
+					//from a in apic.DefaultIfEmpty()
+						
+					select new { p, pt, m, k, d, g, a };
+		//var image = await (from c in _shopDbContext.Anhs
+		//                   join p in _shopDbContext.CTSanPhams on c.IdCtsp equals p.Id
+		//                   select c.DuongDan).FirstOrDefaultAsync();
+		if (true)
+		{
+
+		}
+        var data = await query
+			.Select( x => new CTSanPhamVM()
 			{
 				Id = x.p.Id,
 				Ma = x.p.Ma,
@@ -38,13 +50,15 @@ public class CTSanPhamService : ICTSanPhamService
 				TenDanhMuc = x.d.Ten,
 				SoSize = x.k.SoSize,
 				MaGiamGia = x.g.Ma,
-				TenMauSac = x.m.Ten,
+				AnhBanDau = x.a.DuongDan,
+                TenMauSac = x.m.Ten,
 				TenSP = x.pt.Ten,
 				IdKichCo = x.p.IdKichCo,
 				IdGiamGia = x.p.IdGiamGia,
 				IdMauSac = x.p.IdMauSac,
 				IdSanPham = x.p.IdSanPham,
 				IdDanhMuc = x.p.IdDanhMuc,
+				
 			}
 			).ToListAsync();
 		return data;
@@ -53,6 +67,9 @@ public class CTSanPhamService : ICTSanPhamService
 	public async Task<CTSanPhamVM> GetById(Guid ctspId)
 	{
 		var cTSP = await _shopDbContext.CTSanPhams.FindAsync(ctspId);
+		var image = await (from c in _shopDbContext.Anhs 
+						   join p in _shopDbContext.CTSanPhams on c.IdCtsp equals p.Id
+						   select c.DuongDan).ToListAsync();
 		var sanPhamViewModel = new CTSanPhamVM()
 		{
 			Id = ctspId,
@@ -67,6 +84,7 @@ public class CTSanPhamService : ICTSanPhamService
 			MaGiamGia = _shopDbContext.GiamGias.FirstOrDefault(x => x.Id == cTSP.IdGiamGia).Ma,
 			TenSP = _shopDbContext.SanPhams.FirstOrDefault(x => x.Id == cTSP.IdSanPham).Ten,
 			SoSize = _shopDbContext.KichCos.FirstOrDefault(x => x.Id == cTSP.IdKichCo).SoSize,
+			Anhs = image,
 			IdDanhMuc = cTSP.IdDanhMuc,
 			IdSanPham = cTSP.IdSanPham,
 			IdMauSac = cTSP.IdMauSac,
@@ -131,4 +149,7 @@ public class CTSanPhamService : ICTSanPhamService
 		_shopDbContext.CTSanPhams.Remove(sanPham);
 		return await _shopDbContext.SaveChangesAsync();
 	}
+
+	
+
 }
