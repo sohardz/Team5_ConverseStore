@@ -26,7 +26,7 @@ public class HoaDonAPI : ControllerBase
 		return await _hoaDonServices.GetAll();
 	}
 
-	[HttpGet("sanpham/{id}")]
+	[HttpGet("{id}")]
 	public async Task<IActionResult> GetById(Guid id)
 	{
 		var hoadon = await _hoaDonServices.GetById(id);
@@ -38,8 +38,7 @@ public class HoaDonAPI : ControllerBase
 	}
 
 	[HttpPost]
-	[Consumes("multipart/form-data")]
-	public async Task<IActionResult> Create([FromForm] HoaDonVM request)
+	public async Task<IActionResult> Create([FromBody] HoaDonVM request)
 	{
 		if (!ModelState.IsValid)
 		{

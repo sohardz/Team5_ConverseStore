@@ -21,7 +21,7 @@ public class CTHoaDonAPI : ControllerBase
 	public async Task<IActionResult> GetAll([FromRoute] Guid id)
 	{
 		var sanpham = await _cTHoaDonServices.GetAll(id);
-		if (sanpham == null)
+		if (sanpham.Count == 0)
 		{
 			return BadRequest("Không thể tìm chi tiết hóa đơn");
 		}
@@ -29,8 +29,7 @@ public class CTHoaDonAPI : ControllerBase
 	}
 
 	[HttpPost]
-	[Consumes("multipart/form-data")]
-	public async Task<IActionResult> Create([FromForm] CTHoaDonVM request)
+	public async Task<IActionResult> Create([FromBody] CTHoaDonVM request)
 	{
 		if (!ModelState.IsValid)
 		{
@@ -38,11 +37,12 @@ public class CTHoaDonAPI : ControllerBase
 		}
 		var cthdId = await _cTHoaDonServices.Create(request);
 		if (cthdId == Guid.Empty)
-			return BadRequest();
+		{
+            return BadRequest();
+        }
 		else
 		{
-			HttpContext.Response.StatusCode = 201;
-			return Ok(request);
+			return Ok(cthdId);
 		}
 		//var sanpham = await _cTHoaDonServices.GetById(cthdId);
 		//return CreatedAtAction(nameof(GetById), new { id = cthdId, idsp = request.IdSanPham }, sanpham);

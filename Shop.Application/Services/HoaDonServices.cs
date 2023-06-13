@@ -20,7 +20,7 @@ public class HoaDonServices : IHoaDonServices
 	{
 		HoaDon hd = new()
 		{
-			Id = Guid.NewGuid(),
+			Id = (Guid)p.Id,
 			IdKh = p.IdKh,
 			IdVoucher = p.IdVoucher,
 			Ma = p.Ma,
@@ -113,6 +113,7 @@ public class HoaDonServices : IHoaDonServices
 		HoaDon p = await _shopDbContext.HoaDons.FirstOrDefaultAsync(x => x.Id == id);
 		HoaDonVM hoaDonVM = new()
 		{
+			Id = id,
 			IdKh = p.IdKh,
 			IdVoucher = p.IdVoucher,
 			Ma = p.Ma,

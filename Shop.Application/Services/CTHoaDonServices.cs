@@ -19,7 +19,7 @@ public class CTHoaDonServices : ICTHoaDonServices
 	{
 		CTHoaDon ct = new()
 		{
-			Id = Guid.NewGuid(),
+			Id = (Guid)p.Id,
 			IdHoaDon = p.IdHoaDon,
 			IdCtsp = p.IdCtsp,
 			SoLuong = p.SoLuong,
