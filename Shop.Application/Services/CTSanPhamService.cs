@@ -69,6 +69,7 @@ public class CTSanPhamService : ICTSanPhamService
 		var cTSP = await _shopDbContext.CTSanPhams.FindAsync(ctspId);
 		var image = await (from c in _shopDbContext.Anhs 
 						   join p in _shopDbContext.CTSanPhams on c.IdCtsp equals p.Id
+						   where c.IdCtsp == ctspId
 						   select c.DuongDan).ToListAsync();
 		var sanPhamViewModel = new CTSanPhamVM()
 		{
@@ -84,7 +85,7 @@ public class CTSanPhamService : ICTSanPhamService
 			MaGiamGia = _shopDbContext.GiamGias.FirstOrDefault(x => x.Id == cTSP.IdGiamGia).Ma,
 			TenSP = _shopDbContext.SanPhams.FirstOrDefault(x => x.Id == cTSP.IdSanPham).Ten,
 			SoSize = _shopDbContext.KichCos.FirstOrDefault(x => x.Id == cTSP.IdKichCo).SoSize,
-			Anhs = image,
+			Anhs =image,
 			IdDanhMuc = cTSP.IdDanhMuc,
 			IdSanPham = cTSP.IdSanPham,
 			IdMauSac = cTSP.IdMauSac,

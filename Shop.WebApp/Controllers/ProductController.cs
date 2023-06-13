@@ -19,6 +19,7 @@ namespace Shop.WebApp.Controllers
             var response = await httpClient.GetAsync(apiURL);
             string apiData = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<CTSanPhamVM>(apiData);
+            ViewBag.ImagePath = result.Anhs;
             return View(new ProductDetailVM()
             {
                 Product = result
