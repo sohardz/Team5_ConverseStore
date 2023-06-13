@@ -21,14 +21,12 @@ public class CTGioHangAPI : ControllerBase
 		_ctgioHangService = ctgioHangservice;
 	}
 
-	// GET: api/<CTGioHangAPI>
 	[HttpGet]
 	public async Task<List<CTGioHangVM>> GetAllGioHangVM()
 	{
 		return await _ctgioHangService.GetAll();
 	}
 
-	// PUT api/<CTGioHangAPI>/5
 	[HttpPost]
 	[Consumes("multipart/form-data")]
 	public async Task<IActionResult> Them([FromForm] CTGioHangVM ctgh)
@@ -63,6 +61,7 @@ public class CTGioHangAPI : ControllerBase
 			return BadRequest();
 		return Ok();
 	}
+
 	[HttpGet("ctgiohang/{id}")]
 	public async Task<IActionResult> GetById(Guid id)
 	{
@@ -73,7 +72,7 @@ public class CTGioHangAPI : ControllerBase
 		}
 		return Ok(ctgiohang);
 	}
-	// DELETE api/<CTGioHangAPI>/5
+
 	[HttpDelete("{id}")]
 	public async Task<IActionResult> Delete(Guid id)
 	{

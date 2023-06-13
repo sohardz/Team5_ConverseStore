@@ -8,5 +8,5 @@ public interface ICTGioHangServices
 	Task<Guid> Create(CTGioHangVM ctgh);
 	Task<Guid> Edit(CTGioHangVM ctgh);
 	Task<int> Delete(Guid id);
-	Task<CTGioHangVM> GetById(Guid id);
+	Task<List<CTGioHangVM>> GetById(Guid id);
 }

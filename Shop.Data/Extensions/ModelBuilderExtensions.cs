@@ -12,26 +12,26 @@ public static class ModelBuilderExtensions
 		var dmId1 = new Guid("A1EF45D3-64A2-41DB-8E2F-92F94BE68901");
 		var dmId2 = new Guid("D2A7E269-21E1-4DEC-969A-B034DDC2CE56");
 		modelBuilder.Entity<DanhMuc>().HasData(
-				new DanhMuc() { Id = dmId1, Ma = "Loại 1", Ten = "Real", TrangThai = 1 },
-				new DanhMuc() { Id = dmId2, Ma = "Loại 2", Ten = "Rep 1:1", TrangThai = 1 });
+				new DanhMuc() { Id = dmId1, Ma = "dm1", Ten = "Real", TrangThai = 1 },
+				new DanhMuc() { Id = dmId2, Ma = "dm2", Ten = "Rep 1:1", TrangThai = 1 });
 		//SanPham
 		var sp1 = new Guid("9CFE9060-0102-427E-A78F-1D8706FF1DED");
 		var sp2 = new Guid("5033BC0F-AFE2-4F74-B15B-F1FCC36D2AA3");
 		modelBuilder.Entity<SanPham>().HasData(
-				new SanPham() { Id = sp1, Ma = "SP 1", Ten = "Giày Converse", TrangThai = 1 },
-				new SanPham() { Id = sp2, Ma = "SP 2", Ten = "Cotton On Ruby ", TrangThai = 1 });
+				new SanPham() { Id = sp1, Ma = "sp1", Ten = "Giày Converse", TrangThai = 1 },
+				new SanPham() { Id = sp2, Ma = "sp2", Ten = "Cotton On Ruby ", TrangThai = 1 });
 		//Kich Co
 		var kc1 = new Guid("1F9EF290-CBA3-4FD5-A5D8-453C1AB422A2");
 		var kc2 = new Guid("F342F0A1-7E87-4917-979C-02D5BA80BE80");
 		modelBuilder.Entity<KichCo>().HasData(
-				new KichCo() { Id = kc1, Ma = "KC 1", SoSize = 40, TrangThai = 1 },
-				new KichCo() { Id = kc2, Ma = "KC 2", SoSize = 42, TrangThai = 1 });
+				new KichCo() { Id = kc1, Ma = "kc1", SoSize = 40, TrangThai = 1 },
+				new KichCo() { Id = kc2, Ma = "kc2", SoSize = 42, TrangThai = 1 });
 		//Mau Sac
 		var ms1 = new Guid("A427FF0D-44AC-4194-9C72-CA86F0D84B4E");
 		var ms2 = new Guid("2E97D6B9-2F4A-4B41-ACCF-18F86223621D");
 		modelBuilder.Entity<MauSac>().HasData(
-				new MauSac() { Id = ms1, Ma = "MS 1", Ten = "Trắng", TrangThai = 1 },
-				new MauSac() { Id = ms2, Ma = "Ms 2", Ten = "Đen", TrangThai = 1 });
+				new MauSac() { Id = ms1, Ma = "ms1", Ten = "Trắng", TrangThai = 1 },
+				new MauSac() { Id = ms2, Ma = "ms2", Ten = "Đen", TrangThai = 1 });
 		//Giam Gia
 		var g1 = new Guid("408DB8D3-3690-454C-BEF4-BDFE2E6C117A");
 		var g2 = new Guid("A0078543-2638-481E-9609-17960504EB63");
@@ -39,7 +39,7 @@ public static class ModelBuilderExtensions
 				new GiamGia()
 				{
 					Id = g1,
-					Ma = "Loại 1",
+					Ma = "gg1",
 					Ten = "Xả hàng",
 					NgayBatDau = new DateTime(2023, 5, 20),
 					NgayKetThuc = new DateTime(2023, 5, 30),
@@ -52,7 +52,7 @@ public static class ModelBuilderExtensions
 				new GiamGia()
 				{
 					Id = g2,
-					Ma = "Loại 2",
+					Ma = "gg2",
 					Ten = "Hàng Tồn Kho",
 					NgayBatDau = new DateTime(2023, 5, 20),
 					NgayKetThuc = new DateTime(2023, 5, 30),
@@ -69,7 +69,7 @@ public static class ModelBuilderExtensions
 				new CTSanPham()
 				{
 					Id = ctsp1,
-					Ma = "SP 1",
+					Ma = "ctsp1",
 					IdSanPham = sp1,
 					IdDanhMuc = dmId1,
 					IdGiamGia = g1,
@@ -78,13 +78,14 @@ public static class ModelBuilderExtensions
 					GiaNhap = 1000000,
 					GiaBan = 1500000,
 					SoLuongTon = 100,
+					AnhBanDau = "/AnhSanPham/1.webp",
 					MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
 					TrangThai = 1
 				},
 				new CTSanPham()
 				{
 					Id = ctsp2,
-					Ma = "SP 2",
+					Ma = "ctsp2",
 					IdSanPham = sp2,
 					IdDanhMuc = dmId2,
 					IdGiamGia = g2,
@@ -93,9 +94,10 @@ public static class ModelBuilderExtensions
 					GiaNhap = 700000,
 					GiaBan = 799000,
 					SoLuongTon = 90,
-					MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
+                    AnhBanDau = "/AnhSanPham/2.webp",
+                    MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
 					TrangThai = 1
-				});
+				}); ;
 		//Anh
 		var anh1 = new Guid("34C178F4-FA6B-4F5C-BD34-784393A8437A");
 		var anh2 = new Guid("DBFA5886-01AB-401F-B671-9A5D1E070E28");
@@ -106,7 +108,7 @@ public static class ModelBuilderExtensions
 				new Anh()
 				{
 					Id = anh1,
-					Ma = "SP 1",
+					Ma = "anh1",
 					IdCtsp = ctsp1,
 					DuongDan = "/image/1.png",
 					TrangThai = 1
@@ -114,7 +116,7 @@ public static class ModelBuilderExtensions
 			   new Anh()
 			   {
 				   Id = anh2,
-				   Ma = "SP 1",
+				   Ma = "anh2",
 				   IdCtsp = ctsp1,
 				   DuongDan = "/image/2.png",
 				   TrangThai = 1
@@ -122,7 +124,7 @@ public static class ModelBuilderExtensions
 			   new Anh()
 			   {
 				   Id = anh3,
-				   Ma = "SP 1",
+				   Ma = "anh3",
 				   IdCtsp = ctsp1,
 				   DuongDan = "/image/3.png",
 				   TrangThai = 1
@@ -130,7 +132,7 @@ public static class ModelBuilderExtensions
 			   new Anh()
 			   {
 				   Id = anh4,
-				   Ma = "SP 1",
+				   Ma = "anh4",
 				   IdCtsp = ctsp1,
 				   DuongDan = "/image/4.png",
 				   TrangThai = 1
@@ -138,7 +140,7 @@ public static class ModelBuilderExtensions
 			   new Anh()
 			   {
 				   Id = anh5,
-				   Ma = "SP 1",
+				   Ma = "anh5",
 				   IdCtsp = ctsp1,
 				   DuongDan = "/image/5.png",
 				   TrangThai = 1
@@ -154,7 +156,7 @@ public static class ModelBuilderExtensions
 				new CapBac()
 				{
 					Id = cb1,
-					Ma = "Hang 1",
+					Ma = "hang1",
 					Ten = "Thân Thiện",
 					SoDiemCan = 0,
 					TrangThai = 1
@@ -162,7 +164,7 @@ public static class ModelBuilderExtensions
 				new CapBac()
 				{
 					Id = cb2,
-					Ma = "Hang 2",
+					Ma = "hang2",
 					Ten = "Đồng",
 					SoDiemCan = 500,
 					TrangThai = 1
@@ -170,7 +172,7 @@ public static class ModelBuilderExtensions
 				new CapBac()
 				{
 					Id = cb3,
-					Ma = "Hang 3",
+					Ma = "hang3",
 					Ten = "Bạc",
 					SoDiemCan = 1000,
 					TrangThai = 1
@@ -178,7 +180,7 @@ public static class ModelBuilderExtensions
 				new CapBac()
 				{
 					Id = cb4,
-					Ma = "Hang 4",
+					Ma = "hang4",
 					Ten = "Vàng",
 					SoDiemCan = 2000,
 					TrangThai = 1
@@ -186,7 +188,7 @@ public static class ModelBuilderExtensions
 				new CapBac()
 				{
 					Id = cb5,
-					Ma = "Hang 5",
+					Ma = "hang5",
 					Ten = "Bạch Kim",
 					SoDiemCan = 5000,
 					TrangThai = 1
@@ -194,7 +196,7 @@ public static class ModelBuilderExtensions
 				new CapBac()
 				{
 					Id = cb6,
-					Ma = "Hang 6",
+					Ma = "hang6",
 					Ten = "Kim Cương",
 					SoDiemCan = 10000,
 					TrangThai = 1
@@ -206,14 +208,14 @@ public static class ModelBuilderExtensions
 				new ChucVu()
 				{
 					Id = cv1,
-					Ma = "CV 1",
+					Ma = "cv1",
 					Ten = "Quan Ly",
 					TrangThai = 1
 				},
 				new ChucVu()
 				{
 					Id = cv2,
-					Ma = "CV 2",
+					Ma = "cv2",
 					Ten = "Nhân Viên Bán Hàng",
 					TrangThai = 1
 				});
@@ -225,7 +227,7 @@ public static class ModelBuilderExtensions
 				new Voucher()
 				{
 					Id = v1,
-					Ma = "Voucher 1",
+					Ma = "v1",
 					Ten = "Giảm giá tháng 5 và 6",
 					SoTienCan = 1000000,
 					SoTienGiam = 100000,
@@ -238,7 +240,7 @@ public static class ModelBuilderExtensions
 				new Voucher()
 				{
 					Id = v2,
-					Ma = "Voucher 2",
+					Ma = "v2",
 					Ten = "Giảm giá tháng 5",
 					SoTienCan = 2000000,
 					SoTienGiam = 400000,
@@ -255,7 +257,7 @@ public static class ModelBuilderExtensions
 				new KhachHang()
 				{
 					Id = kh1,
-					Ma = "KH 1",
+					Ma = "kh1",
 					HoVaTen = "Nguyễn Kim Học",
 					TenTaiKhoan = "hocnk123",
 					MatKhau = "hoc123456",
@@ -272,7 +274,7 @@ public static class ModelBuilderExtensions
 			   new KhachHang()
 			   {
 				   Id = kh2,
-				   Ma = "KH 2",
+				   Ma = "kh2",
 				   HoVaTen = "Nguyễn Phúc Minh Cương",
 				   TenTaiKhoan = "cuongnpm123",
 				   MatKhau = "cuong123456",

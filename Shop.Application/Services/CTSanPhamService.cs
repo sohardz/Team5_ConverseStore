@@ -26,17 +26,14 @@ public class CTSanPhamService : ICTSanPhamService
 					join k in _shopDbContext.KichCos on p.IdKichCo equals k.Id
 					join d in _shopDbContext.DanhMucs on p.IdDanhMuc equals d.Id
 					join g in _shopDbContext.GiamGias on p.IdGiamGia equals g.Id
-					join a in _shopDbContext.Anhs on p.Id equals a.IdCtsp /*into apic*/
+					//join a in _shopDbContext.Anhs on p.Id equals a.IdCtsp into apic
 					//from a in apic.DefaultIfEmpty()
-						
-					select new { p, pt, m, k, d, g, a };
+
+					select new { p, pt, m, k, d, g };
 		//var image = await (from c in _shopDbContext.Anhs
 		//                   join p in _shopDbContext.CTSanPhams on c.IdCtsp equals p.Id
 		//                   select c.DuongDan).FirstOrDefaultAsync();
-		if (true)
-		{
-
-		}
+		
         var data = await query
 			.Select( x => new CTSanPhamVM()
 			{
@@ -50,15 +47,14 @@ public class CTSanPhamService : ICTSanPhamService
 				TenDanhMuc = x.d.Ten,
 				SoSize = x.k.SoSize,
 				MaGiamGia = x.g.Ma,
-				AnhBanDau = x.a.DuongDan,
+				AnhBanDau = x.p.AnhBanDau,
                 TenMauSac = x.m.Ten,
 				TenSP = x.pt.Ten,
 				IdKichCo = x.p.IdKichCo,
 				IdGiamGia = x.p.IdGiamGia,
 				IdMauSac = x.p.IdMauSac,
 				IdSanPham = x.p.IdSanPham,
-				IdDanhMuc = x.p.IdDanhMuc,
-				
+				IdDanhMuc = x.p.IdDanhMuc,			
 			}
 			).ToListAsync();
 		return data;

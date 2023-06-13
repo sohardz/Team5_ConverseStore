@@ -12,8 +12,8 @@ using Shop.Data.Context;
 namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20230612091214_remove_Anhbandau_CTSP")]
-    partial class remove_Anhbandau_CTSP
+    [Migration("20230613041502_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,7 +56,7 @@ namespace Shop.Data.Migrations
                             Id = new Guid("34c178f4-fa6b-4f5c-bd34-784393a8437a"),
                             DuongDan = "/image/1.png",
                             IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
-                            Ma = "SP 1",
+                            Ma = "anh1",
                             TrangThai = 1
                         },
                         new
@@ -64,7 +64,7 @@ namespace Shop.Data.Migrations
                             Id = new Guid("dbfa5886-01ab-401f-b671-9a5d1e070e28"),
                             DuongDan = "/image/2.png",
                             IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
-                            Ma = "SP 1",
+                            Ma = "anh2",
                             TrangThai = 1
                         },
                         new
@@ -72,7 +72,7 @@ namespace Shop.Data.Migrations
                             Id = new Guid("2f355c69-3c5a-42e5-895a-e5093bf41e79"),
                             DuongDan = "/image/3.png",
                             IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
-                            Ma = "SP 1",
+                            Ma = "anh3",
                             TrangThai = 1
                         },
                         new
@@ -80,7 +80,7 @@ namespace Shop.Data.Migrations
                             Id = new Guid("27ce22ac-ff4e-4442-83e0-6289ef849328"),
                             DuongDan = "/image/4.png",
                             IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
-                            Ma = "SP 1",
+                            Ma = "anh4",
                             TrangThai = 1
                         },
                         new
@@ -88,7 +88,7 @@ namespace Shop.Data.Migrations
                             Id = new Guid("d6c09720-859c-4a45-9123-d2a9853dd720"),
                             DuongDan = "/image/5.png",
                             IdCtsp = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
-                            Ma = "SP 1",
+                            Ma = "anh5",
                             TrangThai = 1
                         });
                 });
@@ -121,7 +121,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("76a8265a-1c5a-4b8c-9a53-c5b2937b9731"),
-                            Ma = "Hang 1",
+                            Ma = "hang1",
                             SoDiemCan = 0,
                             Ten = "Thân Thiện",
                             TrangThai = 1
@@ -129,7 +129,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("1fa242d3-99c5-4d96-84a7-2a0c42c5f01a"),
-                            Ma = "Hang 2",
+                            Ma = "hang2",
                             SoDiemCan = 500,
                             Ten = "Đồng",
                             TrangThai = 1
@@ -137,7 +137,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("fb0496fb-aef3-4693-9cf7-8f66ae988a9b"),
-                            Ma = "Hang 3",
+                            Ma = "hang3",
                             SoDiemCan = 1000,
                             Ten = "Bạc",
                             TrangThai = 1
@@ -145,7 +145,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("8384a802-700c-4040-b80d-744a028a74e0"),
-                            Ma = "Hang 4",
+                            Ma = "hang4",
                             SoDiemCan = 2000,
                             Ten = "Vàng",
                             TrangThai = 1
@@ -153,7 +153,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("894e4300-be80-489c-ad4b-c81cca3ef451"),
-                            Ma = "Hang 5",
+                            Ma = "hang5",
                             SoDiemCan = 5000,
                             Ten = "Bạch Kim",
                             TrangThai = 1
@@ -161,7 +161,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("746cb698-abdc-42a4-8f0c-f6aea599dfba"),
-                            Ma = "Hang 6",
+                            Ma = "hang6",
                             SoDiemCan = 10000,
                             Ten = "Kim Cương",
                             TrangThai = 1
@@ -193,14 +193,14 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("e0abfb76-d44c-42e0-8a7a-542e55b874c0"),
-                            Ma = "CV 1",
+                            Ma = "cv1",
                             Ten = "Quan Ly",
                             TrangThai = 1
                         },
                         new
                         {
                             Id = new Guid("3698ae73-eaf4-414e-890c-32d7e8073a1c"),
-                            Ma = "CV 2",
+                            Ma = "cv2",
                             Ten = "Nhân Viên Bán Hàng",
                             TrangThai = 1
                         });
@@ -266,6 +266,10 @@ namespace Shop.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AnhBanDau")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("GiaBan")
                         .HasColumnType("decimal(18,2)");
 
@@ -320,6 +324,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("ed52daa9-f264-44af-af2e-fcf01955f968"),
+                            AnhBanDau = "/AnhSanPham/1.webp",
                             GiaBan = 1500000m,
                             GiaNhap = 1000000m,
                             IdDanhMuc = new Guid("a1ef45d3-64a2-41db-8e2f-92f94be68901"),
@@ -327,7 +332,7 @@ namespace Shop.Data.Migrations
                             IdKichCo = new Guid("1f9ef290-cba3-4fd5-a5d8-453c1ab422a2"),
                             IdMauSac = new Guid("a427ff0d-44ac-4194-9c72-ca86f0d84b4e"),
                             IdSanPham = new Guid("9cfe9060-0102-427e-a78f-1d8706ff1ded"),
-                            Ma = "SP 1",
+                            Ma = "ctsp1",
                             MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
                             SoLuongTon = 100,
                             TrangThai = 1
@@ -335,6 +340,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("93351f9a-eb83-4bc2-969d-a46275a16c7a"),
+                            AnhBanDau = "/AnhSanPham/2.webp",
                             GiaBan = 799000m,
                             GiaNhap = 700000m,
                             IdDanhMuc = new Guid("d2a7e269-21e1-4dec-969a-b034ddc2ce56"),
@@ -342,7 +348,7 @@ namespace Shop.Data.Migrations
                             IdKichCo = new Guid("f342f0a1-7e87-4917-979c-02d5ba80be80"),
                             IdMauSac = new Guid("2e97d6b9-2f4a-4b41-accf-18f86223621d"),
                             IdSanPham = new Guid("5033bc0f-afe2-4f74-b15b-f1fcc36d2aa3"),
-                            Ma = "SP 2",
+                            Ma = "ctsp2",
                             MoTa = "Sneakers with a sharp-looking minimalist design. Designed with fine details for superb comfort.",
                             SoLuongTon = 90,
                             TrangThai = 1
@@ -374,14 +380,14 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("a1ef45d3-64a2-41db-8e2f-92f94be68901"),
-                            Ma = "Loại 1",
+                            Ma = "dm1",
                             Ten = "Real",
                             TrangThai = 1
                         },
                         new
                         {
                             Id = new Guid("d2a7e269-21e1-4dec-969a-b034ddc2ce56"),
-                            Ma = "Loại 2",
+                            Ma = "dm2",
                             Ten = "Rep 1:1",
                             TrangThai = 1
                         });
@@ -435,7 +441,7 @@ namespace Shop.Data.Migrations
                             Id = new Guid("408db8d3-3690-454c-bef4-bdfe2e6c117a"),
                             DieuKienGiamGia = "Mười",
                             LoaiGiamGia = 1,
-                            Ma = "Loại 1",
+                            Ma = "gg1",
                             MucGiamGiaPhanTram = 10,
                             MucGiamGiaTienMat = 100000m,
                             NgayBatDau = new DateTime(2023, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -448,7 +454,7 @@ namespace Shop.Data.Migrations
                             Id = new Guid("a0078543-2638-481e-9609-17960504eb63"),
                             DieuKienGiamGia = "Hai",
                             LoaiGiamGia = 2,
-                            Ma = "Loại 2",
+                            Ma = "gg2",
                             MucGiamGiaPhanTram = 40,
                             MucGiamGiaTienMat = 200000m,
                             NgayBatDau = new DateTime(2023, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -492,9 +498,6 @@ namespace Shop.Data.Migrations
                     b.Property<Guid?>("IdKh")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdNv")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("IdVoucher")
                         .HasColumnType("uniqueidentifier");
 
@@ -505,10 +508,6 @@ namespace Shop.Data.Migrations
                     b.Property<string>("MaKh")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MaNv")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("NgayNhan")
                         .HasColumnType("datetime2");
@@ -522,33 +521,42 @@ namespace Shop.Data.Migrations
                     b.Property<DateTime?>("NgayThanhToan")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("NhanVienId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("PhanTramGiamGia")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("SdtNguoiNhan")
                         .IsRequired()
                         .HasColumnType("varchar(25)");
 
                     b.Property<string>("SdtNguoiShip")
-                        .IsRequired()
                         .HasColumnType("varchar(25)");
 
                     b.Property<int>("SoDiemSuDung")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<decimal>("SoTienQuyDoi")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
                     b.Property<string>("TenKh")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("TenNguoiShip")
-                        .IsRequired()
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<decimal>("TienShip")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
                     b.Property<decimal>("TongTien")
                         .HasColumnType("decimal(18,2)");
@@ -560,9 +568,9 @@ namespace Shop.Data.Migrations
 
                     b.HasIndex("IdKh");
 
-                    b.HasIndex("IdNv");
-
                     b.HasIndex("IdVoucher");
+
+                    b.HasIndex("NhanVienId");
 
                     b.ToTable("HoaDons");
                 });
@@ -636,7 +644,7 @@ namespace Shop.Data.Migrations
                             GioiTinh = 1,
                             HoVaTen = "Nguyễn Kim Học",
                             IdBac = new Guid("76a8265a-1c5a-4b8c-9a53-c5b2937b9731"),
-                            Ma = "KH 1",
+                            Ma = "kh1",
                             MatKhau = "hoc123456",
                             NgaySinh = new DateTime(2003, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             SoDiem = 0,
@@ -653,7 +661,7 @@ namespace Shop.Data.Migrations
                             GioiTinh = 1,
                             HoVaTen = "Nguyễn Phúc Minh Cương",
                             IdBac = new Guid("894e4300-be80-489c-ad4b-c81cca3ef451"),
-                            Ma = "KH 2",
+                            Ma = "kh2",
                             MatKhau = "cuong123456",
                             NgaySinh = new DateTime(2003, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             SoDiem = 5000,
@@ -687,14 +695,14 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("1f9ef290-cba3-4fd5-a5d8-453c1ab422a2"),
-                            Ma = "KC 1",
+                            Ma = "kc1",
                             SoSize = 40,
                             TrangThai = 1
                         },
                         new
                         {
                             Id = new Guid("f342f0a1-7e87-4917-979c-02d5ba80be80"),
-                            Ma = "KC 2",
+                            Ma = "kc2",
                             SoSize = 42,
                             TrangThai = 1
                         });
@@ -725,14 +733,14 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("a427ff0d-44ac-4194-9c72-ca86f0d84b4e"),
-                            Ma = "MS 1",
+                            Ma = "ms1",
                             Ten = "Trắng",
                             TrangThai = 1
                         },
                         new
                         {
                             Id = new Guid("2e97d6b9-2f4a-4b41-accf-18f86223621d"),
-                            Ma = "Ms 2",
+                            Ma = "ms2",
                             Ten = "Đen",
                             TrangThai = 1
                         });
@@ -808,14 +816,14 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("9cfe9060-0102-427e-a78f-1d8706ff1ded"),
-                            Ma = "SP 1",
+                            Ma = "sp1",
                             Ten = "Giày Converse",
                             TrangThai = 1
                         },
                         new
                         {
                             Id = new Guid("5033bc0f-afe2-4f74-b15b-f1fcc36d2aa3"),
-                            Ma = "SP 2",
+                            Ma = "sp2",
                             Ten = "Cotton On Ruby ",
                             TrangThai = 1
                         });
@@ -865,7 +873,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("90c348df-4cfa-428e-873b-8a700340c99a"),
-                            Ma = "Voucher 1",
+                            Ma = "v1",
                             MoTa = "Mua một triệu giảm 100000",
                             NgayApDung = new DateTime(2023, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgayKetThuc = new DateTime(2023, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -878,7 +886,7 @@ namespace Shop.Data.Migrations
                         new
                         {
                             Id = new Guid("97078617-27fc-4874-afaf-1e5e8468fe95"),
-                            Ma = "Voucher 2",
+                            Ma = "v2",
                             MoTa = "Giảm 400000 khi mua hàng đạt 2000000vnd",
                             NgayApDung = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgayKetThuc = new DateTime(2023, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -997,17 +1005,15 @@ namespace Shop.Data.Migrations
                         .WithMany("HoaDons")
                         .HasForeignKey("IdKh");
 
-                    b.HasOne("Shop.Data.Models.NhanVien", "NhanVien")
-                        .WithMany("HoaDons")
-                        .HasForeignKey("IdNv");
-
                     b.HasOne("Shop.Data.Models.Voucher", "Voucher")
                         .WithMany("HoaDons")
                         .HasForeignKey("IdVoucher");
 
-                    b.Navigation("KhachHang");
+                    b.HasOne("Shop.Data.Models.NhanVien", null)
+                        .WithMany("HoaDons")
+                        .HasForeignKey("NhanVienId");
 
-                    b.Navigation("NhanVien");
+                    b.Navigation("KhachHang");
 
                     b.Navigation("Voucher");
                 });

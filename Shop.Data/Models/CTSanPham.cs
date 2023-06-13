@@ -14,6 +14,7 @@ public class CTSanPham
 	public Guid IdDanhMuc { get; set; }
 	public Guid IdGiamGia { get; set; }
 	public int TrangThai { get; set; }
+	public string AnhBanDau { get;set; }
 	public ICollection<CTGioHang> CTGioHangs { get; set; }
 	public ICollection<CTHoaDon> CTHoaDons { get; set; }
 	public ICollection<Anh> Anhs { get; set; }

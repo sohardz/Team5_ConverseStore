@@ -22,10 +22,9 @@ public class HoaDonServices : IHoaDonServices
 		{
 			Id = Guid.NewGuid(),
 			IdKh = p.IdKh,
-			IdNv = p.IdNv,
 			IdVoucher = p.IdVoucher,
 			Ma = p.Ma,
-			MaNv = p.MaNv,
+			MaKh = p.MaKh,
 			NgayNhan = p.NgayNhan,
 			NgayShip = p.NgayShip,
 			NgayTao = p.NgayTao,
@@ -61,10 +60,8 @@ public class HoaDonServices : IHoaDonServices
 	{
 		HoaDon hd = await _shopDbContext.HoaDons.FindAsync(p.Id);
 		hd.IdKh = p.IdKh;
-		hd.IdNv = p.IdNv;
 		hd.IdVoucher = p.IdVoucher;
 		hd.Ma = p.Ma;
-		hd.MaNv = p.MaNv;
 		hd.NgayNhan = p.NgayNhan;
 		hd.NgayShip = p.NgayShip;
 		hd.NgayTao = p.NgayTao;
@@ -91,10 +88,8 @@ public class HoaDonServices : IHoaDonServices
 				{
 					Id = p.Id,
 					IdKh = p.IdKh,
-					IdNv = p.IdNv,
 					IdVoucher = p.IdVoucher,
 					Ma = p.Ma,
-					MaNv = p.MaNv,
 					NgayNhan = p.NgayNhan,
 					NgayShip = p.NgayShip,
 					NgayTao = p.NgayTao,
@@ -119,10 +114,8 @@ public class HoaDonServices : IHoaDonServices
 		HoaDonVM hoaDonVM = new()
 		{
 			IdKh = p.IdKh,
-			IdNv = p.IdNv,
 			IdVoucher = p.IdVoucher,
 			Ma = p.Ma,
-			MaNv = p.MaNv,
 			NgayNhan = p.NgayNhan,
 			NgayShip = p.NgayShip,
 			NgayTao = p.NgayTao,

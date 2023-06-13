@@ -4,10 +4,9 @@ public class HoaDonVM
 {
 	public Guid? Id { get; set; }
 	public Guid? IdKh { get; set; }
-	public Guid? IdNv { get; set; }
 	public Guid? IdVoucher { get; set; }
 	public string Ma { get; set; }
-	public string MaNv { get; set; }
+	public string MaKh { get; set; }
 	public DateTime NgayTao { get; set; }
 	public DateTime? NgayThanhToan { get; set; }
 	public DateTime? NgayShip { get; set; }
