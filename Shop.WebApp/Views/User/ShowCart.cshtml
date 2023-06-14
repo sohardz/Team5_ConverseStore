@@ -55,7 +55,7 @@
                                     <h5>@lstCtsp.FirstOrDefault(x => x.Id == i.IdCtsp).GiaBan</h5>
                                 </td>
                                 <td>
-                                    @*<div class="product_count">
+                                   @* <div class="product_count">
                                         <input type="text" name="qty" id="sst" maxlength="12" value="@i.SoLuong" title="Quantity:"
                                                class="input-text qty">
                                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
@@ -79,7 +79,7 @@
                                 </td>
                             </tr>
                         }
-                        <tr class="bottom_button">
+                        @*<tr class="bottom_button">
                             <td>
                                 <a class="gray_btn" href="#">Update Cart</a>
                             </td>
@@ -94,7 +94,7 @@
                                     <a class="gray_btn" href="#">Close Coupon</a>
                                 </div>
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr>
                             <td>
                             </td>
@@ -113,7 +113,7 @@
                                 </h5>
                             </td>
                         </tr>
-                        <tr class="shipping_area">
+                        @*<tr class="shipping_area">
                             <td>
                             </td>
                             <td>
@@ -144,10 +144,8 @@
                                     <a class="gray_btn" href="#">Update Details</a>
                                 </div>
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr class="out_button_area">
-                            <td>
-                            </td>
                             <td>
                             </td>
                             <td>
@@ -156,7 +154,7 @@
                                 <div class="checkout_btn_inner d-flex align-items-center">
                                     <a class="gray_btn" href="#">Continue Shopping</a>
                                     <a class="primary-btn" href="#">Proceed to checkout</a>
-                                    <a class="primary-btn" href="@Url.Action("Pay","User")">Thanh toán</a>
+                                    <a class="primary-btn" href="@Url.Action("ConfirmOrder","User")">Thanh toán</a>
                                 </div>
                             </td>
                         </tr>

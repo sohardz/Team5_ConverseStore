@@ -12,5 +12,4 @@ public class NhanVien
 	public string Email { get; set; }
 	public int TrangThai { get; set; }
 	public virtual ChucVu? ChucVu { get; set; }
-	public ICollection<HoaDon> HoaDons { get; set; }
 }
