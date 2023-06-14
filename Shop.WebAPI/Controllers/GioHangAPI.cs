@@ -29,8 +29,7 @@ public class GioHangAPI : ControllerBase
 
 	// PUT api/<GioHangAPI>/5
 	[HttpPost]
-	[Consumes("multipart/form-data")]
-	public async Task<IActionResult> Them([FromForm] GioHangVM gh)
+	public async Task<IActionResult> Them([FromBody] GioHangVM gh)
 	{
 		if (!ModelState.IsValid)
 		{
@@ -44,13 +43,11 @@ public class GioHangAPI : ControllerBase
 			HttpContext.Response.StatusCode = 201;
 			return Ok(gh);
 		}
-		//var giohang = await _gioHangService.GetById(giohangId);
-		//return CreatedAtAction(nameof(GetById), new { id = giohangId }, giohang);
+	
 	}
 
 	[HttpPut("{id}")]
-	[Consumes("multipart/form-data")]
-	public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] GioHangVM gh)
+	public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] GioHangVM gh)
 	{
 		if (!ModelState.IsValid)
 		{
