@@ -1,0 +1,163 @@
+﻿@model IEnumerable<Shop.ViewModels.ViewModels.HoaDonVM>
+
+@{
+    ViewData["Title"] = "CheckOrder";
+}
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Shopping Cart</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Cart</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdKh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdVoucher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ma)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaKh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayTao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayThanhToan)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayShip)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayNhan)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenKh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiaChi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TongTien)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TrangThai)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SdtNguoiNhan)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SdtNguoiShip)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenNguoiShip)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhanTramGiamGia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SoDiemSuDung)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SoTienQuyDoi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TienShip)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdKh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdVoucher)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ma)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaKh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayTao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayThanhToan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayShip)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayNhan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenKh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiaChi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TongTien)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SdtNguoiNhan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SdtNguoiShip)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenNguoiShip)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhanTramGiamGia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoDiemSuDung)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoTienQuyDoi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TienShip)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</section>

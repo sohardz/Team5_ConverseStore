@@ -53,17 +53,17 @@ namespace Shop.WebApp.Controllers
             var httpClient = new HttpClient();
             var billApiURL = $"https://localhost:7146/api/HoaDonAPI/{id}";
             var billApiResponse = await httpClient.GetAsync(billApiURL);
-			var billApiData = await billApiResponse.Content.ReadAsStringAsync();
-			var hoadon = JsonConvert.DeserializeObject<HoaDonVM>(billApiData);
+            var billApiData = await billApiResponse.Content.ReadAsStringAsync();
+            var hoadon = JsonConvert.DeserializeObject<HoaDonVM>(billApiData);
 
-			if (billApiResponse.IsSuccessStatusCode)
+            if (billApiResponse.IsSuccessStatusCode)
             {
                 var billDetailsApiURL = $"https://localhost:7146/api/CTHoaDonAPI/get-all/{hoadon.Id}";
                 var billDetailsApiResponse = await httpClient.GetAsync(billDetailsApiURL);
                 var billDetailsApiData = await billDetailsApiResponse.Content.ReadAsStringAsync();
                 var lstBildetails = JsonConvert.DeserializeObject<List<CTHoaDonVM>>(billDetailsApiData);
                 ViewBag.lstcthd = lstBildetails;
-				ViewBag.hoadon = hoadon;
+                ViewBag.hoadon = hoadon;
                 return View();
             }
             return BadRequest();
@@ -177,71 +177,46 @@ namespace Shop.WebApp.Controllers
 
         public async Task<IActionResult> AddToCart(Guid id)
         {
-			var httpClient = new HttpClient();
-			string apiURL = "https://localhost:7146/api/CTSanPhamAPI/";
+            var userIdinSession = HttpContext.Session.GetString("userId");
+            if (string.IsNullOrEmpty(userIdinSession)) return RedirectToAction("Login", "Home");
 
-			var response = await httpClient.GetAsync(apiURL);
-			string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<CTSanPhamVM>>(apiData);
+            Guid userId = Guid.Parse(userIdinSession);
 
-            //string apiURL2 = $"https://localhost:7146/api/CTSanPhamAPI/ctsanpham/{id}";
-            //var response2 = await httpClient.GetAsync(apiURL);
-            //string apiData2 = await response2.Content.ReadAsStringAsync();
-            //var result2 = JsonConvert.DeserializeObject<CTSanPhamVM>(apiData2);
-
-            var userId = HttpContext.Session.GetString("userId");
-            var y = Guid.Parse(userId);
-            
-            if (!string.IsNullOrEmpty(userId))
+            var httpClient = new HttpClient();
+            var ctghApiURL = "https://localhost:7146/api/CTGioHangAPI";
+            var ctghVM = new CTGioHangVM()
             {
-				string cartDetailsApiURL = $"https://localhost:7146/api/CTGioHangAPI/ctgiohang/{userId}";
-				var response1 = await httpClient.GetAsync(cartDetailsApiURL);
-				string apiData1 = await response1.Content.ReadAsStringAsync();
-				var result1 = JsonConvert.DeserializeObject<List<CTGioHangVM>>(apiData1);
-				
-				List<CTGioHangVM> cartcr = result1;
+                Id = Guid.NewGuid(),
+                IdCtsp = id,
+                IdKh = userId,
+                SoLuong = 1
+            };
 
-                CTGioHangVM obj = new()
-                {
-                    IdCtsp = id,
-                    IdKh = y,
-                    SoLuong = 1
-                };
-                if (cartcr.Any(x => x.IdCtsp == id))
-                {
-                    obj.SoLuong = cartcr.FirstOrDefault(x => x.IdCtsp == id && x.IdKh == y).SoLuong + 1;
-					string cartDetailsApiURL1 = $"https://localhost:7146/api/CTGioHangAPI/{userId}";
-					var json = JsonConvert.SerializeObject(obj);
-					var content = new StringContent(json, Encoding.UTF8, "application/json");
-					var response6 = await httpClient.PutAsync(cartDetailsApiURL1, content);
-                    if (response6.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction("ShowCart");
-                    }
-                    else
-                    {
-                        return BadRequest();
-                    }    
-                }
-                else
-                {
-					string cartDetailsApiURL1 = $"https://localhost:7146/api/CTGioHangAPI/";
-					var json = JsonConvert.SerializeObject(obj);
-					var content = new StringContent(json, Encoding.UTF8, "application/json");
-					var response6 = await httpClient.PostAsync(cartDetailsApiURL1, content);
-                    if (response6.IsSuccessStatusCode) 
-                    {
-						return RedirectToAction("ShowCart");
-					}
-					else
-					{
-						return BadRequest();
-					}
-
-				}
-                //if (cartDetails.Any(c => c.UserId == id && c.ProductId == productId))              
+            var json = JsonConvert.SerializeObject(ctghVM);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var ctghApiResponse = await httpClient.PostAsync(ctghApiURL, content);
+            if (ctghApiResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("ShowCart");
             }
-			return RedirectToAction("ShowCart");
-		}
+            return BadRequest(ctghApiResponse);
+        }
+
+        public async Task<IActionResult> CheckOrder()
+        {
+            var userIdinSession = HttpContext.Session.GetString("userId");
+            if (string.IsNullOrEmpty(userIdinSession)) return RedirectToAction("Login", "Home");
+
+            Guid userId = Guid.Parse(userIdinSession);
+
+            var httpClient = new HttpClient();
+            var hoadonApiURL = $"https://localhost:7146/api/HoaDonAPI/find-order-by-userid/{userId}";
+
+            var hoadonApiResponse = await httpClient.GetAsync(hoadonApiURL);
+
+            var hoadonApiResponseData = await hoadonApiResponse.Content.ReadAsStringAsync();
+            var listHoadon = JsonConvert.DeserializeObject<List<HoaDonVM>>(hoadonApiResponseData);
+            return View(listHoadon);
+        }
     }
 }

@@ -27,9 +27,8 @@ public class CTGioHangAPI : ControllerBase
 		return await _ctgioHangService.GetAll();
 	}
 
-	[HttpPost]
-	
-	public async Task<IActionResult> Them([FromBody] CTGioHangVM ctgh)
+	[HttpPost]	
+	public async Task<IActionResult> Create([FromBody] CTGioHangVM ctgh)
 	{
 		if (!ModelState.IsValid)
 		{
@@ -40,7 +39,6 @@ public class CTGioHangAPI : ControllerBase
 			return BadRequest();
 		else
 		{
-			HttpContext.Response.StatusCode = 201;
 			return Ok(ctgh);
 		}
 		//var ctgiohang = await _ctgioHangService.GetById(ctgiohangId);
