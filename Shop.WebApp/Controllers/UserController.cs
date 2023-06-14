@@ -51,7 +51,7 @@ namespace Shop.WebApp.Controllers
         public async Task<IActionResult> ShowOrderSuccess(Guid id)
         {
             var httpClient = new HttpClient();
-            var billApiURL = $"https://localhost:7146/api/HoaDonAPI/{id}";
+            var billApiURL = $"https://localhost:7146/api/HoaDonAPI/find-order/{id}";
             var billApiResponse = await httpClient.GetAsync(billApiURL);
             var billApiData = await billApiResponse.Content.ReadAsStringAsync();
             var hoadon = JsonConvert.DeserializeObject<HoaDonVM>(billApiData);
