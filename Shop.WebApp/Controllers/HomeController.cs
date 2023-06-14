@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Shop.Data.Models;
 using Shop.ViewModels.ViewModels;
 using Shop.WebApp.Models;
 using System.Diagnostics;
@@ -38,14 +39,13 @@ public class HomeController : Controller
     {
         var httpClient = new HttpClient();
         string apiURL = "https://localhost:7146/api/KhachHangAPI/create-khachhang";
-
         var json = JsonConvert.SerializeObject(khachHangVM);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
-
         var response = await httpClient.PostAsync(apiURL, content);
+        
         if (response.IsSuccessStatusCode)
         {
-            return RedirectToAction("Index");
+           return RedirectToAction("Index");
         }
         else
         {
