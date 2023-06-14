@@ -19,28 +19,28 @@ namespace Shop.WebApp.Controllers
         public async Task<IActionResult> ShowCart()
         {
             var userId = HttpContext.Session.GetString("userId");
-            ViewData["userId"] = userId;
+            //ViewData["userId"] = userId;
             if (!string.IsNullOrEmpty(userId))
             {
                 var httpClient = new HttpClient();
                 string cartDetailsApiURL = $"https://localhost:7146/api/CTGioHangAPI/ctgiohang/{userId}";
                 string productDetailsApiURL = "https://localhost:7146/api/CTSanPhamAPI";
 
-                var cartDetailResponse = await httpClient.GetAsync(cartDetailsApiURL);
-                var productDetailResponse = await httpClient.GetAsync(productDetailsApiURL);
+                var cartDetailsApiResponse = await httpClient.GetAsync(cartDetailsApiURL);
+                var productDetailsApiResponse = await httpClient.GetAsync(productDetailsApiURL);
 
-                if (cartDetailResponse.IsSuccessStatusCode)
+                if (cartDetailsApiResponse.IsSuccessStatusCode)
                 {
-                    var api1Data = await cartDetailResponse.Content.ReadAsStringAsync();
-                    var result1 = JsonConvert.DeserializeObject<List<CTGioHangVM>>(api1Data);
-                    ViewBag.listCartDetails = result1;
+                    var cartDetailsApiData = await cartDetailsApiResponse.Content.ReadAsStringAsync();
+                    var lstCtgh = JsonConvert.DeserializeObject<List<CTGioHangVM>>(cartDetailsApiData);
+                    ViewBag.listCartDetails = lstCtgh;
                 }
 
-                if (productDetailResponse.IsSuccessStatusCode)
+                if (productDetailsApiResponse.IsSuccessStatusCode)
                 {
-                    var api2Data = await productDetailResponse.Content.ReadAsStringAsync();
-                    var result2 = JsonConvert.DeserializeObject<List<CTSanPhamVM>>(api2Data);
-                    ViewBag.listCtsp = result2;
+                    var productDetailsApiData = await productDetailsApiResponse.Content.ReadAsStringAsync();
+                    var lstCtsp = JsonConvert.DeserializeObject<List<CTSanPhamVM>>(productDetailsApiData);
+                    ViewBag.listCtsp = lstCtsp;
                 }
 
                 return View();
@@ -48,7 +48,7 @@ namespace Shop.WebApp.Controllers
             return RedirectToAction("Login", "Home");
         }
 
-        public async Task<IActionResult> ShowBill(Guid id)
+        public async Task<IActionResult> ShowOrderSuccess(Guid id)
         {
             var httpClient = new HttpClient();
             var billApiURL = $"https://localhost:7146/api/HoaDonAPI/{id}";
@@ -63,13 +63,13 @@ namespace Shop.WebApp.Controllers
                 var billDetailsApiData = await billDetailsApiResponse.Content.ReadAsStringAsync();
                 var lstBildetails = JsonConvert.DeserializeObject<List<CTHoaDonVM>>(billDetailsApiData);
                 ViewBag.lstcthd = lstBildetails;
-				ViewBag.hoadonview = hoadon;
+				ViewBag.hoadon = hoadon;
                 return View();
             }
             return BadRequest();
         }
 
-        public async Task<IActionResult> Pay()
+        public async Task<IActionResult> ConfirmOrder()
         {
             // khởi tạo httpclient
             var httpClient = new HttpClient();
@@ -160,8 +160,9 @@ namespace Shop.WebApp.Controllers
 
                         // xóa chi tiết giỏ hàng
                         var deleteCartdetailsApiURL = $"https://localhost:7146/api/CTGioHangAPI/{item.Id}"; // delete
+                        var deleteCartdetailReponse = await httpClient.DeleteAsync(deleteCartdetailsApiURL);
                     }
-                    return RedirectToAction("ShowBill", new { id = hoadonVM.Id });
+                    return RedirectToAction("ShowOrderSuccess", new { id = hoadonVM.Id });
                 }
                 else
                 {
@@ -173,9 +174,9 @@ namespace Shop.WebApp.Controllers
                 return BadRequest("Không lấy được chi tiết giỏ hàng");
             }
         }
+
         public async Task<IActionResult> AddToCart(Guid id)
         {
-
 			var httpClient = new HttpClient();
 			string apiURL = "https://localhost:7146/api/CTSanPhamAPI/";
 
@@ -238,13 +239,9 @@ namespace Shop.WebApp.Controllers
 					}
 
 				}
-                //if (cartDetails.Any(c => c.UserId == id && c.ProductId == productId))
-                
-
+                //if (cartDetails.Any(c => c.UserId == id && c.ProductId == productId))              
             }
-
 			return RedirectToAction("ShowCart");
-
 		}
     }
 }

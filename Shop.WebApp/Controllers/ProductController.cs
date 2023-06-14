@@ -9,10 +9,6 @@ namespace Shop.WebApp.Controllers
 {
     public class ProductController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
         public async Task<IActionResult> Details(Guid id)
         {
             var httpClient = new HttpClient();
@@ -28,19 +24,19 @@ namespace Shop.WebApp.Controllers
             });
 
         }
+
 		public async Task<IActionResult> Category(Guid id)
 		{
-
 			var httpClient = new HttpClient();
-			string apiURL = "https://localhost:7146/api/CTSanPhamAPI/";
-			string apiURL2 = $"https://localhost:7146/api/DanhMucAPI/{id}";
+			string ctSanphamApiURL = "https://localhost:7146/api/CTSanPhamAPI/";
+			string danhmucApiURL = $"https://localhost:7146/api/DanhMucAPI/{id}";
 
-			var response = await httpClient.GetAsync(apiURL);
-			var response2 = await httpClient.GetAsync(apiURL2);
-			string apiData = await response.Content.ReadAsStringAsync();
-			string apiData2 = await response2.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<List<CTSanPhamVM>>(apiData);
-			var result2 = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData2);
+			var ctSanphamApiResponse = await httpClient.GetAsync(ctSanphamApiURL);
+			var danhmucApiURLResponse = await httpClient.GetAsync(danhmucApiURL);
+			string ctSanphamApiData = await ctSanphamApiResponse.Content.ReadAsStringAsync();
+			string danhmucApiData = await danhmucApiURLResponse.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<List<CTSanPhamVM>>(ctSanphamApiData);
+			var result2 = JsonConvert.DeserializeObject<List<DanhMucVM>>(danhmucApiData);
 			var products = new CTSanPhamVM{
                 IdDanhMuc = id
             };

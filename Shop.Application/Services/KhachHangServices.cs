@@ -19,8 +19,8 @@ public class KhachHangServices : IKhachhangServices
 	public async Task<List<KhachHangVM>> GetAll()
 	{
 		var query = from k in _shopDbContext.KhachHangs
-					join c in _shopDbContext.CapBacs on k.IdBac equals c.Id
-					select new { k, c };
+					//join c in _shopDbContext.CapBacs on k.IdBac equals c.Id
+					select new { k};
 		var data = await query
 			.Select(x => new KhachHangVM()
 			{
@@ -124,6 +124,7 @@ public class KhachHangServices : IKhachhangServices
 
 	public async Task<Guid> CustomerLogin(string username, string password)
 	{
+		var x = await GetAll();
 		foreach (var i in await GetAll())
 		{
 			if (i.TenTaiKhoan == username && i.MatKhau == password)

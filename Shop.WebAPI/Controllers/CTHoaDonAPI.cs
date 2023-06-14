@@ -29,7 +29,7 @@ public class CTHoaDonAPI : ControllerBase
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Create([FromBody] CTHoaDonVM request)
+	public async Task<IActionResult> Create([FromBody] CTHoaDonVM request) // giỏ hàng >= 1 List<CTHoaDonVM> ->  body list json 
 	{
 		if (!ModelState.IsValid)
 		{
