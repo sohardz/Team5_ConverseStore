@@ -114,7 +114,7 @@ namespace Shop.AdminApp.Controllers
 				Selected = mausacId.ToString() == x.Id.ToString()
 			});
 
-			string apiURL3 = "https://localhost:7146/api/DanhMucAPI/get-all-danhMuc/";
+			string apiURL3 = "https://localhost:7146/api/DanhMucAPI/";
 			var response2 = await httpClient.GetAsync(apiURL3);
 			string apiData2 = await response2.Content.ReadAsStringAsync();
 			var result2 = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData2);
@@ -201,7 +201,7 @@ namespace Shop.AdminApp.Controllers
 				Selected = result.IdMauSac.ToString() == x.Id.ToString()
 			});
 
-			string apiURL3 = "https://localhost:7146/api/DanhMucAPI/get-all-danhMuc/";
+			string apiURL3 = "https://localhost:7146/api/DanhMucAPI/";
 			var response2 = await httpClient.GetAsync(apiURL3);
 			string apiData2 = await response2.Content.ReadAsStringAsync();
 			var result2 = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData2);
@@ -270,7 +270,7 @@ namespace Shop.AdminApp.Controllers
 				Selected = mausacId.ToString() == x.Id.ToString() /*x.Id.ToString() == cTSanPhamVM.IdMauSac.ToString()*/
 			});
 
-			string apiURL3 = "https://localhost:7146/api/DanhMucAPI/get-all-danhMuc/";
+			string apiURL3 = "https://localhost:7146/api/DanhMucAPI/";
 			var response2 = await httpClient.GetAsync(apiURL3);
 			string apiData2 = await response2.Content.ReadAsStringAsync();
 			var result2 = JsonConvert.DeserializeObject<List<DanhMucVM>>(apiData2);
