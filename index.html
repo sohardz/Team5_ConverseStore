@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+</head>
+
+<body ng-app="myapp">
+    <div class="herader">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="">Trang chủ</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#product">Sản phẩm</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#intro">giới thiệu</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          
+    </div>
+    <div class="container" ng-controller="viewctrl">
+        <div class="row">
+            <div class="col-sm-6">
+                <form>
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input ng-model="tacgia.ten" class="form-control" type="text" name="">
+                    </div>
+                    <div class="form-group">
+                        <label>giới tính</label>
+                        <input ng-model="tacgia.gioitinh" type="radio" name="gioitinh" value="nam">nam
+                        <input ng-model="tacgia.gioitinh" type="radio" name="gioitinh" value="nữ">nữ
+                    </div>
+                    <div class="form-group">
+                        <label>địa chỉ</label>
+                        <input ng-model="tacgia.diachi" class="form-control" type="text" name="">
+                    </div>
+                    <div class="form-group">
+                        <label>tuổi</label>
+                        <input ng-model="tacgia.tuoi" class="form-control" type="text" name="">
+                    </div>
+                    <button ng-click="add()" class="btn btn-primary" type="button">thêm</button>
+                    <button class="btn btn-primary" type="button">sửa</button>
+                    <button ng-click="xoa()" class="btn btn-primary" type="button">xóa</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>tên</td>
+                            <td>giới tính</td>
+                            <td>địa chỉ</td>
+                            <td>tuổi</td>
+                            <td>chức năng</td>
+                        </tr>
+                        <tr ng-repeat="tg in list_tacgia">
+                            <td>{{$index+1}}</td>
+                            <td>{{tg.ten}}</td>
+                            <td>{{tg.gioitinh}}</td>
+                            <td>{{tg.diachi}}</td>
+                            <td>{{tg.tuoi}}</td>
+                            <td><a href="#" ng-click="edit($index)">edit</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = angular.module("myapp", []);
+        app.controller("viewctrl", function ($scope) {
+            $scope.tacgia = {};
+            $scope.index = -1;
+            $scope.add = function (){
+                if($scope.list_tacgia==null){
+                    return ('nhập lahij');
+                }else $scope.list_tacgia.push(angular.copy($scope.tacgia))
+            }   
+            $scope.clear=function(){
+                $scope.tacgia={};
+            }
+
+
+            $scope.edit=function(index){
+                $scope.index=index;
+                $scope.tacgia=angular.copy($scope.list_tacgia[index])
+            }
+            $scope.xoa=function (){
+                $scope.list_tacgia.spilce($scope.index,1);
+                $scope.clear();
+            }
+            $scope.list_tacgia=[
+                {
+                    ten: "dung",
+                    gioitinh: "nam",
+                    diachi: "hà nội",
+                    tuoi: 20
+                }
+            ]
+        })
+
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
