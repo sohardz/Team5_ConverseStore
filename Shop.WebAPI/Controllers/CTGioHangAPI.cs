@@ -27,9 +27,8 @@ public class CTGioHangAPI : ControllerBase
 		return await _ctgioHangService.GetAll();
 	}
 
-	[HttpPost]
-	[Consumes("multipart/form-data")]
-	public async Task<IActionResult> Them([FromForm] CTGioHangVM ctgh)
+	[HttpPost]	
+	public async Task<IActionResult> Create([FromBody] CTGioHangVM ctgh)
 	{
 		if (!ModelState.IsValid)
 		{
@@ -40,7 +39,6 @@ public class CTGioHangAPI : ControllerBase
 			return BadRequest();
 		else
 		{
-			HttpContext.Response.StatusCode = 201;
 			return Ok(ctgh);
 		}
 		//var ctgiohang = await _ctgioHangService.GetById(ctgiohangId);
@@ -48,15 +46,14 @@ public class CTGioHangAPI : ControllerBase
 	}
 
 	[HttpPut("{id}")]
-	[Consumes("multipart/form-data")]
-	public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] CTGioHangVM ctgh)
+	public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] CTGioHangVM ctgh)
 	{
 		if (!ModelState.IsValid)
 		{
 			return BadRequest(ModelState);
 		}
 		ctgh.Id = id;
-		var affectedResult = await _ctgioHangService.Edit(ctgh);
+		var affectedResult = await _ctgioHangService.Edit(ctgh.IdKh,ctgh.IdCtsp,ctgh);
 		if (affectedResult == Guid.Empty)
 			return BadRequest();
 		return Ok();

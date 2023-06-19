@@ -51,7 +51,8 @@
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
                             <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index", "Home")">Home</a></li>
-                            <li class="nav-item submenu dropdown">
+                            <li class="nav-item active"><a class="nav-link" href="@Url.Action("CheckOrder", "User")">Order</a></li>
+                            @*<li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">Shop</a>
                                 <ul class="dropdown-menu">
@@ -61,8 +62,8 @@
                                     <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
                                     <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
                                 </ul>
-                            </li>
-                            <li class="nav-item submenu dropdown">
+                            </li>*@
+                            @*<li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">Blog</a>
                                 <ul class="dropdown-menu">
@@ -74,12 +75,11 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">Pages</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Login", "Home")">Login</a></li>
                                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Tracking", "Home")">Tracking</a></li>
                                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Elements", "Home")">Elements</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Contact", "Home")">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Contact", "Home")">Contact</a></li>*@
                             @{
                                 var userId = Context.Session.GetString("userId");
                                 if (!string.IsNullOrEmpty(userId))

@@ -98,6 +98,7 @@ public class CTSanPhamService : ICTSanPhamService
 		if (sanPham == null) throw new ShopExeption($"Can't find a product with id: {p.Id}");
 
 		sanPham.Ma = p.Ma;
+		sanPham.AnhBanDau = p.AnhBanDau;
 		sanPham.GiaBan = p.GiaBan;
 		sanPham.GiaNhap = p.GiaNhap;
 		sanPham.SoLuongTon = p.SoLuongTon;
@@ -118,6 +119,7 @@ public class CTSanPhamService : ICTSanPhamService
 		var sanPham = new CTSanPham()
 		{
 			Id = Guid.NewGuid(),
+			AnhBanDau = p.AnhBanDau,
 			Ma = p.Ma,
 			GiaBan = p.GiaBan,
 			GiaNhap = p.GiaNhap,

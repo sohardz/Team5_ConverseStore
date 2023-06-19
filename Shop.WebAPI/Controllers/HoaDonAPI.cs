@@ -26,20 +26,25 @@ public class HoaDonAPI : ControllerBase
 		return await _hoaDonServices.GetAll();
 	}
 
-	[HttpGet("sanpham/{id}")]
+	[HttpGet("find-order-by-userid/{id}")]
+	public async Task<List<HoaDonVM>> GetAllHoaDon([FromRoute]Guid id)
+	{
+		return await _hoaDonServices.GetAll(id);
+	}
+
+	[HttpGet("find-order/{id}")]
 	public async Task<IActionResult> GetById(Guid id)
 	{
 		var hoadon = await _hoaDonServices.GetById(id);
 		if (hoadon == null)
 		{
-			return BadRequest("Không thể tìm sản phẩm");
+			return BadRequest("Không tìm thấy hóa đơn");
 		}
 		return Ok(hoadon);
 	}
 
 	[HttpPost]
-	[Consumes("multipart/form-data")]
-	public async Task<IActionResult> Create([FromForm] HoaDonVM request)
+	public async Task<IActionResult> Create([FromBody] HoaDonVM request)
 	{
 		if (!ModelState.IsValid)
 		{
@@ -58,8 +63,7 @@ public class HoaDonAPI : ControllerBase
 	}
 
 	[HttpPut("{id}")]
-	[Consumes("multipart/form-data")]
-	public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] HoaDonVM p)
+	public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] HoaDonVM p)
 	{
 		if (!ModelState.IsValid)
 		{

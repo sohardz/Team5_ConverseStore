@@ -8,7 +8,7 @@
 					@foreach (string imagePath in ViewBag.ImagePath)
 					{
 						<div class="single-prd-item">
-							<img class="img-fluid" src="~/img/product/@imagePath" alt="">
+							<img class="img-fluid" src="~/AnhSanPham/@imagePath" alt="">
 						</div>
 					}
 				</div>
@@ -16,11 +16,11 @@
 			</div>
 			<div class="col-lg-5 offset-lg-1">
 				<div class="s_product_text">
-					<h3>Faded SkyBlu Denim Jeans</h3>
-					<h2>$149.99</h2>
+					<h3>@Model.Product.TenSP</h3>
+					<h2>@Model.Product.GiaBan</h2>
 					<ul class="list">
-						<li><a class="active" href="#"><span>Category</span> : Household</a></li>
-						<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+						<li><a class="active" href="#"><span>Category</span> @Model.Product.TenDanhMuc</a></li>
+						<li><a href="#"><span>Availibility</span>@Model.Product.SoLuongTon</a></li>
 					</ul>
 					<p>
 						Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
@@ -40,7 +40,7 @@
 						</button>
 					</div>
 					<div class="card_area d-flex align-items-center">
-						<a class="primary-btn" data-id="@Model.Product.Id" href="#">Add to Cart</a>
+						<a class="primary-btn" data-id="@Model.Product.Id" href="@Url.Action("AddToCart", "User", new { id = Model.Product.Id })">Add to Cart</a>
 						<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 						<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
 					</div>
